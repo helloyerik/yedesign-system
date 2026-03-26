@@ -1,0 +1,14 @@
+{
+  "name": "@mi-design-system/tokens",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": "./src/tokens.css",
+    "./tokens.css": "./src/tokens.css",
+    "./storybook.css": "./src/storybook.css"
+  }
+}

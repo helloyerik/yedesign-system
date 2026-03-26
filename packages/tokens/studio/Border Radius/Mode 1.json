@@ -1,0 +1,26 @@
+{
+  "XS radius": {
+    "value": 3,
+    "type": "number"
+  },
+  "S radius": {
+    "value": 5,
+    "type": "number"
+  },
+  "M radius": {
+    "value": 6,
+    "type": "number"
+  },
+  "L radius": {
+    "value": 8,
+    "type": "number"
+  },
+  "XL radius": {
+    "value": 10,
+    "type": "number"
+  },
+  "2XL radius": {
+    "value": 16,
+    "type": "number"
+  }
+}

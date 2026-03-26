@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400&family=Noto+Serif+JP:wght@400&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#storybook-root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--mi-color-base-background);
+  color: var(--mi-color-text-primary);
+  font-family: var(--mi-font-family-sans);
+}
+
+.sb-frame {
+  min-height: 100vh;
+  padding: var(--mi-spacing-32);
+  background: var(--mi-color-base-background);
+}

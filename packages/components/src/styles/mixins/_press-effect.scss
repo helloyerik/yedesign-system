@@ -1,0 +1,15 @@
+@mixin press-effect($scale: 0.96) {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+  }
+
+  &:not(:disabled):active {
+    transform: scale($scale);
+  }
+}

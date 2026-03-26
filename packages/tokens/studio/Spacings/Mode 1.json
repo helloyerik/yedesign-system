@@ -1,0 +1,50 @@
+{
+  "0": {
+    "value": 0,
+    "type": "number"
+  },
+  "6XL": {
+    "value": 40,
+    "type": "number"
+  },
+  "5XL": {
+    "value": 36,
+    "type": "number"
+  },
+  "4XL": {
+    "value": 32,
+    "type": "number"
+  },
+  "3XL": {
+    "value": 28,
+    "type": "number"
+  },
+  "2XL": {
+    "value": 24,
+    "type": "number"
+  },
+  "XL": {
+    "value": 20,
+    "type": "number"
+  },
+  "L": {
+    "value": 16,
+    "type": "number"
+  },
+  "M": {
+    "value": 12,
+    "type": "number"
+  },
+  "S": {
+    "value": 8,
+    "type": "number"
+  },
+  "Micro": {
+    "value": 4,
+    "type": "number"
+  },
+  "Nano": {
+    "value": 2,
+    "type": "number"
+  }
+}

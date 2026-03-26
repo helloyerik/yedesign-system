@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MI Design System Preview</title>
+    <link rel="stylesheet" href="./packages/tokens/src/tokens.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--mi-font-family-sans);
+        color: var(--mi-color-text-primary);
+        background:
+          radial-gradient(circle at top left, rgb(230 23 113 / 0.08), transparent 20%),
+          linear-gradient(180deg, var(--mi-color-base-background), var(--mi-color-surface-muted));
+      }
+
+      .page {
+        min-height: 100vh;
+        padding: var(--mi-spacing-32);
+        display: grid;
+        gap: var(--mi-spacing-32);
+      }
+
+      .hero {
+        display: grid;
+        gap: var(--mi-spacing-16);
+        max-width: 840px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--mi-color-text-brand);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: var(--mi-font-size-display-2);
+        line-height: var(--mi-line-height-display-2);
+      }
+
+      .hero-copy {
+        color: var(--mi-color-text-secondary);
+        font-size: var(--mi-font-size-body-2);
+        line-height: var(--mi-line-height-body-2);
+      }
+
+      .toolbar {
+        display: flex;
+        gap: var(--mi-spacing-12);
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        border: 1px solid transparent;
+        border-radius: var(--mi-radius-pill);
+        padding: var(--mi-spacing-12) var(--mi-spacing-16);
+        font: inherit;
+        cursor: pointer;
+        transition: 160ms ease;
+      }
+
+      .button--brand {
+        background: var(--mi-color-base-brand);
+        color: var(--mi-color-text-inverse);
+        box-shadow: var(--mi-shadow-card);
+      }
+
+      .button--brand:hover {
+        background: var(--mi-color-base-brand-hover);
+      }
+
+      .button--ghost {
+        background: transparent;
+        color: var(--mi-color-text-primary);
+        border-color: var(--mi-color-line-generic);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: var(--mi-spacing-16);
+      }
+
+      .card {
+        padding: var(--mi-spacing-16);
+        border-radius: var(--mi-radius-l);
+        border: 1px solid var(--mi-color-line-generic);
+        background: var(--mi-color-base-background);
+        box-shadow: var(--mi-shadow-soft);
+        display: grid;
+        gap: var(--mi-spacing-12);
+      }
+
+      .swatch {
+        aspect-ratio: 16 / 10;
+        border-radius: var(--mi-radius-m);
+        border: 1px solid rgb(0 0 0 / 0.08);
+      }
+
+      .code {
+        font-family: var(--mi-font-family-mono);
+        color: var(--mi-color-text-secondary);
+        font-size: 12px;
+      }
+
+      .stack {
+        display: grid;
+        gap: var(--mi-spacing-12);
+      }
+
+      .type-row,
+      .metric-row {
+        display: grid;
+        gap: var(--mi-spacing-12);
+        padding: var(--mi-spacing-16);
+        border-radius: var(--mi-radius-l);
+        border: 1px solid var(--mi-color-line-generic);
+        background: var(--mi-color-base-background);
+      }
+
+      .type-meta,
+      .metric-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--mi-spacing-12);
+        align-items: center;
+      }
+
+      .metric-preview {
+        height: 16px;
+        min-width: 16px;
+        border-radius: var(--mi-radius-pill);
+        background: linear-gradient(90deg, var(--mi-color-base-brand), color-mix(in srgb, var(--mi-color-base-brand) 55%, white));
+      }
+
+      .section-title {
+        font-size: var(--mi-font-size-header-2);
+        line-height: var(--mi-line-height-header-2);
+      }
+
+      @media (max-width: 768px) {
+        .page {
+          padding: var(--mi-spacing-16);
+        }
+
+        h1 {
+          font-size: var(--mi-font-size-display-1);
+          line-height: var(--mi-line-height-display-1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="eyebrow">MI Design System</p>
+        <h1>Foundation preview for your Vue pipeline</h1>
+        <p class="hero-copy">
+          This page mirrors the same `--mi-*` token layer prepared for Storybook. It gives you a live preview while the current Windows environment blocks Storybook's esbuild runtime.
+        </p>
+        <div class="toolbar">
+          <button class="button button--brand" type="button" id="themeToggle">Switch to dark</button>
+          <button class="button button--ghost" type="button">Secondary action</button>
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2 class="section-title">Semantic colors</h2>
+        <div class="grid">
+          <article class="card">
+            <div class="swatch" style="background: var(--mi-color-text-primary)"></div>
+            <strong>Text / Primary</strong>
+            <span class="code">--mi-color-text-primary</span>
+          </article>
+          <article class="card">
+            <div class="swatch" style="background: var(--mi-color-base-brand)"></div>
+            <strong>Base / Brand</strong>
+            <span class="code">--mi-color-base-brand</span>
+          </article>
+          <article class="card">
+            <div class="swatch" style="background: var(--mi-color-surface-muted)"></div>
+            <strong>Surface / Muted</strong>
+            <span class="code">--mi-color-surface-muted</span>
+          </article>
+          <article class="card">
+            <div class="swatch" style="background: var(--mi-color-status-success)"></div>
+            <strong>Status / Success</strong>
+            <span class="code">--mi-color-status-success</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="stack">
+        <h2 class="section-title">Typography scale</h2>
+        <article class="type-row">
+          <div class="type-meta">
+            <strong>Display 2</strong>
+            <span class="code">32 / 40</span>
+          </div>
+          <p style="font-size: var(--mi-font-size-display-2); line-height: var(--mi-line-height-display-2);">Main hero headlines and bold sectional statements</p>
+        </article>
+        <article class="type-row">
+          <div class="type-meta">
+            <strong>Header 2</strong>
+            <span class="code">24 / 28</span>
+          </div>
+          <p style="font-size: var(--mi-font-size-header-2); line-height: var(--mi-line-height-header-2);">Secondary section titles and module headings</p>
+        </article>
+        <article class="type-row">
+          <div class="type-meta">
+            <strong>Body 2</strong>
+            <span class="code">15 / 20</span>
+          </div>
+          <p style="font-size: var(--mi-font-size-body-2); line-height: var(--mi-line-height-body-2);">Default body copy for product and marketing content</p>
+        </article>
+      </section>
+
+      <section class="stack">
+        <h2 class="section-title">Spacing and radius</h2>
+        <article class="metric-row">
+          <div class="metric-meta">
+            <strong>Spacing 16</strong>
+            <span class="code">--mi-spacing-16</span>
+          </div>
+          <div class="metric-preview" style="width: var(--mi-spacing-16)"></div>
+          <span class="code">16px</span>
+        </article>
+        <article class="metric-row">
+          <div class="metric-meta">
+            <strong>Spacing 32</strong>
+            <span class="code">--mi-spacing-32</span>
+          </div>
+          <div class="metric-preview" style="width: var(--mi-spacing-32)"></div>
+          <span class="code">32px</span>
+        </article>
+        <article class="metric-row">
+          <div class="metric-meta">
+            <strong>Radius L</strong>
+            <span class="code">--mi-radius-l</span>
+          </div>
+          <div class="metric-preview" style="width: 120px; border-radius: var(--mi-radius-l)"></div>
+          <span class="code">8px</span>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const root = document.documentElement;
+      const button = document.getElementById("themeToggle");
+      let theme = "light";
+
+      button.addEventListener("click", () => {
+        theme = theme === "light" ? "dark" : "light";
+        root.dataset.theme = theme;
+        button.textContent = theme === "light" ? "Switch to dark" : "Switch to light";
+      });
+    </script>
+  </body>
+</html>

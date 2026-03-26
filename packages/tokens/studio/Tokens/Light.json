@@ -1,0 +1,263 @@
+{
+  "Text": {
+    "Primary": {
+      "value": "{Light.Black.850}",
+      "type": "color"
+    },
+    "Complementary": {
+      "value": "{Light.Black.750}",
+      "type": "color"
+    },
+    "Secondary": {
+      "value": "{Light.Black.500}",
+      "type": "color"
+    },
+    "Hint": {
+      "value": "{Light.Black.300}",
+      "type": "color"
+    },
+    "Info": {
+      "value": "{Light.Blue.450 Solid}",
+      "type": "color"
+    },
+    "Info Heavy": {
+      "value": "{Light.Blue.500 Solid}",
+      "type": "color"
+    },
+    "Danger": {
+      "value": "{Light.Red.400 Solid}",
+      "type": "color"
+    },
+    "Danger Heavy": {
+      "value": "{Light.Red.500 Solid}",
+      "type": "color"
+    },
+    "Warning": {
+      "value": "{Light.Yellow.450 Solid}",
+      "type": "color"
+    },
+    "Warning Heavy": {
+      "value": "{Light.Yellow.500 Solid}",
+      "type": "color"
+    },
+    "Positive": {
+      "value": "{Light.Green.450 Solid}",
+      "type": "color"
+    },
+    "Positive Heavy": {
+      "value": "{Light.Green.500 Solid}",
+      "type": "color"
+    },
+    "Misk": {
+      "value": "{Light.Cool Grey.450 Solid}",
+      "type": "color"
+    },
+    "Misk Heavy": {
+      "value": "{Light.Cool Grey.500 Solid}",
+      "type": "color"
+    }
+  },
+  "Brand": {
+    "Base Background": {
+      "value": "{Light.White.1000 Solid}",
+      "type": "color"
+    },
+    "Base Brand": {
+      "value": "{Light.Pink.400 Solid}",
+      "type": "color"
+    },
+    "Base Brand Hover": {
+      "value": "{Light.Pink.450 Solid}",
+      "type": "color"
+    },
+    "Base Selection": {
+      "value": "{Light.Pink.200}",
+      "type": "color"
+    },
+    "Base Selection Hover": {
+      "value": "{Light.Pink.300}",
+      "type": "color"
+    },
+    "Line Brand": {
+      "value": "{Light.Pink.450 Solid}",
+      "type": "color"
+    },
+    "Text Brand Heavy": {
+      "value": "{Light.Pink.450 Solid}",
+      "type": "color"
+    },
+    "Text Brand Contrast": {
+      "value": "{Light.White.850}",
+      "type": "color"
+    },
+    "Text Link": {
+      "value": "{Light.Pink.450 Solid}",
+      "type": "color"
+    },
+    "Text Link Hover": {
+      "value": "{Light.Pink.500 Solid}",
+      "type": "color"
+    },
+    "Text Brand": {
+      "value": "{Light.Pink.400 Solid}",
+      "type": "color"
+    },
+    "Base Brand Secondary": {
+      "value": "{Light.Black.750}",
+      "type": "color"
+    },
+    "Base Brand Secondary Hover": {
+      "value": "{Light.Black.800}",
+      "type": "color"
+    }
+  },
+  "Line": {
+    "Generic": {
+      "value": "{Light.Black.100}",
+      "type": "color",
+      "description": "--g-color-line-generic\n\nButton borders, dividers, basic block borders. Almost all lines"
+    },
+    "Generic Hover": {
+      "value": "{Light.Black.150}",
+      "type": "color"
+    },
+    "Generic Active": {
+      "value": "{Light.Black.300}",
+      "type": "color"
+    },
+    "Generic Solid": {
+      "value": "{Light.Black.100 Solid}",
+      "type": "color"
+    },
+    "Info": {
+      "value": "{Light.Blue.800}",
+      "type": "color"
+    },
+    "Positive": {
+      "value": "{Light.Green.800}",
+      "type": "color"
+    },
+    "Warning": {
+      "value": "{Light.Yellow.800}",
+      "type": "color"
+    },
+    "Danger": {
+      "value": "{Light.Red.800}",
+      "type": "color"
+    },
+    "Misk": {
+      "value": "{Light.Cool Grey.450}",
+      "type": "color"
+    }
+  },
+  "Base": {
+    "Generic": {
+      "value": "{Light.Black.50}",
+      "type": "color"
+    },
+    "Generic Hover": {
+      "value": "{Light.Black.150}",
+      "type": "color"
+    },
+    "Generic Medium": {
+      "value": "{Light.Black.150}",
+      "type": "color"
+    },
+    "Generic Medium Hover": {
+      "value": "{Light.Black.250}",
+      "type": "color"
+    },
+    "Light": {
+      "value": "{Light.White.1000 Solid}",
+      "type": "color"
+    },
+    "Light Hover": {
+      "value": "{Light.White.850}",
+      "type": "color"
+    },
+    "Light Simple Hover": {
+      "value": "{Light.White.150}",
+      "type": "color"
+    },
+    "Light Disabled": {
+      "value": "{Light.White.150}",
+      "type": "color"
+    },
+    "Generic Solid": {
+      "value": "{Light.Black.50 Solid}",
+      "type": "color"
+    },
+    "Simple Hover": {
+      "value": "{Light.Black.50}",
+      "type": "color"
+    },
+    "Generic Disabled": {
+      "value": "{Light.Black.70}",
+      "type": "color"
+    }
+  },
+  "Base Semantic": {
+    "Info Light": {
+      "value": "{Light.Blue.150}",
+      "type": "color"
+    },
+    "Info Light Hover": {
+      "value": "{Light.Blue.250}",
+      "type": "color"
+    },
+    "Positive Light": {
+      "value": "{Light.Green.150}",
+      "type": "color"
+    },
+    "Positive Light Hover": {
+      "value": "{Light.Green.250}",
+      "type": "color"
+    },
+    "Warning Light": {
+      "value": "{Light.Yellow.150}",
+      "type": "color"
+    },
+    "Warning Light Hover": {
+      "value": "{Light.Yellow.250}",
+      "type": "color"
+    },
+    "Danger Light": {
+      "value": "{Light.Red.150}",
+      "type": "color"
+    },
+    "Danger Light Hover": {
+      "value": "{Light.Red.250}",
+      "type": "color"
+    },
+    "Neutral Light": {
+      "value": "{Light.Black.50}",
+      "type": "color"
+    },
+    "Neutral Light Hover": {
+      "value": "{Light.Black.100}",
+      "type": "color"
+    },
+    "Misk Light": {
+      "value": "{Light.Cool Grey.150}",
+      "type": "color"
+    },
+    "Misk Light Hover": {
+      "value": "{Light.Cool Grey.300}",
+      "type": "color"
+    }
+  },
+  "Misk": {
+    "Scroll Handle": {
+      "value": "{Light.Black.100}",
+      "type": "color"
+    },
+    "Scroll Handle Hover": {
+      "value": "{Light.Black.150}",
+      "type": "color"
+    },
+    "Scroll Track": {
+      "value": "{Brand.Base Background}",
+      "type": "color"
+    }
+  }
+}

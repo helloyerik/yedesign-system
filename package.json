@@ -1,0 +1,57 @@
+{
+  "name": "@yerik/yedesign-system",
+  "version": "1.0.0",
+  "description": "YE design system Storybook workspace",
+  "type": "module",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./tokens.css": "./dist/tokens.css"
+  },
+  "scripts": {
+    "tokens:build": "node packages/tokens/scripts/generate-tokens.mjs",
+    "build:components": "npm --prefix packages/components run build",
+    "build": "npm run build:components && node scripts/build-package.mjs",
+    "prepare": "npm run build",
+    "storybook": "storybook dev -p 6006 -c apps/storybook/.storybook",
+    "build-storybook": "storybook build -c apps/storybook/.storybook",
+    "chromatic": "npx chromatic --project-token chpt_cf841a4368eafff"
+  },
+  "keywords": [
+    "vue",
+    "storybook",
+    "design-system"
+  ],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.32.0",
+  "dependencies": {
+    "@phosphor-icons/vue": "^2.2.1",
+    "agentation": "^3.0.1",
+    "vue": "^3.5.30"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.30"
+  },
+  "devDependencies": {
+    "@storybook/vue3-vite": "^10.2.17",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/compiler-sfc": "^3.5.30",
+    "chromatic": "^15.2.0",
+    "sass": "^1.98.0",
+    "storybook": "^10.2.17",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vue-tsc": "^3.2.5"
+  }
+}
