@@ -1,6 +1,6 @@
 {
   "name": "@yerik/yedesign-system",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "YE design system Storybook workspace",
   "type": "module",
   "files": [
