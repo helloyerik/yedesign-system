@@ -4,7 +4,7 @@ import { PhCaretRight } from "@phosphor-icons/vue";
 import UserAvatar from "../UserAvatar/UserAvatar.vue";
 
 type ListItemSize = "XL" | "L" | "M" | "S" | "XS";
-type ListItemVariant = "plain" | "fill";
+type ListItemVariant = "plain" | "filled" | "fill" | "generic";
 
 const props = withDefaults(
   defineProps<{
@@ -34,9 +34,17 @@ const slots = useSlots();
 
 const hasStart = computed(() => Boolean(slots.start));
 const hasMedia = computed(() => Boolean(slots.media) || Boolean(props.imageSrc));
+const hasImageMedia = computed(() => Boolean(props.imageSrc) && !Boolean(slots.media));
 const hasMeta = computed(() => Boolean(slots.meta));
 const hasEnd = computed(() => Boolean(slots.end));
 const hasSubtitle = computed(() => Boolean(props.subtitle) || Boolean(slots.subtitle));
+const normalizedVariant = computed(() => {
+  if (props.variant === "fill" || props.variant === "generic") {
+    return "filled";
+  }
+
+  return props.variant;
+});
 
 const mediaSize = computed(() => {
   switch (props.size) {
@@ -63,11 +71,12 @@ const avatarFallbackSize = computed(() => Math.max(mediaSize.value, 24));
     class="mi-list-item"
     :class="[
       `mi-list-item--${size}`,
-      `mi-list-item--${variant}`,
+      `mi-list-item--${normalizedVariant}`,
       {
         'is-interactive': interactive && !disabled,
         'is-disabled': disabled,
         'has-subtitle': hasSubtitle,
+        'has-image-media': hasImageMedia,
       },
     ]"
   >
@@ -125,7 +134,7 @@ const avatarFallbackSize = computed(() => Math.max(mediaSize.value, 24));
   --mi-list-item-subtitle-weight: var(--mi-font-weight-body-2);
   --mi-list-item-subtitle-line-height: var(--mi-line-height-body-2);
   --mi-list-item-end-size: var(--mi-size-list-item-m-chevron);
-  --mi-list-item-media-radius: var(--mi-radius-l);
+  --mi-list-item-media-radius: var(--mi-radius-2xs);
 
   display: flex;
   align-items: center;
@@ -227,16 +236,26 @@ const avatarFallbackSize = computed(() => Math.max(mediaSize.value, 24));
   --mi-list-item-subtitle-line-height: var(--mi-size-list-item-caption-line-height);
 }
 
-.mi-list-item--fill {
-  background: var(--mi-color-surface-panel);
+.mi-list-item--filled {
+  background: var(--mi-color-base-generic);
 }
 
 .mi-list-item.is-interactive {
   cursor: pointer;
 }
 
-.mi-list-item.is-interactive:hover {
-  background: var(--mi-color-surface-muted);
+.mi-list-item--plain.is-interactive:hover {
+  background: var(--mi-color-base-generic);
+}
+
+.mi-list-item--plain {
+  padding: 0;
+  padding-inline: 0;
+  padding-block: 0;
+}
+
+.mi-list-item--filled.is-interactive:hover {
+  background: var(--mi-color-base-generic-hover);
 }
 
 .mi-list-item.is-disabled {
@@ -245,7 +264,6 @@ const avatarFallbackSize = computed(() => Math.max(mediaSize.value, 24));
 }
 
 .mi-list-item__start,
-.mi-list-item__media,
 .mi-list-item__end {
   flex: 0 0 auto;
   display: inline-flex;
@@ -254,11 +272,17 @@ const avatarFallbackSize = computed(() => Math.max(mediaSize.value, 24));
 }
 
 .mi-list-item__media {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: transparent;
+}
+
+.mi-list-item.has-image-media .mi-list-item__media {
   width: var(--mi-list-item-media-size);
   height: var(--mi-list-item-media-size);
   overflow: hidden;
-  border-radius: var(--mi-list-item-media-radius);
-  background: var(--mi-color-surface-muted);
 }
 
 .mi-list-item__image {
@@ -266,6 +290,7 @@ const avatarFallbackSize = computed(() => Math.max(mediaSize.value, 24));
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: var(--mi-list-item-media-radius);
 }
 
 .mi-list-item__body {
@@ -320,5 +345,18 @@ const avatarFallbackSize = computed(() => Math.max(mediaSize.value, 24));
 .mi-list-item__chevron {
   width: var(--mi-list-item-end-size);
   height: var(--mi-list-item-end-size);
+}
+
+.mi-list-item.is-interactive:hover .mi-list-item__title {
+  color: var(--mi-color-text-primary);
+}
+
+.mi-list-item.is-interactive:hover .mi-list-item__subtitle,
+.mi-list-item.is-interactive:hover .mi-list-item__meta {
+  color: var(--mi-color-text-secondary);
+}
+
+.mi-list-item.is-interactive:hover .mi-list-item__end--chevron {
+  color: var(--mi-color-text-primary);
 }
 </style>

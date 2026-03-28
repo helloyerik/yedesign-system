@@ -298,11 +298,11 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .mi-button--text-only:hover:not(:disabled) {
-  background: var(--mi-color-base-generic);
+  background: transparent;
 }
 
 .mi-button--text-only:active:not(:disabled) {
-  background: var(--mi-color-base-subtle-hover);
+  background: transparent;
 }
 
 .mi-button--text-only.is-disabled {

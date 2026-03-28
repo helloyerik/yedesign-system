@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/vue3-vite";
 import { PhCaretDown, PhFlowerLotus, PhQuestion } from "@phosphor-icons/vue";
 import ListItem from "@components/atoms/ListItem/ListItem.vue";
 import Checkbox from "@components/atoms/Checkbox/Checkbox.vue";
+import Radio from "@components/atoms/Radio/Radio.vue";
 import Switch from "@components/atoms/Switch/Switch.vue";
 
 const imageSrc =
@@ -23,14 +24,14 @@ const meta = {
     chevron: { control: "boolean" },
     variant: {
       control: "inline-radio",
-      options: ["plain", "fill"],
+      options: ["plain", "filled"],
     },
     interactive: { control: "boolean" },
     disabled: { control: "boolean" },
   },
   args: {
-    title: "Авито Доставка",
-    subtitle: "Покупайте и продавайте",
+    title: "Label",
+    subtitle: "Description",
     imageSrc,
     size: "M",
     variant: "plain",
@@ -65,11 +66,11 @@ export const Sizes: Story = {
     },
     template: `
       <section style="display:grid; gap: var(--mi-spacing-24); max-width: 373px;">
-        <ListItem size="XL" variant="plain" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="L" variant="plain" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="M" variant="plain" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="S" variant="plain" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="XS" variant="plain" title="Авито Доставка" subtitle="Вы выбрали этот банк раньше" :image-src="imageSrc" />
+        <ListItem size="XL" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="L" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="M" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="S" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="XS" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
       </section>
     `,
   }),
@@ -83,11 +84,11 @@ export const Filled: Story = {
     },
     template: `
       <section style="display:grid; gap: var(--mi-spacing-24); max-width: 373px;">
-        <ListItem size="XL" variant="fill" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="L" variant="fill" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="M" variant="fill" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="S" variant="fill" title="Авито Доставка" subtitle="Покупайте и продавайте" :image-src="imageSrc" />
-        <ListItem size="XS" variant="fill" title="Авито Доставка" subtitle="Вы выбрали этот банк раньше" :image-src="imageSrc" />
+        <ListItem size="XL" variant="filled" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="L" variant="filled" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="M" variant="filled" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="S" variant="filled" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <ListItem size="XS" variant="filled" title="Label" subtitle="Description" :image-src="imageSrc" />
       </section>
     `,
   }),
@@ -95,7 +96,7 @@ export const Filled: Story = {
 
 export const LeadingControls: Story = {
   render: () => ({
-    components: { ListItem, Checkbox, Switch, PhCaretDown, PhFlowerLotus, PhQuestion },
+    components: { ListItem, Checkbox, Radio, Switch, PhCaretDown, PhFlowerLotus, PhQuestion },
     setup() {
       const checked = ref(true);
       const enabled = ref(false);
@@ -155,6 +156,35 @@ export const LeadingControls: Story = {
           </template>
           <template #end>
             <Switch v-model:checked="enabled" size="M" />
+          </template>
+        </ListItem>
+      </section>
+    `,
+  }),
+};
+
+export const MediaVariants: Story = {
+  render: () => ({
+    components: { ListItem, Checkbox, Radio, PhFlowerLotus },
+    setup() {
+      return { imageSrc };
+    },
+    template: `
+      <section style="display:grid; gap: var(--mi-spacing-12); justify-items:start;">
+        <ListItem size="S" title="Label" subtitle="Image" :image-src="imageSrc" />
+        <ListItem size="S" title="Label" subtitle="Checkbox">
+          <template #media>
+            <Checkbox size="M" :checked="true" />
+          </template>
+        </ListItem>
+        <ListItem size="S" title="Label" subtitle="Radio">
+          <template #media>
+            <Radio :checked="true" />
+          </template>
+        </ListItem>
+        <ListItem size="S" title="Label" subtitle="Icon">
+          <template #media>
+            <PhFlowerLotus :size="20" />
           </template>
         </ListItem>
       </section>

@@ -236,11 +236,11 @@
   --mi-size-list-item-s-gap: 10px;
   --mi-size-list-item-xs-gap: 10px;
   --mi-size-list-item-caption-line-height: 14px;
-  --mi-radius-list-item-xl-fill: 28px;
-  --mi-radius-list-item-l-fill: 24px;
-  --mi-radius-list-item-m-fill: 20px;
-  --mi-radius-list-item-s-fill: 18px;
-  --mi-radius-list-item-xs-fill: 16px;
+  --mi-radius-list-item-xl-fill: var(--mi-radius-l);
+  --mi-radius-list-item-l-fill: var(--mi-radius-l);
+  --mi-radius-list-item-m-fill: var(--mi-radius-l);
+  --mi-radius-list-item-s-fill: var(--mi-radius-l);
+  --mi-radius-list-item-xs-fill: var(--mi-radius-l);
   --mi-size-star-rating-m: 20px;
   --mi-size-star-rating-l: 28px;
   --mi-color-base-subtle-hover: #00000014;
