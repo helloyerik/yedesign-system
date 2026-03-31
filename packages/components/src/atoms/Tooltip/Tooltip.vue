@@ -6,6 +6,7 @@ type TooltipWidthVariant = "fixed" | "hug";
 
 const props = withDefaults(
   defineProps<{
+    className?: string;
     position?: TooltipPosition;
     autoPosition?: boolean;
     trigger?: HTMLElement | null;
@@ -14,6 +15,7 @@ const props = withDefaults(
     autoArrow?: boolean;
   }>(),
   {
+    className: "",
     position: "bottom",
     autoPosition: false,
     trigger: null,
@@ -185,6 +187,7 @@ const arrowTransform = computed(() =>
     ref="tooltipRef"
     class="mi-tooltip"
     :class="[
+      className,
       `mi-tooltip--${resolvedPosition}`,
       {
         'mi-tooltip--hug': widthVariant === 'hug',
@@ -273,6 +276,10 @@ const arrowTransform = computed(() =>
   margin-bottom: calc(var(--mi-size-tooltip-arrow-overlap) * -1);
 }
 
+.mi-tooltip__arrow--bottom svg {
+  transform: rotate(180deg);
+}
+
 .mi-tooltip__arrow--top {
   margin-top: calc(var(--mi-size-tooltip-arrow-overlap) * -1);
   transform-origin: center center;
@@ -282,20 +289,16 @@ const arrowTransform = computed(() =>
   margin-left: calc(var(--mi-size-tooltip-arrow-overlap) * -1);
 }
 
+.mi-tooltip__arrow--left svg {
+  transform: rotate(90deg);
+}
+
 .mi-tooltip__arrow--right {
   margin-right: calc(var(--mi-size-tooltip-arrow-overlap) * -1);
 }
 
-.mi-tooltip__arrow--top svg {
-  transform: rotate(180deg);
-}
-
-.mi-tooltip__arrow--left svg {
-  transform: rotate(-90deg);
-}
-
 .mi-tooltip__arrow--right svg {
-  transform: rotate(90deg);
+  transform: rotate(-90deg);
 }
 
 .mi-tooltip__arrow svg {

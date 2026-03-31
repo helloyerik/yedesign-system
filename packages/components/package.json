@@ -1,5 +1,5 @@
 {
-  "name": "@mi/components",
+  "name": "@yerik/yedesign-system-components",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -21,7 +21,7 @@
   ],
   "dependencies": {
     "@phosphor-icons/vue": "^2.1.1",
-    "@mi/tokens": "workspace:*"
+    "@yerik/yedesign-system-tokens": "workspace:*"
   },
   "peerDependencies": {
     "vue": "^3.5.30"

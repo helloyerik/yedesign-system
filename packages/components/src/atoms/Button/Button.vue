@@ -234,6 +234,10 @@ const handleClick = (event: MouseEvent) => {
   background: var(--mi-color-brand-base-brand-hover);
 }
 
+.mi-button--primary:active:not(:disabled) {
+  opacity: 0.9;
+}
+
 .mi-button--primary.is-disabled {
   background: var(--mi-color-base-generic);
   color: var(--mi-color-text-secondary);
@@ -246,6 +250,10 @@ const handleClick = (event: MouseEvent) => {
 
 .mi-button--brand-secondary:hover:not(:disabled) {
   background: var(--mi-color-brand-base-brand-secondary-hover);
+}
+
+.mi-button--brand-secondary:active:not(:disabled) {
+  opacity: 0.9;
 }
 
 .mi-button--brand-secondary.is-disabled {
@@ -298,11 +306,11 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .mi-button--text-only:hover:not(:disabled) {
-  background: transparent;
+  background: var(--mi-color-base-generic);
 }
 
 .mi-button--text-only:active:not(:disabled) {
-  background: transparent;
+  background: var(--mi-color-base-subtle-hover);
 }
 
 .mi-button--text-only.is-disabled {

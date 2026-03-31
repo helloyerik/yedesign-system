@@ -9,7 +9,11 @@ type __VLS_Props = {
     bodyClassName?: string;
     contentClassName?: string;
     headerClassName?: string;
+    footerClassName?: string;
     secondaryAutoHeight?: boolean;
+    footerBordered?: boolean;
+    closeButtonClassName?: string;
+    closeButtonVariant?: "ghost" | "secondary";
 };
 declare var __VLS_11: {}, __VLS_14: {};
 type __VLS_Slots = {} & {

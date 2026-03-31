@@ -19,7 +19,7 @@ const rootTypes = await readFile(rootTypesPath, "utf8");
 
 await writeFile(
   rootTypesPath,
-  rootTypes.replace('import "@mi/tokens/tokens.css";', 'import "./tokens.css";'),
+  rootTypes.replace('import "@yerik/yedesign-system-tokens/tokens.css";', 'import "./tokens.css";'),
 );
 
 await cp(path.join(componentsDistDir, "components.css"), path.join(distDir, "style.css"));

@@ -12,7 +12,11 @@ defineProps<{
   bodyClassName?: string;
   contentClassName?: string;
   headerClassName?: string;
+  footerClassName?: string;
   secondaryAutoHeight?: boolean;
+  footerBordered?: boolean;
+  closeButtonClassName?: string;
+  closeButtonVariant?: "ghost" | "secondary";
 }>();
 
 defineEmits<{
@@ -33,7 +37,11 @@ defineEmits<{
     :body-class-name="bodyClassName"
     :content-class-name="contentClassName"
     :header-class-name="headerClassName"
+    :footer-class-name="footerClassName"
     :secondary-auto-height="secondaryAutoHeight"
+    :footer-bordered="footerBordered"
+    :close-button-class-name="closeButtonClassName"
+    :close-button-variant="closeButtonVariant"
     @update:model-value="$emit('update:modelValue', $event)"
     @close="$emit('close')"
   >

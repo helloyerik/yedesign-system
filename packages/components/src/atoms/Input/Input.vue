@@ -76,6 +76,16 @@ const inputPaddingClass = computed(() => {
     : "mi-input__control--padding-l";
 });
 const containerClass = computed(() => (props.state === "textOnly" ? "mi-input--text-only-spacing" : ""));
+const isFocusBorderState = computed(() => ["default", "hover", "filled"].includes(props.state));
+const inputContainerClasses = computed(() => [
+  `mi-input--${props.size}`,
+  `mi-input--${props.state}`,
+  containerClass.value,
+  props.className,
+  {
+    "mi-input--focusable": isFocusBorderState.value,
+  },
+]);
 
 const resolvedStartIcon = computed(() => {
   if (slots.startIcon) return null;
@@ -103,8 +113,8 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
 </script>
 
 <template>
-  <div v-if="isErrorOutline && errorText" class="mi-input-shell" :class="className">
-    <div class="mi-input" :class="[`mi-input--${size}`, `mi-input--${state}`, containerClass]">
+  <div v-if="isErrorOutline && errorText" class="mi-input-shell">
+    <div class="mi-input" :class="inputContainerClasses">
       <span v-if="slots.startIcon || resolvedStartIcon" class="mi-input__adornment mi-input__adornment--start">
         <slot name="startIcon">
           <component :is="resolvedStartIcon" :size="24" class="mi-input__icon-default mi-input__icon-default--start" />
@@ -155,7 +165,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
     <span class="mi-input__message">{{ errorText }}</span>
   </div>
 
-  <div v-else class="mi-input" :class="[`mi-input--${size}`, `mi-input--${state}`, containerClass, className]">
+  <div v-else class="mi-input" :class="inputContainerClasses">
     <span v-if="slots.startIcon || resolvedStartIcon" class="mi-input__adornment mi-input__adornment--start">
       <slot name="startIcon">
         <component :is="resolvedStartIcon" :size="24" class="mi-input__icon-default mi-input__icon-default--start" />
@@ -268,6 +278,10 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
 .mi-input--text-only-spacing {
   padding-inline: 0;
   padding-block: var(--mi-spacing-4);
+}
+
+.mi-input--focusable:focus-within {
+  border-color: var(--mi-color-line-generic-active);
 }
 
 .mi-input__adornment {

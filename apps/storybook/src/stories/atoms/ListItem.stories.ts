@@ -66,11 +66,21 @@ export const Sizes: Story = {
     },
     template: `
       <section style="display:grid; gap: var(--mi-spacing-24); max-width: 373px;">
-        <ListItem size="XL" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
-        <ListItem size="L" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
-        <ListItem size="M" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
-        <ListItem size="S" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
-        <ListItem size="XS" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        <div style="padding-inline: var(--mi-spacing-16);">
+          <ListItem size="XL" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        </div>
+        <div style="padding-inline: var(--mi-spacing-12);">
+          <ListItem size="L" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        </div>
+        <div style="padding-inline: var(--mi-spacing-12);">
+          <ListItem size="M" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        </div>
+        <div style="padding-inline: var(--mi-spacing-8);">
+          <ListItem size="S" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        </div>
+        <div style="padding-inline: var(--mi-spacing-8);">
+          <ListItem size="XS" variant="plain" title="Label" subtitle="Description" :image-src="imageSrc" />
+        </div>
       </section>
     `,
   }),

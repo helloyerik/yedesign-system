@@ -19,7 +19,11 @@ const props = withDefaults(
     bodyClassName?: string;
     contentClassName?: string;
     headerClassName?: string;
+    footerClassName?: string;
     secondaryAutoHeight?: boolean;
+    footerBordered?: boolean;
+    closeButtonClassName?: string;
+    closeButtonVariant?: "ghost" | "secondary";
   }>(),
   {
     title: "",
@@ -31,7 +35,11 @@ const props = withDefaults(
     bodyClassName: "",
     contentClassName: "",
     headerClassName: "",
+    footerClassName: "",
     secondaryAutoHeight: false,
+    footerBordered: true,
+    closeButtonClassName: "",
+    closeButtonVariant: "ghost",
   },
 );
 
@@ -93,6 +101,9 @@ const variantClass = computed(() => `mi-dialog__content--${props.variant.toLower
 const isSecondary = computed(() => props.variant === "Secondary");
 const isPrimary = computed(() => props.variant === "Primary");
 const hasCustomFooter = computed(() => Boolean(slots.footer));
+const secondaryBodyClass = computed(() =>
+  props.bodyClassName || "mi-dialog__body--secondary-default",
+);
 
 onMounted(() => {
   window.addEventListener("keydown", onKeyDown);
@@ -136,7 +147,12 @@ onBeforeUnmount(() => {
         >
           <h1 v-if="title" class="mi-dialog__title">{{ title }}</h1>
 
-          <ButtonIcon size="S" @click="close">
+          <ButtonIcon
+            size="S"
+            :variant="closeButtonVariant"
+            :class="closeButtonClassName"
+            @click="close"
+          >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
             </svg>
@@ -146,7 +162,7 @@ onBeforeUnmount(() => {
         <div
           class="mi-dialog__body"
           :class="[
-            bodyClassName,
+            isSecondary ? secondaryBodyClass : bodyClassName,
             {
               'mi-dialog__body--secondary': isSecondary,
               'mi-dialog__body--secondary-auto': isSecondary && secondaryAutoHeight,
@@ -157,7 +173,11 @@ onBeforeUnmount(() => {
           <slot />
         </div>
 
-        <div v-if="showFooter" class="mi-dialog__footer">
+        <div
+          v-if="showFooter"
+          class="mi-dialog__footer"
+          :class="[footerClassName, { 'mi-dialog__footer--borderless': !footerBordered }]"
+        >
           <slot v-if="hasCustomFooter" name="footer" />
           <div v-else class="mi-dialog__footer-actions">
             <button type="button" class="mi-dialog__footer-button mi-dialog__footer-button--secondary">
@@ -177,7 +197,7 @@ onBeforeUnmount(() => {
 .mi-dialog {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -288,6 +308,10 @@ onBeforeUnmount(() => {
   align-items: center;
 }
 
+.mi-dialog__body--secondary-default {
+  background: var(--mi-color-brand-base-selection);
+}
+
 .mi-dialog__body--secondary-auto {
   min-height: 0;
 }
@@ -309,6 +333,10 @@ onBeforeUnmount(() => {
   gap: var(--mi-spacing-8);
   border-top: 1px solid var(--mi-color-line-generic);
   padding: var(--mi-spacing-xl);
+}
+
+.mi-dialog__footer--borderless {
+  border-top: 0;
 }
 
 .mi-dialog__footer-actions {

@@ -34,6 +34,13 @@
   библиотека Vue-компонентов
 - `apps/storybook`
   документация, примеры и foundations
+- `docs`
+  canonical PRD и Ralph-backlog для migration/program planning
+
+## Planning
+
+- migration PRD: [`docs/vue-design-system-migration-prd.md`](docs/vue-design-system-migration-prd.md)
+- Ralph backlog: [`docs/vue-design-system-migration-ralph-cycle.json`](docs/vue-design-system-migration-ralph-cycle.json)
 
 ## Тема и вариативность
 
@@ -116,7 +123,7 @@ import { Button, Dialog, ListItem, RadioGroup, Tag } from "@yerik/yedesign-syste
 
 ## Текущее состояние
 
-Сейчас `yedesign-system` — это чистый Vue-дубль `mi-design-system`, вынесенный как отдельная независимая база для новых проектов внутри `vibecoding`.
+Сейчас `yedesign-system` — это частично перенесенная Vue design system, для которой canonical migration planning теперь живет в `docs/`.
 
 React-версия, которую мы начали раньше, сохранена отдельно как backup:
 - `/Users/yerikkuanbaev/Documents/vibecoding/yedesign-system-react-backup`

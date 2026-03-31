@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [vue()],
   resolve: {
     alias: {
-      "@mi/tokens/tokens.css": path.resolve(__dirname, "../tokens/src/tokens.css"),
+      "@yerik/yedesign-system-tokens/tokens.css": path.resolve(__dirname, "../tokens/src/tokens.css"),
     },
   },
   build: {

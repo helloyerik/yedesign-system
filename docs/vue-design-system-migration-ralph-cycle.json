@@ -1,0 +1,245 @@
+{
+  "project": "yedesign-system-react-to-vue-migration",
+  "method": "ralph",
+  "source_prd": "docs/vue-design-system-migration-prd.md",
+  "status_values": ["todo", "in_progress", "blocked", "review", "done"],
+  "rules": {
+    "one_active_task_per_lane": true,
+    "lane_tasks_are_sequential": true,
+    "cycles_are_gate_controlled": true,
+    "every_task_requires_handoff_note": true,
+    "task_growth_requires_split": true,
+    "ported_components_must_be_audited_before_acceptance": true,
+    "consumer_adoption_cannot_start_before_parity_cycle_complete": true,
+    "public_package_identity_is_fixed_before_component_porting": true,
+    "vue_components_must_match_react_visuals_interactions_states_and_variants_1_to_1_unless_explicitly_approved": true
+  },
+  "inventory_snapshot": {
+    "source_components_total": 51,
+    "source_components_in_scope": 44,
+    "source_components_excluded": 7,
+    "vue_components_existing_total": 20,
+    "vue_components_existing_source_backed": 17,
+    "vue_components_target_only_retained": 3,
+    "source_components_missing_in_vue": 27
+  },
+  "lanes": [
+    {
+      "id": "L1",
+      "name": "Governance And Inventory",
+      "owns": ["T001", "T002", "T003", "T004", "T006", "T101", "T104", "T105", "T110", "T801", "T802", "T803", "T804"]
+    },
+    {
+      "id": "L2",
+      "name": "Packaging And Tokens",
+      "owns": ["T005", "T106", "T107", "T201", "T202", "T203", "T204", "T205", "T206", "T207", "T208"]
+    },
+    {
+      "id": "L3",
+      "name": "Existing Vue Audit",
+      "owns": ["T102", "T301", "T302", "T303", "T304", "T305", "T306", "T307", "T308", "T309", "T310", "T311", "T312", "T313", "T314", "T315", "T316", "T317", "T318", "T319", "T320"]
+    },
+    {
+      "id": "L4",
+      "name": "Missing Primitive Components",
+      "owns": ["T103", "T401", "T402", "T403", "T404", "T405", "T406", "T407", "T408", "T409", "T410", "T411", "T412", "T413", "T414", "T415", "T416"]
+    },
+    {
+      "id": "L5",
+      "name": "Composite Components",
+      "owns": ["T501", "T502", "T503", "T504", "T505", "T506", "T507", "T508", "T509", "T510", "T511"]
+    },
+    {
+      "id": "L6",
+      "name": "Storybook QA And Docs",
+      "owns": ["T007", "T109", "T601", "T602", "T603", "T604", "T605", "T606"]
+    },
+    {
+      "id": "L7",
+      "name": "Consumer Adoption And Rollout",
+      "owns": ["T008", "T108", "T701", "T702", "T703", "T704", "T705", "T706"]
+    }
+  ],
+  "cycles": [
+    {
+      "id": "C0",
+      "name": "Baseline And Governance",
+      "gate": {
+        "depends_on_cycles": [],
+        "complete_when_tasks_done": ["T001", "T002", "T003", "T004", "T005", "T006", "T007", "T008"]
+      },
+      "tasks": ["T001", "T002", "T003", "T004", "T005", "T006", "T007", "T008"]
+    },
+    {
+      "id": "C1",
+      "name": "Inventory And Parity Matrix",
+      "gate": {
+        "depends_on_cycles": ["C0"],
+        "complete_when_tasks_done": ["T101", "T102", "T103", "T104", "T105", "T106", "T107", "T108", "T109", "T110"]
+      },
+      "tasks": ["T101", "T102", "T103", "T104", "T105", "T106", "T107", "T108", "T109", "T110"]
+    },
+    {
+      "id": "C2",
+      "name": "Package And Build Normalization",
+      "gate": {
+        "depends_on_cycles": ["C1"],
+        "complete_when_tasks_done": ["T201", "T202", "T203", "T204", "T205", "T206", "T207", "T208"]
+      },
+      "tasks": ["T201", "T202", "T203", "T204", "T205", "T206", "T207", "T208"]
+    },
+    {
+      "id": "C3",
+      "name": "Existing Vue Component Audit",
+      "gate": {
+        "depends_on_cycles": ["C2"],
+        "complete_when_tasks_done": ["T301", "T302", "T303", "T304", "T305", "T306", "T307", "T308", "T309", "T310", "T311", "T312", "T313", "T314", "T315", "T316", "T317", "T318", "T319", "T320"]
+      },
+      "tasks": ["T301", "T302", "T303", "T304", "T305", "T306", "T307", "T308", "T309", "T310", "T311", "T312", "T313", "T314", "T315", "T316", "T317", "T318", "T319", "T320"]
+    },
+    {
+      "id": "C4",
+      "name": "Missing Primitive Ports",
+      "gate": {
+        "depends_on_cycles": ["C3"],
+        "complete_when_tasks_done": ["T401", "T402", "T403", "T404", "T405", "T406", "T407", "T408", "T409", "T410", "T411", "T412", "T413", "T414", "T415", "T416"]
+      },
+      "tasks": ["T401", "T402", "T403", "T404", "T405", "T406", "T407", "T408", "T409", "T410", "T411", "T412", "T413", "T414", "T415", "T416"]
+    },
+    {
+      "id": "C5",
+      "name": "Composite Component Ports",
+      "gate": {
+        "depends_on_cycles": ["C3"],
+        "complete_when_tasks_done": ["T501", "T502", "T503", "T504", "T505", "T506", "T507", "T508", "T509", "T510", "T511"]
+      },
+      "tasks": ["T501", "T502", "T503", "T504", "T505", "T506", "T507", "T508", "T509", "T510", "T511"]
+    },
+    {
+      "id": "C6",
+      "name": "Storybook QA And Documentation",
+      "gate": {
+        "depends_on_cycles": ["C4", "C5"],
+        "complete_when_tasks_done": ["T601", "T602", "T603", "T604", "T605", "T606"]
+      },
+      "tasks": ["T601", "T602", "T603", "T604", "T605", "T606"]
+    },
+    {
+      "id": "C7",
+      "name": "Consumer Adoption Planning",
+      "gate": {
+        "depends_on_cycles": ["C6"],
+        "complete_when_tasks_done": ["T701", "T702", "T703", "T704", "T705", "T706"]
+      },
+      "tasks": ["T701", "T702", "T703", "T704", "T705", "T706"]
+    },
+    {
+      "id": "C8",
+      "name": "Governance And Finalization",
+      "gate": {
+        "depends_on_cycles": ["C7"],
+        "complete_when_tasks_done": ["T801", "T802", "T803", "T804"]
+      },
+      "tasks": ["T801", "T802", "T803", "T804"]
+    }
+  ],
+  "tasks": [
+    { "id": "T001", "title": "Create canonical source inventory snapshot", "lane": "L1", "cycle": "C0", "kind": "governance", "status": "todo", "deps": [] },
+    { "id": "T002", "title": "Create canonical target inventory snapshot", "lane": "L1", "cycle": "C0", "kind": "governance", "status": "todo", "deps": ["T001"] },
+    { "id": "T003", "title": "Freeze in-scope and excluded component matrix", "lane": "L1", "cycle": "C0", "kind": "governance", "status": "todo", "deps": ["T002"] },
+    { "id": "T004", "title": "Freeze public package identity", "lane": "L1", "cycle": "C0", "kind": "governance", "status": "todo", "deps": ["T003"] },
+    { "id": "T005", "title": "Freeze internal naming and alias migration policy", "lane": "L2", "cycle": "C0", "kind": "governance", "status": "todo", "deps": ["T004"] },
+    { "id": "T006", "title": "Freeze React to Vue API mapping policy", "lane": "L1", "cycle": "C0", "kind": "governance", "status": "todo", "deps": ["T005"] },
+    { "id": "T007", "title": "Freeze Storybook and acceptance policy", "lane": "L6", "cycle": "C0", "kind": "governance", "status": "todo", "deps": ["T006"] },
+    { "id": "T008", "title": "Freeze rollout boundary and React legacy policy", "lane": "L7", "cycle": "C0", "kind": "governance", "status": "todo", "deps": ["T007"] },
+
+    { "id": "T101", "title": "Create component parity matrix", "lane": "L1", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T008"] },
+    { "id": "T102", "title": "Create existing Vue component audit checklist", "lane": "L3", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T101"] },
+    { "id": "T103", "title": "Create missing component implementation shortlist", "lane": "L4", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T101"] },
+    { "id": "T104", "title": "Record excluded source components with rationale", "lane": "L1", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T101"] },
+    { "id": "T105", "title": "Record target-only retained components with rationale", "lane": "L1", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T104"] },
+    { "id": "T106", "title": "Create naming normalization change list", "lane": "L2", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T005"] },
+    { "id": "T107", "title": "Create export and entrypoint change list", "lane": "L2", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T106"] },
+    { "id": "T108", "title": "Create consumer migration artifact list", "lane": "L7", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T008"] },
+    { "id": "T109", "title": "Create source story coverage gap matrix", "lane": "L6", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T007"] },
+    { "id": "T110", "title": "Freeze implementation order across lanes", "lane": "L1", "cycle": "C1", "kind": "inventory", "status": "todo", "deps": ["T107", "T108", "T109"] },
+
+    { "id": "T201", "title": "Normalize tokens package identity", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T110"] },
+    { "id": "T202", "title": "Normalize components package identity", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T201"] },
+    { "id": "T203", "title": "Replace @mi token imports in component source", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T202"] },
+    { "id": "T204", "title": "Replace @mi aliases in tsconfig and Vite config", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T203"] },
+    { "id": "T205", "title": "Normalize build-package script", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T204"] },
+    { "id": "T206", "title": "Normalize Storybook imports and references", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T205"] },
+    { "id": "T207", "title": "Normalize README and consumer examples", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T206"] },
+    { "id": "T208", "title": "Verify workspace build after naming normalization", "lane": "L2", "cycle": "C2", "kind": "normalization", "status": "todo", "deps": ["T207"] },
+
+    { "id": "T301", "title": "Audit BottomSheet parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "BottomSheet", "status": "todo", "deps": ["T208"] },
+    { "id": "T302", "title": "Audit BrandLogo parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "BrandLogo", "status": "todo", "deps": ["T301"] },
+    { "id": "T303", "title": "Audit Button parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Button", "status": "todo", "deps": ["T302"] },
+    { "id": "T304", "title": "Audit ButtonIcon parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "ButtonIcon", "status": "todo", "deps": ["T303"] },
+    { "id": "T305", "title": "Audit Checkbox parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Checkbox", "status": "todo", "deps": ["T304"] },
+    { "id": "T306", "title": "Audit Dialog parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Dialog", "status": "todo", "deps": ["T305"] },
+    { "id": "T307", "title": "Audit DotPagination parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "DotPagination", "status": "todo", "deps": ["T306"] },
+    { "id": "T308", "title": "Audit ImageCounter parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "ImageCounter", "status": "todo", "deps": ["T307"] },
+    { "id": "T309", "title": "Audit Input parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Input", "status": "todo", "deps": ["T308"] },
+    { "id": "T310", "title": "Audit Radio parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Radio", "status": "todo", "deps": ["T309"] },
+    { "id": "T311", "title": "Audit SearchInput parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "SearchInput", "status": "todo", "deps": ["T310"] },
+    { "id": "T312", "title": "Audit Select parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Select", "status": "todo", "deps": ["T311"] },
+    { "id": "T313", "title": "Audit Skeleton parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Skeleton", "status": "todo", "deps": ["T312"] },
+    { "id": "T314", "title": "Audit StarRating parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "StarRating", "status": "todo", "deps": ["T313"] },
+    { "id": "T315", "title": "Audit Switch parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Switch", "status": "todo", "deps": ["T314"] },
+    { "id": "T316", "title": "Audit Tooltip parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Tooltip", "status": "todo", "deps": ["T315"] },
+    { "id": "T317", "title": "Audit UserAvatar parity", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "UserAvatar", "status": "todo", "deps": ["T316"] },
+    { "id": "T318", "title": "Audit retained ListItem quality", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "ListItem", "status": "todo", "deps": ["T317"] },
+    { "id": "T319", "title": "Audit retained Modal quality", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Modal", "status": "todo", "deps": ["T318"] },
+    { "id": "T320", "title": "Audit retained Tag quality", "lane": "L3", "cycle": "C3", "kind": "audit", "component": "Tag", "status": "todo", "deps": ["T319"] },
+
+    { "id": "T401", "title": "Port Accordion to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "Accordion", "layer": "molecules", "status": "todo", "deps": ["T320"] },
+    { "id": "T402", "title": "Port ActionIconGroup to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "ActionIconGroup", "layer": "molecules", "status": "todo", "deps": ["T401"] },
+    { "id": "T403", "title": "Port ActionsPanel to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "ActionsPanel", "layer": "blocks", "status": "todo", "deps": ["T402"] },
+    { "id": "T404", "title": "Port AsideHeader to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "AsideHeader", "layer": "molecules", "status": "todo", "deps": ["T403"] },
+    { "id": "T405", "title": "Port ButtonGroup to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "ButtonGroup", "layer": "molecules", "status": "todo", "deps": ["T404"] },
+    { "id": "T406", "title": "Port DiscountReasonContainer to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "DiscountReasonContainer", "layer": "blocks", "status": "todo", "deps": ["T405"] },
+    { "id": "T407", "title": "Port Drawer to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "Drawer", "layer": "atoms", "status": "todo", "deps": ["T406"] },
+    { "id": "T408", "title": "Port DropdownMenu to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "DropdownMenu", "layer": "molecules", "status": "todo", "deps": ["T407"] },
+    { "id": "T409", "title": "Port InCartButton to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "InCartButton", "layer": "atoms", "status": "todo", "deps": ["T408"] },
+    { "id": "T410", "title": "Port NavigationItem to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "NavigationItem", "layer": "atoms", "status": "todo", "deps": ["T409"] },
+    { "id": "T411", "title": "Port Pagination to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "Pagination", "layer": "molecules", "status": "todo", "deps": ["T410"] },
+    { "id": "T412", "title": "Port PaymentMethodIcons to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "PaymentMethodIcons", "layer": "molecules", "status": "todo", "deps": ["T411"] },
+    { "id": "T413", "title": "Port QuantityStepper to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "QuantityStepper", "layer": "atoms", "status": "todo", "deps": ["T412"] },
+    { "id": "T414", "title": "Port Segmented to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "Segmented", "layer": "molecules", "status": "todo", "deps": ["T413"] },
+    { "id": "T415", "title": "Port Tabs to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "Tabs", "layer": "molecules", "status": "todo", "deps": ["T414"] },
+    { "id": "T416", "title": "Port Toast to Vue", "lane": "L4", "cycle": "C4", "kind": "port", "component": "Toast", "layer": "molecules", "status": "todo", "deps": ["T415"] },
+
+    { "id": "T501", "title": "Port FeaturedServiceItem to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "FeaturedServiceItem", "layer": "blocks", "status": "todo", "deps": ["T320"] },
+    { "id": "T502", "title": "Port GiftItem to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "GiftItem", "layer": "blocks", "status": "todo", "deps": ["T501"] },
+    { "id": "T503", "title": "Port ProductCard to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "ProductCard", "layer": "blocks", "status": "todo", "deps": ["T502"] },
+    { "id": "T504", "title": "Port ProductLabel to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "ProductLabel", "layer": "blocks", "status": "todo", "deps": ["T503"] },
+    { "id": "T505", "title": "Port PromoBannerSide to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "PromoBannerSide", "layer": "blocks", "status": "todo", "deps": ["T504"] },
+    { "id": "T506", "title": "Port ReviewItem to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "ReviewItem", "layer": "blocks", "status": "todo", "deps": ["T505"] },
+    { "id": "T507", "title": "Port ReviewSummary to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "ReviewSummary", "layer": "blocks", "status": "todo", "deps": ["T506"] },
+    { "id": "T508", "title": "Port SpecificationItem to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "SpecificationItem", "layer": "blocks", "status": "todo", "deps": ["T507"] },
+    { "id": "T509", "title": "Port StoreItem to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "StoreItem", "layer": "blocks", "status": "todo", "deps": ["T508"] },
+    { "id": "T510", "title": "Port Table to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "Table", "layer": "blocks", "status": "todo", "deps": ["T509"] },
+    { "id": "T511", "title": "Port Tree to Vue", "lane": "L5", "cycle": "C5", "kind": "port", "component": "Tree", "layer": "blocks", "status": "todo", "deps": ["T510"] },
+
+    { "id": "T601", "title": "Close Storybook coverage for primitive ports", "lane": "L6", "cycle": "C6", "kind": "qa", "status": "todo", "deps": ["T416"] },
+    { "id": "T602", "title": "Close Storybook coverage for composite ports", "lane": "L6", "cycle": "C6", "kind": "qa", "status": "todo", "deps": ["T601", "T511"] },
+    { "id": "T603", "title": "Create parity review checklist", "lane": "L6", "cycle": "C6", "kind": "docs", "status": "todo", "deps": ["T602"] },
+    { "id": "T604", "title": "Create React to Vue API mapping reference", "lane": "L6", "cycle": "C6", "kind": "docs", "status": "todo", "deps": ["T603"] },
+    { "id": "T605", "title": "Create accessibility and token compliance checklist", "lane": "L6", "cycle": "C6", "kind": "docs", "status": "todo", "deps": ["T604"] },
+    { "id": "T606", "title": "Add smoke-check workflow and release gates", "lane": "L6", "cycle": "C6", "kind": "qa", "status": "todo", "deps": ["T605"] },
+
+    { "id": "T701", "title": "Map Dreamstore consumption surfaces", "lane": "L7", "cycle": "C7", "kind": "rollout", "status": "todo", "deps": ["T606"] },
+    { "id": "T702", "title": "Create Dreamstore adoption sequence", "lane": "L7", "cycle": "C7", "kind": "rollout", "status": "todo", "deps": ["T701"] },
+    { "id": "T703", "title": "Define pilot adoption slice", "lane": "L7", "cycle": "C7", "kind": "rollout", "status": "todo", "deps": ["T702"] },
+    { "id": "T704", "title": "Document treatment of excluded components", "lane": "L7", "cycle": "C7", "kind": "rollout", "status": "todo", "deps": ["T703"] },
+    { "id": "T705", "title": "Define React legacy freeze criteria", "lane": "L7", "cycle": "C7", "kind": "rollout", "status": "todo", "deps": ["T704"] },
+    { "id": "T706", "title": "Write downstream migration playbook", "lane": "L7", "cycle": "C7", "kind": "rollout", "status": "todo", "deps": ["T705"] },
+
+    { "id": "T801", "title": "Link planning artifacts from workspace README", "lane": "L1", "cycle": "C8", "kind": "finalization", "status": "todo", "deps": ["T706"] },
+    { "id": "T802", "title": "Finalize Ralph status policy and handoff template", "lane": "L1", "cycle": "C8", "kind": "finalization", "status": "todo", "deps": ["T801"] },
+    { "id": "T803", "title": "Write final planning summary", "lane": "L1", "cycle": "C8", "kind": "finalization", "status": "todo", "deps": ["T802"] },
+    { "id": "T804", "title": "Record legacy Dreamstore PRD as superseded", "lane": "L1", "cycle": "C8", "kind": "finalization", "status": "todo", "deps": ["T803"] }
+  ]
+}

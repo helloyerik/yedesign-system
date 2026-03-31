@@ -29,7 +29,7 @@ const meta = {
     variant: "default",
     caretWeight: "regular",
     caretSize: 16,
-    showSelectedMark: false,
+    showSelectedMark: true,
     placeholder: "Выберите...",
     className: "",
     dropdownMenuClassName: "",

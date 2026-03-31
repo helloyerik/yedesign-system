@@ -1,6 +1,7 @@
 type TooltipPosition = "top" | "bottom" | "left" | "right";
 type TooltipWidthVariant = "fixed" | "hug";
 type __VLS_Props = {
+    className?: string;
     position?: TooltipPosition;
     autoPosition?: boolean;
     trigger?: HTMLElement | null;
@@ -13,6 +14,7 @@ type __VLS_Slots = {} & {
     default?: (props: typeof __VLS_1) => any;
 };
 declare const __VLS_base: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{}>, {
+    className: string;
     position: TooltipPosition;
     autoPosition: boolean;
     trigger: HTMLElement | null;

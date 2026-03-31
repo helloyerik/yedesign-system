@@ -11,8 +11,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@mi/tokens": ["packages/tokens/src/tokens.css"],
-      "@mi/tokens/*": ["packages/tokens/src/*"],
+      "@yerik/yedesign-system-tokens": ["packages/tokens/src/tokens.css"],
+      "@yerik/yedesign-system-tokens/*": ["packages/tokens/src/*"],
       "@tokens/*": ["packages/tokens/src/*"],
       "@tokens-studio/*": ["packages/tokens/studio/*"],
       "@components/*": ["packages/components/src/*"],
