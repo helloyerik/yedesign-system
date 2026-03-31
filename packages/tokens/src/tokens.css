@@ -131,7 +131,7 @@
   --mi-font-weight-article-body: var(--mi-font-weight-body-2);
   --mi-font-family-code-body: "Fira Mono", monospace;
   --mi-font-size-code-body: var(--mi-font-size-body-2);
-  --mi-line-height-code-body: var(--mi-line-height-body-2);
+  --mi-line-height-code-body: 22px;
   --mi-font-weight-code-body: var(--mi-font-weight-body-2);
   --mi-spacing-0: 0px;
   --mi-spacing-6xl: 40px;

@@ -62,7 +62,7 @@ const valuesByName: Record<string, { size: string; lineHeight: string }> = {
   "Caption 2": { size: "11px", lineHeight: "16px" },
   "Caption 1": { size: "9px", lineHeight: "12px" },
   "Article Body": { size: "15px", lineHeight: "20px" },
-  "Code Body": { size: "15px", lineHeight: "20px" },
+  "Code Body": { size: "15px", lineHeight: "22px" },
 };
 
 const makeItems = (groupName: "Display" | "Header" | "Text"): TypographyItem[] =>
