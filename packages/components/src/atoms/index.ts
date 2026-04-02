@@ -29,6 +29,7 @@ export { default as Switch } from "./Switch";
 export { default as Tag } from "./Tag";
 export { default as Tabs } from "./Tabs";
 export { default as Toast } from "./Toast";
+export { default as TextSpacer } from "./TextSpacer";
 export { default as Tooltip } from "./Tooltip";
 export { default as PopoverArrow } from "./PopoverArrow";
 export { default as Tree } from "./Tree";
