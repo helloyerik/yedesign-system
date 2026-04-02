@@ -69,8 +69,11 @@ const onIncrement = () => {
 .mi-quantity-stepper {
   display: flex;
   width: 100px;
-  height: 36px;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--mi-spacing-8);
+  height: var(--mi-size-button-s-height);
+  padding-inline: var(--mi-spacing-0);
   border-radius: var(--mi-radius-m);
   background: var(--mi-color-surface-muted);
 }
