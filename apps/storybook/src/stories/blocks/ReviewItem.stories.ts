@@ -5,30 +5,18 @@ const meta = {
   title: "Blocks/ReviewItem",
   component: ReviewItem,
   parameters: {
-    layout: "padded",
+    layout: "centered",
   },
   tags: ["autodocs"],
   args: {
-    userName: "Алия",
-    date: "12.02.2026",
-    rating: 4.7,
-    text: "Понравился сервис и скорость доставки. Упаковка аккуратная, товар без повреждений.",
+    userName: "Алия Д.",
+    date: "12 марта",
+    rating: 5,
+    text: "Очень быстро доставили, товар в идеальном состоянии. Спасибо!",
   },
 } satisfies Meta<typeof ReviewItem>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => ({
-    components: { ReviewItem },
-    setup() {
-      return { args };
-    },
-    template: `
-      <div style="width: 640px;">
-        <ReviewItem v-bind="args" />
-      </div>
-    `,
-  }),
-};
+export const Default: Story = {};

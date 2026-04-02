@@ -1,50 +1,46 @@
 <script setup lang="ts">
-import paths from "./productUiPaths";
+import { PhThumbsUp, PhThumbsDown } from "@phosphor-icons/vue";
 import UserAvatar from "../../atoms/UserAvatar/UserAvatar.vue";
 import StarRating from "../../atoms/StarRating/StarRating.vue";
 
-defineProps<{
-  userName: string;
-  date: string;
-  rating: number;
-  text: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    userName: string;
+    date: string;
+    rating: number;
+    text: string;
+    showFeedback?: boolean;
+    className?: string;
+  }>(),
+  {
+    showFeedback: true,
+    className: "",
+  },
+);
 </script>
 
 <template>
-  <div class="mi-review-item">
-    <div class="mi-review-item__user-row">
+  <div class="mi-review-item" :class="className">
+    <div class="mi-review-item__header">
       <UserAvatar />
-      <div class="mi-review-item__user-name-wrap">
-        <p class="mi-review-item__user-name">{{ userName }}</p>
+      <div class="mi-review-item__user">
+        {{ userName }}
       </div>
       <div class="mi-review-item__meta">
-        <div class="mi-review-item__date-wrap">
-          <p class="mi-review-item__date">{{ date }}</p>
-        </div>
+        <span class="mi-review-item__date">{{ date }}</span>
         <StarRating :rating="rating" :size="20" />
       </div>
     </div>
-
-    <div class="mi-review-item__text-wrap">
-      <p class="mi-review-item__text">{{ text }}</p>
+    <div class="mi-review-item__text">
+      {{ text }}
     </div>
-
-    <div class="mi-review-item__thumbs">
-      <div class="mi-review-item__thumb-button">
-        <div class="mi-review-item__thumb-icon">
-          <svg class="mi-review-item__thumb-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-            <path :d="paths.paa4680" fill="var(--mi-color-text-secondary)" />
-          </svg>
-        </div>
-      </div>
-      <div class="mi-review-item__thumb-button">
-        <div class="mi-review-item__thumb-icon">
-          <svg class="mi-review-item__thumb-svg" fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-            <path :d="paths.p25a2a100" fill="var(--mi-color-text-secondary)" />
-          </svg>
-        </div>
-      </div>
+    <div v-if="showFeedback" class="mi-review-item__feedback">
+      <button type="button" class="mi-review-item__feedback-btn" aria-label="Thumbs up">
+        <PhThumbsUp :size="20" />
+      </button>
+      <button type="button" class="mi-review-item__feedback-btn" aria-label="Thumbs down">
+        <PhThumbsDown :size="20" />
+      </button>
     </div>
   </div>
 </template>
@@ -52,95 +48,65 @@ defineProps<{
 <style scoped>
 .mi-review-item {
   display: flex;
-  width: 100%;
-  flex-shrink: 0;
   flex-direction: column;
-  align-items: flex-start;
   gap: var(--mi-spacing-16);
-  background: var(--mi-color-base-background);
+  width: 100%;
+  background: var(--mi-color-surface-panel);
 }
 
-.mi-review-item__user-row {
+.mi-review-item__header {
   display: flex;
-  width: 100%;
   align-items: center;
   gap: var(--mi-spacing-12);
+  width: 100%;
 }
 
-.mi-review-item__user-name-wrap {
-  min-width: 0;
-  flex: 1 0 0;
-}
-
-.mi-review-item__user-name {
+.mi-review-item__user {
+  flex: 1 1 auto;
   color: var(--mi-color-text-complementary);
-  white-space: pre-wrap;
   font-family: var(--mi-font-family-subheader-2);
   font-size: var(--mi-font-size-subheader-2);
-  font-weight: var(--mi-font-weight-subheader-2);
   line-height: var(--mi-line-height-subheader-2);
 }
 
 .mi-review-item__meta {
-  display: flex;
-  min-width: 0;
-  flex: 1 0 0;
+  display: inline-flex;
   align-items: center;
-  justify-content: flex-end;
   gap: var(--mi-spacing-16);
-}
-
-.mi-review-item__date-wrap {
-  flex-shrink: 0;
 }
 
 .mi-review-item__date {
   color: var(--mi-color-text-secondary);
-  white-space: nowrap;
   font-family: var(--mi-font-family-body-1);
   font-size: var(--mi-font-size-body-1);
-  font-weight: var(--mi-font-weight-body-1);
   line-height: var(--mi-line-height-body-1);
-}
-
-.mi-review-item__text-wrap {
-  width: 100%;
-  min-width: 100%;
 }
 
 .mi-review-item__text {
   color: var(--mi-color-text-primary);
-  white-space: pre-wrap;
   font-family: var(--mi-font-family-body-2);
   font-size: var(--mi-font-size-body-2);
-  font-weight: var(--mi-font-weight-body-2);
   line-height: var(--mi-line-height-body-2);
+  white-space: pre-wrap;
 }
 
-.mi-review-item__thumbs {
-  display: flex;
-  height: 28px;
+.mi-review-item__feedback {
+  display: inline-flex;
   align-items: center;
   gap: var(--mi-spacing-8);
 }
 
-.mi-review-item__thumb-button {
+.mi-review-item__feedback-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 2px;
+  width: var(--mi-spacing-3xl);
+  height: var(--mi-spacing-3xl);
+  border: 0;
   border-radius: var(--mi-radius-m);
-}
-
-.mi-review-item__thumb-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-}
-
-.mi-review-item__thumb-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+  background: transparent;
+  color: var(--mi-color-text-secondary);
+  cursor: pointer;
+  padding: 0;
 }
 </style>

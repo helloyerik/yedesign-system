@@ -33,6 +33,8 @@
 - AsideHeader
 - ButtonGroup
 - DiscountReasonContainer
+- ReviewItem
+- ReviewSummary
 
 ## Backlog
 - Accordion-related: ActionIconGroup, ActionsPanel
@@ -49,8 +51,6 @@
 - ProductPriceTooltip
 - PromoBannerSide
 - QuantityStepper
-- ReviewItem
-- ReviewSummary
 - StoreItem
 - Table
 - ThemePanel

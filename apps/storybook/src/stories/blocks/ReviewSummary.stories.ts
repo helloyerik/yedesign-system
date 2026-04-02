@@ -9,8 +9,8 @@ const meta = {
   },
   tags: ["autodocs"],
   args: {
-    rating: 4.9,
-    reviewCount: 123,
+    rating: 4.8,
+    reviewCount: 128,
   },
 } satisfies Meta<typeof ReviewSummary>;
 
