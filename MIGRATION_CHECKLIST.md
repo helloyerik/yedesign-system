@@ -49,11 +49,11 @@
 - Toast
 - PaymentMethodIcons
 - Tree
+- PromoBannerSide
 
 ## Backlog
 - FeaturedServiceItem
 - InspectOverlay
 - ProductCard
-- PromoBannerSide
 - Table
 - ThemePanel

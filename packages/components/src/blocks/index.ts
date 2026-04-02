@@ -9,6 +9,7 @@ export { default as PaymentMethodIcons } from "./PaymentMethodIcons";
 export { default as ProductDiscountTooltip } from "./ProductDiscountTooltip";
 export { default as ProductLabelGroup } from "./ProductLabelGroup";
 export { default as ProductPriceTooltip } from "./ProductPriceTooltip";
+export { default as PromoBannerSide } from "./PromoBannerSide";
 export { default as ReviewItem } from "./ReviewItem";
 export { default as ReviewSummary } from "./ReviewSummary";
 export { default as StoreItem } from "./StoreItem";

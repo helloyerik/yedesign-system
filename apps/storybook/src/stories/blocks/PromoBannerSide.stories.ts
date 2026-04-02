@@ -5,11 +5,11 @@ const meta = {
   title: "Blocks/PromoBannerSide",
   component: PromoBannerSide,
   parameters: {
-    layout: "padded",
+    layout: "centered",
   },
   tags: ["autodocs"],
   args: {
-    imageSrc: "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=80",
+    imageSrc: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
     variant: "default",
   },
 } satisfies Meta<typeof PromoBannerSide>;
@@ -17,22 +17,10 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args) => ({
-    components: { PromoBannerSide },
-    setup() {
-      return { args };
-    },
-    template: `
-      <div style="width: 325px;">
-        <PromoBannerSide v-bind="args" />
-      </div>
-    `,
-  }),
-};
+export const Default: Story = {};
 
-export const VariantB: Story = {
+export const Tall: Story = {
   args: {
-    variant: "variant-b",
+    variant: "tall",
   },
 };

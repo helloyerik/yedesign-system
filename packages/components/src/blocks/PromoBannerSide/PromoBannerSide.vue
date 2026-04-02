@@ -1,44 +1,44 @@
 <script setup lang="ts">
-withDefaults(
+const props = withDefaults(
   defineProps<{
     imageSrc: string;
-    variant?: "default" | "variant-b";
+    variant?: "default" | "tall";
+    className?: string;
   }>(),
   {
     variant: "default",
+    className: "",
   },
 );
 </script>
 
 <template>
   <div
-    class="mi-promo-banner-side"
-    :class="{ 'mi-promo-banner-side--variant-b': variant === 'variant-b' }"
+    class="mi-promo-banner"
+    :class="[className, `mi-promo-banner--${variant}`]"
   >
-    <img
-      alt=""
-      class="mi-promo-banner-side__image"
-      :src="imageSrc"
-    />
+    <img class="mi-promo-banner__image" :src="imageSrc" alt="" />
   </div>
 </template>
 
 <style scoped>
-.mi-promo-banner-side {
+.mi-promo-banner {
   position: relative;
   width: 100%;
-  aspect-ratio: 325 / 240;
   overflow: hidden;
   border-radius: var(--mi-radius-l);
-  box-shadow: 0 1px 5px rgb(0 0 0 / 15%);
+  box-shadow: var(--mi-shadow-card);
 }
 
-.mi-promo-banner-side--variant-b {
-  height: 177.724px;
-  aspect-ratio: auto;
+.mi-promo-banner--default {
+  aspect-ratio: 325 / 240;
 }
 
-.mi-promo-banner-side__image {
+.mi-promo-banner--tall {
+  height: calc(var(--mi-spacing-8xl) + var(--mi-spacing-5xl));
+}
+
+.mi-promo-banner__image {
   position: absolute;
   inset: 0;
   width: 100%;
