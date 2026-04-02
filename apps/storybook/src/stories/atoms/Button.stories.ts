@@ -26,7 +26,7 @@ const meta = {
     disabled: { control: "boolean" },
   },
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "primary",
     size: "M",
     width: "hug",
@@ -55,7 +55,7 @@ export const Playground: Story = {
 
 export const Primary: Story = {
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "primary",
     size: "M",
   },
@@ -74,7 +74,7 @@ export const PrimaryWithIcon: Story = {
     `,
   }),
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "primary",
     size: "L",
   },
@@ -82,7 +82,7 @@ export const PrimaryWithIcon: Story = {
 
 export const Secondary: Story = {
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "secondary",
     size: "M",
   },
@@ -90,7 +90,7 @@ export const Secondary: Story = {
 
 export const BrandSecondary: Story = {
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "brand-secondary",
     size: "M",
   },
@@ -98,7 +98,7 @@ export const BrandSecondary: Story = {
 
 export const Outline: Story = {
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "outline",
     size: "M",
   },
@@ -106,7 +106,7 @@ export const Outline: Story = {
 
 export const TextOnly: Story = {
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "text-only",
     size: "S",
   },
@@ -114,7 +114,7 @@ export const TextOnly: Story = {
 
 export const Loading: Story = {
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "primary",
     size: "M",
     isLoading: true,
@@ -123,7 +123,7 @@ export const Loading: Story = {
 
 export const Disabled: Story = {
   args: {
-    label: "{Label}",
+    label: "Label",
     variant: "primary",
     size: "M",
     disabled: true,
@@ -150,10 +150,10 @@ export const AllSizes: Story = {
     components: { Button },
     template: `
       <div style="display:flex; flex-direction:column; gap: var(--mi-spacing-16); align-items:flex-start;">
-        <Button size="L" label="{Label}" />
-        <Button size="M" label="{Label}" />
-        <Button size="S" label="{Label}" />
-        <Button size="XS" label="{Label}" />
+        <Button size="L" label="Label" />
+        <Button size="M" label="Label" />
+        <Button size="S" label="Label" />
+        <Button size="XS" label="Label" />
       </div>
     `,
   }),
@@ -164,7 +164,7 @@ export const FullWidth: Story = {
     components: { Button },
     template: `
       <div style="width: 400px; border: 1px solid var(--mi-color-line-generic); padding: var(--mi-spacing-16);">
-        <Button width="full" label="{Label}" />
+        <Button width="full" label="Label" />
       </div>
     `,
   }),
