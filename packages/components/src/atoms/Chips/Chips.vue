@@ -73,7 +73,7 @@ const onSelect = (id: string) => {
 }
 
 .mi-chips--xs {
-  gap: var(--mi-spacing-4);
+  gap: var(--mi-spacing-8);
 }
 
 .mi-chips--xs :deep(.mi-button) {
