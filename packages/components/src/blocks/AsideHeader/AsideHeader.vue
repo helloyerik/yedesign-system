@@ -156,10 +156,6 @@ const toggleCompact = () => {
           <div v-if="logoDivider" class="mi-aside-header__logo-divider" />
         </div>
 
-        <div v-if="$slots.subheader" class="mi-aside-header__subheader-slot">
-          <slot name="subheader" />
-        </div>
-
         <div v-if="resolvedSubheaderItems.length" class="mi-aside-header__subheader">
           <NavigationItem
             v-for="item in resolvedSubheaderItems"
@@ -177,7 +173,9 @@ const toggleCompact = () => {
       </div>
 
       <div v-if="resolvedMenuItems.length" class="mi-aside-header__section">
-        <div class="mi-aside-header__divider" />
+        <div v-if="$slots.subheader" class="mi-aside-header__subheader-slot">
+          <slot name="subheader" />
+        </div>
         <NavigationItem
           v-for="item in resolvedMenuItems"
           :key="item.id"
@@ -191,7 +189,6 @@ const toggleCompact = () => {
       </div>
 
       <div v-for="(group, index) in resolvedGroups" :key="index" class="mi-aside-header__section">
-        <div class="mi-aside-header__divider" />
         <NavigationItem
           v-for="item in group.items"
           :key="item.id"
@@ -263,6 +260,20 @@ const toggleCompact = () => {
   border: 0;
 }
 
+.mi-aside-header--ghost .mi-aside-header__top {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.mi-aside-header--ghost .mi-aside-header__logo-row {
+  padding-inline: 0;
+}
+
+.mi-aside-header--ghost .mi-aside-header__subheader,
+.mi-aside-header--ghost .mi-aside-header__subheader-slot {
+  padding-inline: 0;
+}
+
 .mi-aside-header.is-collapsed {
   width: var(--mi-aside-width-collapsed);
 }
@@ -285,14 +296,14 @@ const toggleCompact = () => {
   display: flex;
   flex-direction: column;
   gap: var(--mi-spacing-8);
-  padding-bottom: var(--mi-spacing-8);
-  padding-top: var(--mi-spacing-8);
+  padding-bottom: var(--mi-spacing-16);
+  padding-top: 0;
   position: relative;
 }
 
 .mi-aside-header__top.is-decorated {
   background: var(--mi-color-base-generic);
-  border-bottom: 1px solid var(--mi-color-line-generic);
+  border-bottom: 0;
 }
 
 .mi-aside-header__logo-row {
@@ -312,6 +323,7 @@ const toggleCompact = () => {
 
 .mi-aside-header__subheader-slot {
   padding-inline: var(--mi-spacing-8);
+  padding-block: var(--mi-spacing-8);
 }
 
 .mi-aside-header__nav-item {
@@ -402,6 +414,10 @@ const toggleCompact = () => {
   background: var(--mi-color-line-generic);
 }
 
+.mi-aside-header__section:first-of-type .mi-aside-header__divider {
+  display: none;
+}
+
 .mi-aside-header__subheader {
   display: flex;
   flex-direction: column;
@@ -409,9 +425,7 @@ const toggleCompact = () => {
 }
 
 .mi-aside-header__header-divider {
-  height: 1px;
-  margin-top: var(--mi-spacing-8);
-  background: var(--mi-color-line-generic);
+  display: none;
 }
 
 .mi-aside-header__spacer {
