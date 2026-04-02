@@ -113,11 +113,11 @@ const hasIcon = computed(() => Boolean(slots.icon) || Boolean(props.icon));
 }
 
 .mi-nav-item.is-selected {
-  background: var(--mi-color-brand-base-selection);
+  background: var(--mi-color-base-generic);
 }
 
 .mi-nav-item.is-selected .mi-nav-item__icon-wrap,
 .mi-nav-item.is-selected .mi-nav-item__label {
-  color: var(--mi-color-brand-text-brand);
+  color: var(--mi-color-text-primary);
 }
 </style>
