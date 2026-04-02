@@ -72,6 +72,10 @@ const onSelect = (id: string) => {
   align-items: center;
 }
 
+.mi-chips--xs {
+  gap: var(--mi-spacing-6);
+}
+
 .mi-chips--xs :deep(.mi-button) {
   height: 28px;
   padding-inline: var(--mi-spacing-8);
