@@ -16,6 +16,10 @@ const meta = {
       control: "inline-radio",
       options: ["default", "compact", "textOnly"],
     },
+    state: {
+      control: "inline-radio",
+      options: ["default", "hover", "active", "filled", "disabled", "error", "errorOutline", "textOnly"],
+    },
     caretWeight: {
       control: "inline-radio",
       options: ["regular", "fill"],
@@ -26,13 +30,16 @@ const meta = {
   args: {
     value: "Option 1",
     options,
+    label: "Label",
     variant: "default",
+    state: "default",
     caretWeight: "regular",
     caretSize: 16,
     showSelectedMark: true,
     placeholder: "Выберите...",
     className: "",
     dropdownMenuClassName: "",
+    errorText: "Error content",
   },
 } satisfies Meta<typeof Select>;
 
