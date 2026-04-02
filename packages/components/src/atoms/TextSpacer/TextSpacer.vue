@@ -7,15 +7,19 @@ const props = withDefaults(
     topVariant: TextSpacingVariant;
     bottomVariant: TextSpacingVariant;
     mode?: TextSpacingMode;
+    tokenOverride?: string;
     className?: string;
   }>(),
   {
     mode: "default",
+    tokenOverride: undefined,
     className: "",
   },
 );
 
-const token = computed(() => getTextSpacingToken(props.topVariant, props.bottomVariant, props.mode));
+const token = computed(() =>
+  props.tokenOverride ?? getTextSpacingToken(props.topVariant, props.bottomVariant, props.mode),
+);
 </script>
 
 <template>
