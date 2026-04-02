@@ -53,7 +53,7 @@
 - Table
 - ProductCard
 - FeaturedServiceItem
+- ThemePanel
 
 ## Backlog
 - InspectOverlay
-- ThemePanel
