@@ -48,6 +48,7 @@
 - QuantityStepper
 - Toast
 - PaymentMethodIcons
+- Tree
 
 ## Backlog
 - FeaturedServiceItem
@@ -56,4 +57,3 @@
 - PromoBannerSide
 - Table
 - ThemePanel
-- Tree
