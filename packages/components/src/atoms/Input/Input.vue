@@ -333,7 +333,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
 }
 
 .mi-input__control--padding-l {
-  padding-top: var(--mi-spacing-16);
+  padding-top: var(--mi-spacing-12);
   padding-bottom: var(--mi-spacing-4);
 }
 
