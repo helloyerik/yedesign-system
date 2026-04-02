@@ -35,6 +35,7 @@
 - DiscountReasonContainer
 - ReviewItem
 - ReviewSummary
+- ProductLabel
 
 ## Backlog
 - Accordion-related: ActionIconGroup, ActionsPanel
@@ -46,7 +47,6 @@
 - PaymentMethodIcons
 - ProductCard
 - ProductDiscountTooltip
-- ProductLabel
 - ProductLabelGroup
 - ProductPriceTooltip
 - PromoBannerSide

@@ -19,6 +19,7 @@ export { default as Modal } from "./atoms/Modal/Modal.vue";
 export { default as NavigationItem } from "./atoms/NavigationItem/NavigationItem.vue";
 export { default as Radio } from "./atoms/Radio/Radio.vue";
 export { default as RadioGroup } from "./atoms/Radio/RadioGroup.vue";
+export { default as ProductLabel } from "./atoms/ProductLabel/ProductLabel.vue";
 export { default as SearchInput } from "./atoms/SearchInput/SearchInput.vue";
 export { default as Select } from "./atoms/Select/Select.vue";
 export { default as Segmented } from "./atoms/Segmented/Segmented.vue";
