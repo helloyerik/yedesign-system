@@ -51,9 +51,9 @@
 - Tree
 - PromoBannerSide
 - Table
+- ProductCard
 
 ## Backlog
 - FeaturedServiceItem
 - InspectOverlay
-- ProductCard
 - ThemePanel

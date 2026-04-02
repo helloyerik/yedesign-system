@@ -6,6 +6,7 @@ export { default as DeliveryMethodContainer } from "./DeliveryMethodContainer";
 export { default as GiftItem } from "./GiftItem";
 export { default as MobileBottomTabBar } from "./MobileBottomTabBar";
 export { default as PaymentMethodIcons } from "./PaymentMethodIcons";
+export { default as ProductCard } from "./ProductCard";
 export { default as ProductDiscountTooltip } from "./ProductDiscountTooltip";
 export { default as ProductLabelGroup } from "./ProductLabelGroup";
 export { default as ProductPriceTooltip } from "./ProductPriceTooltip";
