@@ -117,7 +117,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
     <div class="mi-input" :class="inputContainerClasses">
       <span v-if="slots.startIcon || resolvedStartIcon" class="mi-input__adornment mi-input__adornment--start">
         <slot name="startIcon">
-          <component :is="resolvedStartIcon" :size="24" class="mi-input__icon-default mi-input__icon-default--start" />
+          <component :is="resolvedStartIcon" :size="20" class="mi-input__icon-default mi-input__icon-default--start" />
         </slot>
       </span>
 
@@ -154,7 +154,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
         <slot name="endIcon">
           <component
             :is="resolvedEndIcon"
-            :size="isErrorState ? 24 : 16"
+            :size="20"
             class="mi-input__icon-default"
             :class="{ 'mi-input__icon-default--danger': isErrorState }"
           />
@@ -168,7 +168,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
   <div v-else class="mi-input" :class="inputContainerClasses">
     <span v-if="slots.startIcon || resolvedStartIcon" class="mi-input__adornment mi-input__adornment--start">
       <slot name="startIcon">
-        <component :is="resolvedStartIcon" :size="24" class="mi-input__icon-default mi-input__icon-default--start" />
+        <component :is="resolvedStartIcon" :size="20" class="mi-input__icon-default mi-input__icon-default--start" />
       </slot>
     </span>
 
@@ -205,7 +205,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
       <slot name="endIcon">
         <component
           :is="resolvedEndIcon"
-          :size="isErrorState ? 24 : 16"
+          :size="20"
           class="mi-input__icon-default"
           :class="{ 'mi-input__icon-default--danger': isErrorState }"
         />
@@ -228,7 +228,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
   gap: var(--mi-spacing-8);
   width: 100%;
   border: 1px solid var(--mi-color-line-generic);
-  border-radius: var(--mi-radius-xl);
+  border-radius: var(--mi-radius-l);
   background: var(--mi-color-base-light);
 }
 
