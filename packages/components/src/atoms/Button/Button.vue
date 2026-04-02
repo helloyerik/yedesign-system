@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from "vue";
 
-type ButtonVariant = "primary" | "brand-secondary" | "secondary" | "outline" | "text-only";
+type ButtonVariant = "primary" | "brand-secondary" | "secondary" | "secondary-info" | "outline" | "text-only";
 type ButtonSize = "L" | "M" | "S" | "XS";
 type ButtonWidth = "hug" | "full";
 type ButtonType = "button" | "submit" | "reset";
@@ -185,6 +185,10 @@ const handleClick = (event: MouseEvent) => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--mi-font-family-body-2);
+  font-size: var(--mi-font-size-body-2);
+  font-weight: var(--mi-font-weight-body-2);
+  line-height: var(--mi-line-height-body-2);
 }
 
 .mi-button__icon {
@@ -275,6 +279,24 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .mi-button--secondary.is-disabled {
+  background: var(--mi-color-base-generic);
+  color: var(--mi-color-text-secondary);
+}
+
+.mi-button--secondary-info {
+  background: var(--mi-color-base-generic);
+  color: var(--mi-color-text-info);
+}
+
+.mi-button--secondary-info:hover:not(:disabled) {
+  background: var(--mi-color-base-subtle-hover);
+}
+
+.mi-button--secondary-info:active:not(:disabled) {
+  background: var(--mi-color-base-subtle-active);
+}
+
+.mi-button--secondary-info.is-disabled {
   background: var(--mi-color-base-generic);
   color: var(--mi-color-text-secondary);
 }
