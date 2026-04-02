@@ -13,6 +13,7 @@ const meta = {
     serviceName: "Dreamstore",
     collapsible: true,
     defaultCollapsed: false,
+    headerDecoration: true,
   },
 } satisfies Meta<typeof AsideHeader>;
 
@@ -25,17 +26,13 @@ export const Default: Story = {
     setup() {
       return {
         args,
-        topItems: [
+        subheaderItems: [
           { id: "home", label: "Главная", icon: PhHouse },
         ],
-        middleGroups: [
-          {
-            items: [
-              { id: "stats", label: "Статистика", icon: PhChartBar },
-            ],
-          },
+        menuItems: [
+          { id: "stats", label: "Статистика", icon: PhChartBar },
         ],
-        bottomItems: [
+        footerItems: [
           { id: "settings", label: "Настройки", icon: PhGear },
         ],
       };
@@ -44,9 +41,9 @@ export const Default: Story = {
       <div style="height: 420px;">
         <AsideHeader
           v-bind="args"
-          :top-items="topItems"
-          :middle-groups="middleGroups"
-          :bottom-items="bottomItems"
+          :subheader-items="subheaderItems"
+          :menu-items="menuItems"
+          :footer-items="footerItems"
         />
       </div>
     `,
