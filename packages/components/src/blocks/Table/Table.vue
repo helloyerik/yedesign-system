@@ -132,8 +132,8 @@ const handleSort = (column: TableColumn<any>) => {
             >
               <span>{{ column.header }}</span>
               <span v-if="column.sortable" class="mi-table__sort">
-                <PhCaretUp :size="10" weight="fill" :class="{ 'is-active': sortCol === column.id && sortDir === 'asc' }" />
-                <PhCaretDown :size="10" weight="fill" :class="{ 'is-active': sortCol === column.id && sortDir === 'desc' }" />
+                <PhCaretUp :size="16" weight="fill" :class="{ 'is-active': sortCol === column.id && sortDir === 'asc' }" />
+                <PhCaretDown :size="16" weight="fill" :class="{ 'is-active': sortCol === column.id && sortDir === 'desc' }" />
               </span>
             </button>
           </th>
@@ -217,16 +217,21 @@ const handleSort = (column: TableColumn<any>) => {
 }
 
 .mi-table__cell--header {
-  color: var(--mi-color-text-secondary);
-  font-family: var(--mi-font-family-body-2);
-  font-size: var(--mi-font-size-body-2);
-  line-height: var(--mi-line-height-body-2);
+  box-sizing: border-box;
+  height: var(--mi-spacing-6xl);
+  padding: var(--mi-spacing-12) var(--mi-spacing-16);
+  border-bottom: var(--mi-size-hairline) solid var(--mi-color-line-generic);
+  color: var(--mi-color-text-primary);
+  font-family: var(--mi-font-family-subheader-1);
+  font-size: var(--mi-font-size-subheader-1);
+  line-height: var(--mi-line-height-subheader-1);
+  font-weight: var(--mi-font-weight-subheader-1);
 }
 
 .mi-table__header-button {
   display: inline-flex;
   align-items: center;
-  gap: var(--mi-spacing-4);
+  gap: var(--mi-spacing-8);
   border: 0;
   background: transparent;
   cursor: pointer;
