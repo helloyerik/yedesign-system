@@ -3,6 +3,7 @@ export { default as ActionsPanel } from "./ActionsPanel";
 export { default as AsideHeader } from "./AsideHeader";
 export { default as DiscountReasonContainer } from "./DiscountReasonContainer";
 export { default as DeliveryMethodContainer } from "./DeliveryMethodContainer";
+export { default as GiftItem } from "./GiftItem";
 export { default as ProductDiscountTooltip } from "./ProductDiscountTooltip";
 export { default as ProductLabelGroup } from "./ProductLabelGroup";
 export { default as ProductPriceTooltip } from "./ProductPriceTooltip";

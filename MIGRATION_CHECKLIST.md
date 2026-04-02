@@ -42,10 +42,10 @@
 - DeliveryMethodContainer
 - ActionIconGroup
 - ActionsPanel
+- GiftItem
 
 ## Backlog
 - FeaturedServiceItem
-- GiftItem
 - InspectOverlay
 - MobileBottomTabBar
 - PaymentMethodIcons
