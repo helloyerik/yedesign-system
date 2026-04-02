@@ -5,6 +5,7 @@ export { default as ButtonIcon } from "./atoms/ButtonIcon/ButtonIcon.vue";
 export { default as BrandLogo } from "./atoms/BrandLogo/BrandLogo.vue";
 export { default as BottomSheet } from "./atoms/BottomSheet/BottomSheet.vue";
 export { default as Checkbox } from "./atoms/Checkbox/Checkbox.vue";
+export { default as Chips } from "./atoms/Chips/Chips.vue";
 export { default as Accordion } from "./atoms/Accordion/Accordion.vue";
 export { default as Dialog } from "./atoms/Dialog/Dialog.vue";
 export { default as Drawer } from "./atoms/Drawer/Drawer.vue";

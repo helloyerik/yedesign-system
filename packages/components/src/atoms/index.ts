@@ -3,6 +3,7 @@ export { default as ButtonIcon } from "./ButtonIcon";
 export { default as BrandLogo } from "./BrandLogo";
 export { default as BottomSheet } from "./BottomSheet";
 export { default as Checkbox } from "./Checkbox";
+export { default as Chips } from "./Chips";
 export { default as Accordion } from "./Accordion";
 export { default as Dialog } from "./Dialog";
 export { default as Drawer } from "./Drawer";
