@@ -31,9 +31,9 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  primaryClick: [event: MouseEvent];
-  inCartClick: [event: MouseEvent];
-  secondaryClick: [event: MouseEvent];
+  "primary-click": [];
+  "secondary-click": [];
+  "in-cart-click": [];
 }>();
 </script>
 
@@ -41,33 +41,35 @@ const emit = defineEmits<{
   <div
     class="mi-button-group"
     :class="[
-      horizontal ? 'mi-button-group--horizontal' : 'mi-button-group--vertical',
       className,
+      {
+        'mi-button-group--horizontal': horizontal,
+      },
     ]"
   >
-    <Button
-      v-if="showPrimary && !inCart"
-      :label="primaryLabel"
-      :variant="primaryVariant"
-      :size="buttonSize"
-      width="full"
-      @click="emit('primaryClick', $event)"
-    />
-
-    <InCartButton
-      v-else-if="showPrimary && inCart"
-      :label="inCartLabel"
-      width="full"
-      @click="emit('inCartClick', $event)"
-    />
-
+    <template v-if="showPrimary">
+      <Button
+        v-if="!inCart"
+        :label="primaryLabel"
+        :variant="primaryVariant"
+        :size="buttonSize"
+        width="full"
+        @click="emit('primary-click')"
+      />
+      <InCartButton
+        v-else
+        :label="inCartLabel"
+        width="full"
+        @click="emit('in-cart-click')"
+      />
+    </template>
     <Button
       :label="secondaryLabel"
       variant="secondary"
       :size="buttonSize"
       width="full"
       :class-name="secondaryButtonClassName"
-      @click="emit('secondaryClick', $event)"
+      @click="emit('secondary-click')"
     />
   </div>
 </template>
@@ -75,12 +77,9 @@ const emit = defineEmits<{
 <style scoped>
 .mi-button-group {
   display: flex;
-  width: 100%;
-  gap: var(--mi-spacing-8);
-}
-
-.mi-button-group--vertical {
   flex-direction: column;
+  gap: var(--mi-spacing-8);
+  width: 100%;
 }
 
 .mi-button-group--horizontal {

@@ -11,6 +11,7 @@
 - DotPagination
 - DropdownMenu
 - Drawer
+- InCartButton
 - Pagination
 - ImageCounter
 - Input
@@ -25,16 +26,15 @@
 - Tag
 - Tooltip
 - UserAvatar
+- ButtonGroup
 
 ## Backlog
 - Accordion-related: ActionIconGroup, ActionsPanel
 - AsideHeader
-- ButtonGroup
 - DeliveryMethodContainer
 - DiscountReasonContainer
 - FeaturedServiceItem
 - GiftItem
-- InCartButton
 - InspectOverlay
 - MobileBottomTabBar
 - NavigationItem
