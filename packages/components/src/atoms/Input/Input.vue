@@ -225,7 +225,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
 .mi-input {
   display: flex;
   align-items: center;
-  gap: var(--mi-spacing-12);
+  gap: var(--mi-spacing-8);
   width: 100%;
   border: 1px solid var(--mi-color-line-generic);
   border-radius: var(--mi-radius-xl);
