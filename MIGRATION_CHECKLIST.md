@@ -50,10 +50,10 @@
 - PaymentMethodIcons
 - Tree
 - PromoBannerSide
+- Table
 
 ## Backlog
 - FeaturedServiceItem
 - InspectOverlay
 - ProductCard
-- Table
 - ThemePanel

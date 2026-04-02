@@ -13,3 +13,4 @@ export { default as PromoBannerSide } from "./PromoBannerSide";
 export { default as ReviewItem } from "./ReviewItem";
 export { default as ReviewSummary } from "./ReviewSummary";
 export { default as StoreItem } from "./StoreItem";
+export { default as Table } from "./Table";
