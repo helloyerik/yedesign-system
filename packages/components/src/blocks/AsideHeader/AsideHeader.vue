@@ -16,6 +16,7 @@ interface NavGroup {
 
 const props = withDefaults(
   defineProps<{
+    variant?: "default" | "ghost";
     logo?: unknown;
     serviceName?: string;
     topItems?: NavItem[];
@@ -32,12 +33,14 @@ const props = withDefaults(
     pinned?: boolean;
     hideCollapseButton?: boolean;
     headerDecoration?: boolean;
+    logoDivider?: boolean;
     customBackground?: unknown;
     customBackgroundClassName?: string;
     collapseTitle?: string;
     expandTitle?: string;
   }>(),
   {
+    variant: "default",
     logo: undefined,
     serviceName: "Service Name",
     topItems: () => [],
@@ -54,6 +57,7 @@ const props = withDefaults(
     pinned: undefined,
     hideCollapseButton: false,
     headerDecoration: false,
+    logoDivider: false,
     customBackground: undefined,
     customBackgroundClassName: "",
     collapseTitle: "Свернуть меню",
@@ -83,6 +87,7 @@ const resolvedFooterItems = computed(() => (props.footerItems.length ? props.foo
 const resolvedMenuItems = computed(() => props.menuItems);
 const resolvedGroups = computed(() => props.middleGroups);
 const collapseLabel = computed(() => (isCompact.value ? props.expandTitle : props.collapseTitle));
+const variantClass = computed(() => (props.variant === "ghost" ? "mi-aside-header--ghost" : ""));
 
 const asideStyle = computed(() => ({
   "--mi-aside-header-size": isCompact.value
@@ -112,7 +117,7 @@ const toggleCompact = () => {
 <template>
   <aside
     class="mi-aside-header"
-    :class="{ 'is-collapsed': isCompact }"
+    :class="[{ 'is-collapsed': isCompact }, variantClass]"
     :style="asideStyle"
   >
     <div
@@ -148,17 +153,7 @@ const toggleCompact = () => {
             </span>
           </div>
 
-          <button
-            v-if="showCollapseButton"
-            type="button"
-            class="mi-aside-header__collapse"
-            :aria-label="collapseLabel"
-            :title="collapseLabel"
-            @click="toggleCompact"
-          >
-            <PhCaretRight v-if="isCompact" :size="'var(--mi-spacing-12)'" weight="fill" />
-            <PhCaretLeft v-else :size="'var(--mi-spacing-12)'" weight="fill" />
-          </button>
+          <div v-if="logoDivider" class="mi-aside-header__logo-divider" />
         </div>
 
         <div v-if="resolvedSubheaderItems.length" class="mi-aside-header__subheader">
@@ -224,6 +219,18 @@ const toggleCompact = () => {
         </NavigationItem>
       </div>
 
+      <div v-if="showCollapseButton" class="mi-aside-header__collapse-row">
+        <button
+          type="button"
+          class="mi-aside-header__collapse"
+          :aria-label="collapseLabel"
+          :title="collapseLabel"
+          @click="toggleCompact"
+        >
+          <PhCaretRight v-if="isCompact" :size="'var(--mi-spacing-12)'" weight="fill" />
+          <PhCaretLeft v-else :size="'var(--mi-spacing-12)'" weight="fill" />
+        </button>
+      </div>
     </div>
   </aside>
 </template>
@@ -245,6 +252,10 @@ const toggleCompact = () => {
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
+}
+
+.mi-aside-header--ghost {
+  background: transparent;
 }
 
 .mi-aside-header.is-collapsed {
@@ -285,6 +296,13 @@ const toggleCompact = () => {
   justify-content: space-between;
   padding-inline: var(--mi-spacing-8);
   gap: var(--mi-spacing-8);
+}
+
+.mi-aside-header__logo-divider {
+  height: 1px;
+  margin-top: var(--mi-spacing-8);
+  margin-inline: var(--mi-spacing-8);
+  background: var(--mi-color-line-generic);
 }
 
 .mi-aside-header__logo {
@@ -373,6 +391,13 @@ const toggleCompact = () => {
 
 .mi-aside-header__spacer {
   flex: 1 1 auto;
+}
+
+.mi-aside-header__collapse-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mi-spacing-8);
 }
 
 </style>
