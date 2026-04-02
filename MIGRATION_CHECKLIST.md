@@ -46,6 +46,7 @@
 - MobileBottomTabBar
 - StoreItem
 - QuantityStepper
+- Toast
 
 ## Backlog
 - FeaturedServiceItem
@@ -55,5 +56,4 @@
 - PromoBannerSide
 - Table
 - ThemePanel
-- Toast
 - Tree
