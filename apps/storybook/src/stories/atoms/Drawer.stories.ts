@@ -43,12 +43,32 @@ export const Playground: Story = {
       return { args, open };
     },
     template: `
-      <div style="padding: 40px;">
+      <div style="padding: var(--mi-spacing-24);">
         <Button label="Open drawer" @click="open = true" />
         <Drawer v-model="open" v-bind="args">
-          <div style="padding: 24px; display:flex; flex-direction:column; gap: 16px;">
+          <div style="padding: var(--mi-spacing-24); display:flex; flex-direction:column; gap: var(--mi-spacing-16);">
             <p style="margin:0;">Drawer content</p>
-            <p style="margin:0;">Matches React layout, veil, ESC, and outside-click behavior.</p>
+            <div style="height: var(--mi-spacing-64); background: var(--mi-color-base-generic); border-radius: var(--mi-radius-l);"></div>
+          </div>
+        </Drawer>
+      </div>
+    `,
+  }),
+};
+
+export const Left: Story = {
+  render: () => ({
+    components: { Drawer, Button },
+    setup() {
+      const open = ref(false);
+      return { open };
+    },
+    template: `
+      <div style="padding: var(--mi-spacing-24);">
+        <Button label="Open left drawer" @click="open = true" />
+        <Drawer v-model="open" placement="left" title="Left drawer">
+          <div style="padding: var(--mi-spacing-24);">
+            <div style="height: var(--mi-spacing-64); background: var(--mi-color-base-generic); border-radius: var(--mi-radius-l);"></div>
           </div>
         </Drawer>
       </div>

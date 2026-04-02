@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { PhX } from "@phosphor-icons/vue";
+import ButtonIcon from "../ButtonIcon/ButtonIcon.vue";
 import { lockBodyScroll } from "../../utils/bodyScrollLock";
 
-type Placement = "left" | "right" | "top" | "bottom";
+type DrawerPlacement = "left" | "right" | "top" | "bottom";
 
 const props = withDefaults(
   defineProps<{
     modelValue: boolean;
     title?: string;
-    placement?: Placement;
+    placement?: DrawerPlacement;
     size?: number | "auto";
     hideVeil?: boolean;
     disableOutsideClick?: boolean;
@@ -74,10 +75,24 @@ watch(
 );
 
 const onKeyDown = (event: KeyboardEvent) => {
-  if (event.key === "Escape" && props.modelValue && !props.disableEscapeKeyDown) {
+  if (event.key === "Escape" && !props.disableEscapeKeyDown && props.modelValue) {
     close();
   }
 };
+
+const placementClass = computed(() => `mi-drawer--${props.placement}`);
+const panelClass = computed(() => `mi-drawer__panel--${props.placement}`);
+const sizeStyle = computed(() => {
+  if (props.size === "auto") {
+    return {};
+  }
+
+  if (props.placement === "left" || props.placement === "right") {
+    return { width: `${props.size}px` };
+  }
+
+  return { height: `${props.size}px` };
+});
 
 onMounted(() => {
   window.addEventListener("keydown", onKeyDown);
@@ -88,49 +103,24 @@ onBeforeUnmount(() => {
   releaseBodyLock?.();
   releaseBodyLock = null;
 });
-
-const rootClassName = computed(() => [
-  "mi-drawer__panel",
-  `mi-drawer__panel--${props.placement}`,
-  { "is-closing": isClosing.value },
-  props.className,
-]);
-
-const containerClassName = computed(() => [
-  "mi-drawer",
-  `mi-drawer--${props.placement}`,
-]);
-
-const panelStyle = computed<Record<string, string> | undefined>(() => {
-  if (props.size === "auto") return undefined;
-
-  const style: Record<string, string> = {};
-
-  if (props.placement === "left" || props.placement === "right") {
-    style.width = `${props.size}px`;
-    return style;
-  }
-
-  style.height = `${props.size}px`;
-  return style;
-});
 </script>
 
 <template>
   <Teleport to="body">
-    <div v-if="isMounted" :class="containerClassName">
+    <div v-if="isMounted" class="mi-drawer" :class="placementClass" role="dialog" aria-modal="true">
       <button
         v-if="!hideVeil"
-        type="button"
-        class="mi-drawer__veil"
+        class="mi-drawer__overlay"
         :class="{ 'is-closing': isClosing }"
-        aria-label="Закрыть drawer"
+        type="button"
+        aria-label="Закрыть панель"
         @click="disableOutsideClick ? undefined : close()"
       />
 
       <div
-        :class="rootClassName"
-        :style="panelStyle"
+        class="mi-drawer__panel"
+        :class="[panelClass, className, { 'is-closing': isClosing }]"
+        :style="sizeStyle"
         @animationend="
           (event) => {
             if (event.target !== event.currentTarget || !isClosing) return;
@@ -140,18 +130,13 @@ const panelStyle = computed<Record<string, string> | undefined>(() => {
         "
       >
         <div v-if="title" class="mi-drawer__header">
-          <span class="mi-drawer__title">{{ title }}</span>
-          <button
-            type="button"
-            class="mi-drawer__close"
-            aria-label="Close"
-            @click="close"
-          >
-            <PhX :size="16" weight="regular" class="mi-drawer__close-icon" />
-          </button>
+          <h1 class="mi-drawer__title">{{ title }}</h1>
+          <ButtonIcon size="S" @click="close">
+            <PhX :size="16" />
+          </ButtonIcon>
         </div>
 
-        <div class="mi-drawer__content">
+        <div class="mi-drawer__body">
           <slot />
         </div>
       </div>
@@ -163,16 +148,16 @@ const panelStyle = computed<Record<string, string> | undefined>(() => {
 .mi-drawer {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 1000;
   display: flex;
-}
-
-.mi-drawer--right {
-  justify-content: flex-end;
 }
 
 .mi-drawer--left {
   justify-content: flex-start;
+}
+
+.mi-drawer--right {
+  justify-content: flex-end;
 }
 
 .mi-drawer--top {
@@ -183,76 +168,82 @@ const panelStyle = computed<Record<string, string> | undefined>(() => {
   align-items: flex-end;
 }
 
-.mi-drawer__veil {
+.mi-drawer__overlay {
   position: absolute;
   inset: 0;
   border: 0;
   padding: 0;
-  background: rgb(0 0 0 / 25%);
-  opacity: 1;
-  transition: opacity 250ms ease;
+  background: var(--mi-color-overlay-backdrop);
+  animation: drawerOverlayIn var(--mi-motion-dialog-enter-duration) var(--mi-motion-dialog-enter-easing) both;
 }
 
-.mi-drawer__veil.is-closing {
-  opacity: 0;
+.mi-drawer__overlay.is-closing {
+  animation: drawerOverlayOut var(--mi-motion-dialog-enter-duration) var(--mi-motion-bottom-sheet-exit-easing) both;
 }
 
 .mi-drawer__panel {
   position: relative;
   display: flex;
+  flex-direction: column;
   max-width: 100%;
   max-height: 100%;
-  flex-direction: column;
-  background: var(--mi-color-base-background);
+  background: var(--mi-color-surface-panel);
   box-shadow: var(--mi-shadow-modal);
 }
 
+.mi-drawer__panel--left,
 .mi-drawer__panel--right {
   height: 100%;
-  animation: mi-drawer-in-right 250ms ease-out both;
 }
 
-.mi-drawer__panel--right.is-closing {
-  animation: mi-drawer-out-right 250ms ease-in both;
+.mi-drawer__panel--top,
+.mi-drawer__panel--bottom {
+  width: 100%;
 }
 
 .mi-drawer__panel--left {
-  height: 100%;
-  animation: mi-drawer-in-left 250ms ease-out both;
+  animation: drawerInLeft var(--mi-motion-dialog-enter-duration) var(--mi-motion-dialog-enter-easing) both;
 }
 
-.mi-drawer__panel--left.is-closing {
-  animation: mi-drawer-out-left 250ms ease-in both;
+.mi-drawer__panel--right {
+  animation: drawerInRight var(--mi-motion-dialog-enter-duration) var(--mi-motion-dialog-enter-easing) both;
 }
 
 .mi-drawer__panel--top {
-  width: 100%;
-  animation: mi-drawer-in-top 250ms ease-out both;
-}
-
-.mi-drawer__panel--top.is-closing {
-  animation: mi-drawer-out-top 250ms ease-in both;
+  animation: drawerInTop var(--mi-motion-dialog-enter-duration) var(--mi-motion-dialog-enter-easing) both;
 }
 
 .mi-drawer__panel--bottom {
-  width: 100%;
-  animation: mi-drawer-in-bottom 250ms ease-out both;
+  animation: drawerInBottom var(--mi-motion-dialog-enter-duration) var(--mi-motion-dialog-enter-easing) both;
 }
 
-.mi-drawer__panel--bottom.is-closing {
-  animation: mi-drawer-out-bottom 250ms ease-in both;
+.mi-drawer__panel.is-closing.mi-drawer__panel--left {
+  animation: drawerOutLeft var(--mi-motion-dialog-enter-duration) var(--mi-motion-bottom-sheet-exit-easing) both;
+}
+
+.mi-drawer__panel.is-closing.mi-drawer__panel--right {
+  animation: drawerOutRight var(--mi-motion-dialog-enter-duration) var(--mi-motion-bottom-sheet-exit-easing) both;
+}
+
+.mi-drawer__panel.is-closing.mi-drawer__panel--top {
+  animation: drawerOutTop var(--mi-motion-dialog-enter-duration) var(--mi-motion-bottom-sheet-exit-easing) both;
+}
+
+.mi-drawer__panel.is-closing.mi-drawer__panel--bottom {
+  animation: drawerOutBottom var(--mi-motion-dialog-enter-duration) var(--mi-motion-bottom-sheet-exit-easing) both;
 }
 
 .mi-drawer__header {
   display: flex;
-  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--mi-color-line-brand);
-  padding: var(--mi-spacing-xl) var(--mi-spacing-16);
+  padding: var(--mi-spacing-16) var(--mi-spacing-xl);
+  border-bottom: 1px solid var(--mi-color-line-generic);
+  flex: 0 0 auto;
 }
 
 .mi-drawer__title {
+  margin: 0;
   color: var(--mi-color-text-primary);
   font-family: var(--mi-font-family-header-1);
   font-size: var(--mi-font-size-header-1);
@@ -260,64 +251,98 @@ const panelStyle = computed<Record<string, string> | undefined>(() => {
   line-height: var(--mi-line-height-header-1);
 }
 
-.mi-drawer__close {
-  display: flex;
-  width: 28px;
-  height: 28px;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 999px;
-  background: var(--mi-color-base-generic);
-  cursor: pointer;
-}
-
-.mi-drawer__close-icon {
-  color: var(--mi-color-text-secondary);
-}
-
-.mi-drawer__content {
+.mi-drawer__body {
   flex: 1 1 auto;
   overflow-y: auto;
 }
 
-@keyframes mi-drawer-in-right {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+@keyframes drawerOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
-@keyframes mi-drawer-out-right {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
+@keyframes drawerOverlayOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
-@keyframes mi-drawer-in-left {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+@keyframes drawerInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
-@keyframes mi-drawer-out-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+@keyframes drawerOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
 }
 
-@keyframes mi-drawer-in-top {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(0); }
+@keyframes drawerInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
-@keyframes mi-drawer-out-top {
-  from { transform: translateY(0); }
-  to { transform: translateY(-100%); }
+@keyframes drawerOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }
 
-@keyframes mi-drawer-in-bottom {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+@keyframes drawerInTop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
-@keyframes mi-drawer-out-bottom {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
+@keyframes drawerOutTop {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes drawerInBottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes drawerOutBottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }
 </style>
