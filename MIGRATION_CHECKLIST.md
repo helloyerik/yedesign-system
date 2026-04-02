@@ -47,11 +47,11 @@
 - StoreItem
 - QuantityStepper
 - Toast
+- PaymentMethodIcons
 
 ## Backlog
 - FeaturedServiceItem
 - InspectOverlay
-- PaymentMethodIcons
 - ProductCard
 - PromoBannerSide
 - Table
