@@ -156,6 +156,10 @@ const toggleCompact = () => {
           <div v-if="logoDivider" class="mi-aside-header__logo-divider" />
         </div>
 
+        <div v-if="$slots.subheader" class="mi-aside-header__subheader-slot">
+          <slot name="subheader" />
+        </div>
+
         <div v-if="resolvedSubheaderItems.length" class="mi-aside-header__subheader">
           <NavigationItem
             v-for="item in resolvedSubheaderItems"
@@ -304,6 +308,10 @@ const toggleCompact = () => {
   margin-top: var(--mi-spacing-8);
   margin-inline: var(--mi-spacing-8);
   background: var(--mi-color-line-generic);
+}
+
+.mi-aside-header__subheader-slot {
+  padding-inline: var(--mi-spacing-8);
 }
 
 .mi-aside-header__nav-item {
