@@ -14,6 +14,7 @@ export { default as ImageCounter } from "./atoms/ImageCounter/ImageCounter.vue";
 export { default as InCartButton } from "./atoms/InCartButton/InCartButton.vue";
 export { default as Input } from "./atoms/Input/Input.vue";
 export { default as ListItem } from "./atoms/ListItem/ListItem.vue";
+export { default as DropdownMenu } from "./atoms/DropdownMenu/DropdownMenu.vue";
 export { default as Modal } from "./atoms/Modal/Modal.vue";
 export { default as Radio } from "./atoms/Radio/Radio.vue";
 export { default as RadioGroup } from "./atoms/Radio/RadioGroup.vue";

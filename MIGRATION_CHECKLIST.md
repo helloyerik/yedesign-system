@@ -9,6 +9,7 @@
 - Checkbox
 - Dialog
 - DotPagination
+- DropdownMenu
 - Drawer
 - ImageCounter
 - Input
@@ -30,7 +31,6 @@
 - ButtonGroup
 - DeliveryMethodContainer
 - DiscountReasonContainer
-- DropdownMenu
 - FeaturedServiceItem
 - GiftItem
 - InCartButton
