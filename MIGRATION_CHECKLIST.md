@@ -43,11 +43,11 @@
 - ActionIconGroup
 - ActionsPanel
 - GiftItem
+- MobileBottomTabBar
 
 ## Backlog
 - FeaturedServiceItem
 - InspectOverlay
-- MobileBottomTabBar
 - PaymentMethodIcons
 - ProductCard
 - PromoBannerSide
