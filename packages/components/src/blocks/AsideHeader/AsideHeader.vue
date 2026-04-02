@@ -328,7 +328,7 @@ const toggleCompact = () => {
 
 .mi-aside-header__nav-item {
   min-height: var(--mi-size-button-m-height);
-  padding: var(--mi-spacing-8) var(--mi-spacing-12);
+  padding: var(--mi-spacing-8) var(--mi-spacing-16);
   gap: var(--mi-spacing-8);
   border-radius: var(--mi-radius-l);
 }
