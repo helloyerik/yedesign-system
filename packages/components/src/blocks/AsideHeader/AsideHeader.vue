@@ -6,7 +6,7 @@ import NavigationItem from "../../atoms/NavigationItem/NavigationItem.vue";
 interface NavItem {
   id: string;
   label: string;
-  icon: unknown;
+  icon?: unknown;
   rightContent?: unknown;
 }
 
@@ -256,6 +256,7 @@ const toggleCompact = () => {
 
 .mi-aside-header--ghost {
   background: transparent;
+  border-right: 0;
 }
 
 .mi-aside-header.is-collapsed {
@@ -303,6 +304,22 @@ const toggleCompact = () => {
   margin-top: var(--mi-spacing-8);
   margin-inline: var(--mi-spacing-8);
   background: var(--mi-color-line-generic);
+}
+
+.mi-aside-header__nav-item {
+  min-height: var(--mi-size-button-s-height);
+  padding: var(--mi-spacing-8) var(--mi-spacing-12);
+  gap: var(--mi-spacing-8);
+  border-radius: var(--mi-radius-l);
+}
+
+.mi-aside-header__nav-item .mi-nav-item__icon-wrap {
+  padding: 0;
+}
+
+.mi-aside-header__nav-item .mi-nav-item__icon-box {
+  width: var(--mi-size-icon-16);
+  height: var(--mi-size-icon-16);
 }
 
 .mi-aside-header__logo {

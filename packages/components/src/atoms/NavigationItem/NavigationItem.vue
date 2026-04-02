@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, useSlots } from "vue";
 
 const props = withDefaults(
   defineProps<{
-    icon: unknown;
+    icon?: unknown;
     label: string;
     selected?: boolean;
     collapsed?: boolean;
@@ -22,7 +22,9 @@ const emit = defineEmits<{
   click: [];
 }>();
 
+const slots = useSlots();
 const tag = computed(() => (props.href ? "a" : "button"));
+const hasIcon = computed(() => Boolean(slots.icon) || Boolean(props.icon));
 </script>
 
 <template>
@@ -35,12 +37,13 @@ const tag = computed(() => (props.href ? "a" : "button"));
       className,
       {
         'is-selected': selected,
+        'is-iconless': !hasIcon,
       },
     ]"
     :title="collapsed ? label : undefined"
     @click="emit('click')"
   >
-    <span class="mi-nav-item__icon-wrap">
+    <span v-if="hasIcon" class="mi-nav-item__icon-wrap">
       <span class="mi-nav-item__icon-box">
         <slot name="icon">
           <component :is="icon" />
@@ -61,7 +64,7 @@ const tag = computed(() => (props.href ? "a" : "button"));
   display: flex;
   align-items: center;
   width: 100%;
-  gap: var(--mi-spacing-8);
+  gap: 0;
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -74,7 +77,7 @@ const tag = computed(() => (props.href ? "a" : "button"));
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: var(--mi-spacing-8);
+  padding: var(--mi-size-hairline) calc(var(--mi-spacing-8) + var(--mi-size-hairline));
   color: var(--mi-color-text-secondary);
 }
 
@@ -102,7 +105,7 @@ const tag = computed(() => (props.href ? "a" : "button"));
 .mi-nav-item__right {
   display: inline-flex;
   align-items: center;
-  padding-inline: var(--mi-spacing-8);
+  margin-inline: var(--mi-spacing-8);
 }
 
 .mi-nav-item:hover {
