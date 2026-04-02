@@ -20,6 +20,10 @@ const props = withDefaults(
   },
 );
 
+const emit = defineEmits<{
+  click: [];
+}>();
+
 const isTooltipVisible = ref(false);
 
 const colors = computed(() => {
@@ -68,6 +72,7 @@ const hideTooltip = () => {
     }"
     @mouseenter="showTooltip"
     @mouseleave="hideTooltip"
+    @click="emit('click')"
   >
     <span class="mi-product-label__text">{{ text }}</span>
     <PhCaretRight

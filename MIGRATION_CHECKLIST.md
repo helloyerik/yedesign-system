@@ -36,6 +36,9 @@
 - ReviewItem
 - ReviewSummary
 - ProductLabel
+- ProductDiscountTooltip
+- ProductLabelGroup
+- ProductPriceTooltip
 
 ## Backlog
 - Accordion-related: ActionIconGroup, ActionsPanel
@@ -46,9 +49,6 @@
 - MobileBottomTabBar
 - PaymentMethodIcons
 - ProductCard
-- ProductDiscountTooltip
-- ProductLabelGroup
-- ProductPriceTooltip
 - PromoBannerSide
 - QuantityStepper
 - StoreItem
