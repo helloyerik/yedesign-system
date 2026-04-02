@@ -7,7 +7,7 @@ export { default as Accordion } from "./Accordion";
 export { default as Dialog } from "./Dialog";
 export { default as Drawer } from "./Drawer";
 export { default as DotPagination } from "./DotPagination";
-export { default as Drawer } from "./Drawer";
+export { default as Pagination } from "./Pagination";
 export { default as ImageCounter } from "./ImageCounter";
 export { default as InCartButton } from "./InCartButton";
 export { default as Input } from "./Input";

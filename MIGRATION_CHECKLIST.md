@@ -11,6 +11,7 @@
 - DotPagination
 - DropdownMenu
 - Drawer
+- Pagination
 - ImageCounter
 - Input
 - ListItem
@@ -37,7 +38,6 @@
 - InspectOverlay
 - MobileBottomTabBar
 - NavigationItem
-- Pagination
 - PaymentMethodIcons
 - ProductCard
 - ProductDiscountTooltip

@@ -9,7 +9,7 @@ export { default as Accordion } from "./atoms/Accordion/Accordion.vue";
 export { default as Dialog } from "./atoms/Dialog/Dialog.vue";
 export { default as Drawer } from "./atoms/Drawer/Drawer.vue";
 export { default as DotPagination } from "./atoms/DotPagination/DotPagination.vue";
-export { default as Drawer } from "./atoms/Drawer/Drawer.vue";
+export { default as Pagination } from "./atoms/Pagination/Pagination.vue";
 export { default as ImageCounter } from "./atoms/ImageCounter/ImageCounter.vue";
 export { default as InCartButton } from "./atoms/InCartButton/InCartButton.vue";
 export { default as Input } from "./atoms/Input/Input.vue";
