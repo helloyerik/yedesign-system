@@ -29,9 +29,13 @@ const props = withDefaults(
     defaultCollapsed?: boolean;
     compact?: boolean;
     defaultCompact?: boolean;
+    pinned?: boolean;
     hideCollapseButton?: boolean;
     headerDecoration?: boolean;
+    customBackground?: unknown;
     customBackgroundClassName?: string;
+    collapseTitle?: string;
+    expandTitle?: string;
   }>(),
   {
     logo: undefined,
@@ -47,9 +51,13 @@ const props = withDefaults(
     defaultCollapsed: false,
     compact: undefined,
     defaultCompact: undefined,
+    pinned: undefined,
     hideCollapseButton: false,
     headerDecoration: false,
+    customBackground: undefined,
     customBackgroundClassName: "",
+    collapseTitle: "Свернуть меню",
+    expandTitle: "Развернуть меню",
   },
 );
 
@@ -58,16 +66,23 @@ const emit = defineEmits<{
   "logo-click": [];
   "update:compact": [value: boolean];
   "change-compact": [value: boolean];
+  "update:pinned": [value: boolean];
+  "change-pinned": [value: boolean];
 }>();
 
 const collapsed = ref(props.defaultCompact ?? props.defaultCollapsed);
 
-const isCompact = computed(() => (typeof props.compact === "boolean" ? props.compact : collapsed.value));
+const isCompact = computed(() => {
+  if (typeof props.pinned === "boolean") return !props.pinned;
+  if (typeof props.compact === "boolean") return props.compact;
+  return collapsed.value;
+});
 const showCollapseButton = computed(() => props.collapsible && !props.hideCollapseButton);
 const resolvedSubheaderItems = computed(() => (props.subheaderItems.length ? props.subheaderItems : props.topItems));
 const resolvedFooterItems = computed(() => (props.footerItems.length ? props.footerItems : props.bottomItems));
 const resolvedMenuItems = computed(() => props.menuItems);
 const resolvedGroups = computed(() => props.middleGroups);
+const collapseLabel = computed(() => (isCompact.value ? props.expandTitle : props.collapseTitle));
 
 const asideStyle = computed(() => ({
   "--mi-aside-header-size": isCompact.value
@@ -76,11 +91,21 @@ const asideStyle = computed(() => ({
 }));
 
 const setCompact = (value: boolean) => {
+  if (typeof props.pinned === "boolean") {
+    emit("update:pinned", !value);
+    emit("change-pinned", !value);
+    return;
+  }
+
   if (typeof props.compact !== "boolean") {
     collapsed.value = value;
   }
   emit("update:compact", value);
   emit("change-compact", value);
+};
+
+const toggleCompact = () => {
+  setCompact(!isCompact.value);
 };
 </script>
 
@@ -90,30 +115,50 @@ const setCompact = (value: boolean) => {
     :class="{ 'is-collapsed': isCompact }"
     :style="asideStyle"
   >
-    <div v-if="$slots.background" class="mi-aside-header__background" :class="customBackgroundClassName">
-      <slot name="background" />
+    <div
+      v-if="$slots.background || customBackground"
+      class="mi-aside-header__background"
+      :class="customBackgroundClassName"
+    >
+      <slot name="background">
+        <component :is="customBackground" />
+      </slot>
     </div>
 
     <div class="mi-aside-header__content">
       <div class="mi-aside-header__top" :class="{ 'is-decorated': headerDecoration }">
-        <div class="mi-aside-header__logo">
-          <div class="mi-aside-header__logo-wrap">
-            <button
-              v-if="logo"
-              type="button"
-              class="mi-aside-header__logo-button"
-              aria-label="Logo"
-              @click="emit('logo-click')"
-            >
-              <slot name="logo">
-                <component :is="logo" />
-              </slot>
-            </button>
-            <div v-else class="mi-aside-header__logo-placeholder" />
+        <div class="mi-aside-header__logo-row">
+          <div class="mi-aside-header__logo">
+            <div class="mi-aside-header__logo-wrap">
+              <button
+                v-if="logo"
+                type="button"
+                class="mi-aside-header__logo-button"
+                aria-label="Logo"
+                @click="emit('logo-click')"
+              >
+                <slot name="logo">
+                  <component :is="logo" />
+                </slot>
+              </button>
+              <div v-else class="mi-aside-header__logo-placeholder" />
+            </div>
+            <span v-if="!isCompact" class="mi-aside-header__service">
+              {{ serviceName }}
+            </span>
           </div>
-          <span v-if="!isCompact" class="mi-aside-header__service">
-            {{ serviceName }}
-          </span>
+
+          <button
+            v-if="showCollapseButton"
+            type="button"
+            class="mi-aside-header__collapse"
+            :aria-label="collapseLabel"
+            :title="collapseLabel"
+            @click="toggleCompact"
+          >
+            <PhCaretRight v-if="isCompact" :size="'var(--mi-spacing-12)'" weight="fill" />
+            <PhCaretLeft v-else :size="'var(--mi-spacing-12)'" weight="fill" />
+          </button>
         </div>
 
         <div v-if="resolvedSubheaderItems.length" class="mi-aside-header__subheader">
@@ -128,6 +173,8 @@ const setCompact = (value: boolean) => {
             @click="emit('select', item.id)"
           />
         </div>
+
+        <div v-if="headerDecoration" class="mi-aside-header__header-divider" />
       </div>
 
       <div v-if="resolvedMenuItems.length" class="mi-aside-header__section">
@@ -177,15 +224,6 @@ const setCompact = (value: boolean) => {
         </NavigationItem>
       </div>
 
-      <button
-        v-if="showCollapseButton"
-        type="button"
-        class="mi-aside-header__toggle"
-        @click="setCompact(!isCompact)"
-      >
-        <PhCaretRight v-if="isCompact" :size="'var(--mi-spacing-12)'" weight="fill" />
-        <PhCaretLeft v-else :size="'var(--mi-spacing-12)'" weight="fill" />
-      </button>
     </div>
   </aside>
 </template>
@@ -232,23 +270,38 @@ const setCompact = (value: boolean) => {
   flex-direction: column;
   gap: var(--mi-spacing-8);
   padding-bottom: var(--mi-spacing-8);
+  padding-top: var(--mi-spacing-8);
+  position: relative;
 }
 
 .mi-aside-header__top.is-decorated {
-  background: var(--mi-color-base-generic);
+  background: linear-gradient(
+    180deg,
+    var(--mi-color-base-semantic-warning-light) 0%,
+    transparent 70%
+  );
   border-bottom: 1px solid var(--mi-color-line-generic);
+}
+
+.mi-aside-header__logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--mi-spacing-8);
+  gap: var(--mi-spacing-8);
 }
 
 .mi-aside-header__logo {
   display: flex;
   align-items: center;
-  padding-top: var(--mi-spacing-8);
+  min-width: 0;
+  flex: 1 1 auto;
+  gap: var(--mi-spacing-8);
 }
 
 .mi-aside-header__logo-wrap {
   display: flex;
   align-items: center;
-  padding-inline: var(--mi-spacing-8);
 }
 
 .mi-aside-header__logo-button {
@@ -279,6 +332,25 @@ const setCompact = (value: boolean) => {
   text-overflow: ellipsis;
 }
 
+.mi-aside-header__collapse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--mi-spacing-28);
+  height: var(--mi-spacing-28);
+  border: 0;
+  border-radius: var(--mi-radius-m);
+  background: transparent;
+  color: var(--mi-color-text-secondary);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.mi-aside-header__collapse:hover {
+  background: var(--mi-color-base-generic);
+}
+
 .mi-aside-header__section {
   display: flex;
   flex-direction: column;
@@ -294,26 +366,17 @@ const setCompact = (value: boolean) => {
 .mi-aside-header__subheader {
   display: flex;
   flex-direction: column;
+  padding-inline: var(--mi-spacing-8);
+}
+
+.mi-aside-header__header-divider {
+  height: 1px;
+  margin-top: var(--mi-spacing-8);
+  background: var(--mi-color-line-generic);
 }
 
 .mi-aside-header__spacer {
   flex: 1 1 auto;
 }
 
-.mi-aside-header__toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-block: var(--mi-spacing-4);
-  border: 0;
-  border-top: 1px solid var(--mi-color-line-generic);
-  background: transparent;
-  cursor: pointer;
-  color: var(--mi-color-text-secondary);
-  transition: background-color 150ms ease;
-}
-
-.mi-aside-header__toggle:hover {
-  background: var(--mi-color-base-generic);
-}
 </style>
