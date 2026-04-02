@@ -40,9 +40,10 @@
 - ProductLabelGroup
 - ProductPriceTooltip
 - DeliveryMethodContainer
+- ActionIconGroup
 
 ## Backlog
-- Accordion-related: ActionIconGroup, ActionsPanel
+- Accordion-related: ActionsPanel
 - FeaturedServiceItem
 - GiftItem
 - InspectOverlay

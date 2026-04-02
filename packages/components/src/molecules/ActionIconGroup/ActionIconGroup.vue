@@ -1,78 +1,77 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { PhExport, PhHeart, PhScales } from "@phosphor-icons/vue";
+import { PhScales, PhHeart, PhExport } from "@phosphor-icons/vue";
 import ButtonIcon from "../../atoms/ButtonIcon/ButtonIcon.vue";
+
+type ActionIconSize = "S" | "M" | "L" | "XL";
 
 const props = withDefaults(
   defineProps<{
     isComparing?: boolean;
     isFavorite?: boolean;
     showShare?: boolean;
-    size?: number;
+    size?: ActionIconSize;
     className?: string;
   }>(),
   {
     isComparing: false,
     isFavorite: false,
     showShare: true,
-    size: 20,
+    size: "M",
     className: "",
   },
 );
 
 const emit = defineEmits<{
-  compareClick: [event: MouseEvent];
-  favoriteClick: [event: MouseEvent];
-  shareClick: [event: MouseEvent];
+  "compare-click": [];
+  "favorite-click": [];
+  "share-click": [];
 }>();
 
 const compareColor = computed(() =>
-  props.isComparing ? "var(--mi-color-brand-primary)" : "var(--mi-color-text-secondary)",
+  props.isComparing ? "var(--mi-color-brand-text-brand)" : "var(--mi-color-text-secondary)",
 );
 const favoriteColor = computed(() =>
-  props.isFavorite ? "var(--mi-color-brand-primary)" : "var(--mi-color-text-secondary)",
+  props.isFavorite ? "var(--mi-color-brand-text-brand)" : "var(--mi-color-text-secondary)",
 );
-
-const onCompareClick = (event: MouseEvent) => emit("compareClick", event);
-const onFavoriteClick = (event: MouseEvent) => emit("favoriteClick", event);
-const onShareClick = (event: MouseEvent) => emit("shareClick", event);
 </script>
 
 <template>
   <div class="mi-action-icon-group" :class="className">
     <ButtonIcon
+      :size="size"
       variant="ghost"
       tooltip="В сравнение"
       :color="compareColor"
-      @click="onCompareClick"
+      @click="emit('compare-click')"
     >
-      <PhScales :size="size" :weight="isComparing ? 'fill' : 'regular'" />
+      <PhScales :weight="isComparing ? 'fill' : 'regular'" :size="'var(--mi-size-button-icon-glyph)'" />
     </ButtonIcon>
-
     <ButtonIcon
+      :size="size"
       variant="ghost"
       tooltip="В избранные"
       :color="favoriteColor"
-      @click="onFavoriteClick"
+      @click="emit('favorite-click')"
     >
-      <PhHeart :size="size" :weight="isFavorite ? 'fill' : 'regular'" />
+      <PhHeart :weight="isFavorite ? 'fill' : 'regular'" :size="'var(--mi-size-button-icon-glyph)'" />
     </ButtonIcon>
-
     <ButtonIcon
       v-if="showShare"
+      :size="size"
       variant="ghost"
       tooltip="Поделиться"
-      :color="'var(--mi-color-text-secondary)'"
-      @click="onShareClick"
+      color="var(--mi-color-text-secondary)"
+      @click="emit('share-click')"
     >
-      <PhExport :size="size" weight="regular" />
+      <PhExport :size="'var(--mi-size-button-icon-glyph)'" />
     </ButtonIcon>
   </div>
 </template>
 
 <style scoped>
 .mi-action-icon-group {
-  display: flex;
+  display: inline-flex;
   align-items: center;
 }
 </style>
