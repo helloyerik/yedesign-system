@@ -16,6 +16,7 @@ export { default as Input } from "./atoms/Input/Input.vue";
 export { default as ListItem } from "./atoms/ListItem/ListItem.vue";
 export { default as DropdownMenu } from "./atoms/DropdownMenu/DropdownMenu.vue";
 export { default as Modal } from "./atoms/Modal/Modal.vue";
+export { default as NavigationItem } from "./atoms/NavigationItem/NavigationItem.vue";
 export { default as Radio } from "./atoms/Radio/Radio.vue";
 export { default as RadioGroup } from "./atoms/Radio/RadioGroup.vue";
 export { default as SearchInput } from "./atoms/SearchInput/SearchInput.vue";

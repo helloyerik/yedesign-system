@@ -14,6 +14,7 @@ export { default as Input } from "./Input";
 export { default as ListItem } from "./ListItem";
 export { default as DropdownMenu } from "./DropdownMenu";
 export { default as Modal } from "./Modal";
+export { default as NavigationItem } from "./NavigationItem";
 export { default as Radio, RadioGroup } from "./Radio";
 export { default as SearchInput } from "./SearchInput";
 export { default as Select } from "./Select";

@@ -17,6 +17,7 @@
 - Input
 - ListItem
 - Modal
+- NavigationItem
 - Radio
 - SearchInput
 - Select
@@ -27,18 +28,17 @@
 - Tag
 - Tooltip
 - UserAvatar
+- AsideHeader
 - ButtonGroup
 
 ## Backlog
 - Accordion-related: ActionIconGroup, ActionsPanel
-- AsideHeader
 - DeliveryMethodContainer
 - DiscountReasonContainer
 - FeaturedServiceItem
 - GiftItem
 - InspectOverlay
 - MobileBottomTabBar
-- NavigationItem
 - PaymentMethodIcons
 - ProductCard
 - ProductDiscountTooltip
