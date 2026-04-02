@@ -4,6 +4,7 @@ import Button from "../Button/Button.vue";
 
 type ButtonVariant = "primary" | "brand-secondary" | "secondary" | "secondary-info" | "outline" | "text-only";
 type ButtonSize = "L" | "M" | "S" | "XS";
+type ChipsSize = "S" | "XS";
 
 interface ChipsOption {
   id: string;
@@ -17,7 +18,7 @@ const props = withDefaults(
     value?: string;
     activeVariant?: ButtonVariant;
     inactiveVariant?: ButtonVariant;
-    size?: ButtonSize;
+    size?: ChipsSize;
     className?: string;
   }>(),
   {
@@ -50,7 +51,7 @@ const onSelect = (id: string) => {
 </script>
 
 <template>
-  <div class="mi-chips" :class="className">
+  <div class="mi-chips" :class="[{ 'mi-chips--xs': size === 'XS' }, className]">
     <Button
       v-for="option in normalizedOptions"
       :key="option.id"
@@ -69,5 +70,14 @@ const onSelect = (id: string) => {
   flex-wrap: wrap;
   gap: var(--mi-spacing-8);
   align-items: center;
+}
+
+.mi-chips--xs :deep(.mi-button) {
+  height: 28px;
+  padding-inline: var(--mi-spacing-8);
+  border-radius: var(--mi-radius-m);
+  font-size: var(--mi-font-size-body-1);
+  line-height: var(--mi-line-height-body-1);
+  font-weight: var(--mi-font-weight-body-1);
 }
 </style>
