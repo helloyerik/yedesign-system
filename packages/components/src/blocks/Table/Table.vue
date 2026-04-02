@@ -132,8 +132,8 @@ const handleSort = (column: TableColumn<any>) => {
             >
               <span>{{ column.header }}</span>
               <span v-if="column.sortable" class="mi-table__sort">
-                <PhCaretUp :size="10" :class="{ 'is-active': sortCol === column.id && sortDir === 'asc' }" />
-                <PhCaretDown :size="10" :class="{ 'is-active': sortCol === column.id && sortDir === 'desc' }" />
+                <PhCaretUp :size="10" weight="fill" :class="{ 'is-active': sortCol === column.id && sortDir === 'asc' }" />
+                <PhCaretDown :size="10" weight="fill" :class="{ 'is-active': sortCol === column.id && sortDir === 'desc' }" />
               </span>
             </button>
           </th>
