@@ -333,7 +333,7 @@ const toggleCompact = () => {
   border-radius: var(--mi-radius-l);
 }
 
-.mi-aside-header__nav-item .mi-nav-item__label {
+.mi-aside-header__nav-item :deep(.mi-nav-item__label) {
   font-family: var(--mi-font-family-body-2);
   font-size: var(--mi-font-size-body-2);
   line-height: var(--mi-line-height-body-2);
