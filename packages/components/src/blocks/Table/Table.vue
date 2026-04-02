@@ -239,6 +239,7 @@ const handleSort = (column: TableColumn<any>) => {
   flex-direction: column;
   gap: 0;
   color: var(--mi-color-text-hint);
+  line-height: 0;
 }
 
 .mi-table__sort .is-active {
