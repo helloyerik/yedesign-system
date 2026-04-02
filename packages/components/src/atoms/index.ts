@@ -18,6 +18,7 @@ export { default as NavigationItem } from "./NavigationItem";
 export { default as Radio, RadioGroup } from "./Radio";
 export { default as SearchInput } from "./SearchInput";
 export { default as Select } from "./Select";
+export { default as Segmented } from "./Segmented";
 export { default as Skeleton } from "./Skeleton";
 export { default as SpecificationItem } from "./SpecificationItem";
 export { default as StarRating } from "./StarRating";

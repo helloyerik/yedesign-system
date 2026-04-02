@@ -21,6 +21,7 @@
 - Radio
 - SearchInput
 - Select
+- Segmented
 - Skeleton
 - SpecificationItem
 - StarRating
@@ -49,7 +50,6 @@
 - QuantityStepper
 - ReviewItem
 - ReviewSummary
-- Segmented
 - StoreItem
 - Table
 - Tabs

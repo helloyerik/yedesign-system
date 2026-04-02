@@ -21,6 +21,7 @@ export { default as Radio } from "./atoms/Radio/Radio.vue";
 export { default as RadioGroup } from "./atoms/Radio/RadioGroup.vue";
 export { default as SearchInput } from "./atoms/SearchInput/SearchInput.vue";
 export { default as Select } from "./atoms/Select/Select.vue";
+export { default as Segmented } from "./atoms/Segmented/Segmented.vue";
 export { default as Skeleton } from "./atoms/Skeleton/Skeleton.vue";
 export { default as SpecificationItem } from "./atoms/SpecificationItem/SpecificationItem.vue";
 export { default as StarRating } from "./atoms/StarRating/StarRating.vue";
