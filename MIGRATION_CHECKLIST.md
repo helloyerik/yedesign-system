@@ -54,6 +54,6 @@
 - ProductCard
 - FeaturedServiceItem
 - ThemePanel
+- InspectOverlay
 
 ## Backlog
-- InspectOverlay

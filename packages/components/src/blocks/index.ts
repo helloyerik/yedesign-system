@@ -5,6 +5,7 @@ export { default as DiscountReasonContainer } from "./DiscountReasonContainer";
 export { default as DeliveryMethodContainer } from "./DeliveryMethodContainer";
 export { default as FeaturedServiceItem } from "./FeaturedServiceItem";
 export { default as GiftItem } from "./GiftItem";
+export { default as InspectOverlay } from "./InspectOverlay";
 export { default as MobileBottomTabBar } from "./MobileBottomTabBar";
 export { default as PaymentMethodIcons } from "./PaymentMethodIcons";
 export { default as ProductCard } from "./ProductCard";
