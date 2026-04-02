@@ -35,7 +35,7 @@
 - DiscountReasonContainer
 - ReviewItem
 - ReviewSummary
-- ProductLabel
+- Label
 - ProductDiscountTooltip
 - ProductLabelGroup
 - ProductPriceTooltip

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
-import ProductLabel from "@components/atoms/ProductLabel/ProductLabel.vue";
+import Label from "@components/atoms/Label/Label.vue";
 
 const meta = {
-  title: "Atoms/ProductLabel",
-  component: ProductLabel,
+  title: "Atoms/Label",
+  component: Label,
   parameters: {
     layout: "centered",
   },
@@ -20,7 +20,7 @@ const meta = {
     showCaret: true,
     tooltip: "Скидка применяется автоматически на этапе оплаты.",
   },
-} satisfies Meta<typeof ProductLabel>;
+} satisfies Meta<typeof Label>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

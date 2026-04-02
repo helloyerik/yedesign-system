@@ -3,12 +3,12 @@ import { computed, ref } from "vue";
 import { PhCaretRight } from "@phosphor-icons/vue";
 import Tooltip from "../Tooltip/Tooltip.vue";
 
-type ProductLabelScheme = "success" | "warning" | "info" | "supplier";
+type LabelScheme = "success" | "warning" | "info" | "supplier";
 
 const props = withDefaults(
   defineProps<{
     text: string;
-    colorScheme: ProductLabelScheme;
+    colorScheme: LabelScheme;
     showCaret?: boolean;
     tooltip?: string;
     className?: string;

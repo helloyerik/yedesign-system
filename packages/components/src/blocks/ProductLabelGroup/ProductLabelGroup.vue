@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ProductLabel from "../../atoms/ProductLabel/ProductLabel.vue";
+import Label from "../../atoms/Label/Label.vue";
 
 interface ProductLabelItem {
   id: string;
@@ -23,7 +23,7 @@ const props = withDefaults(
 
 <template>
   <div class="mi-product-label-group" :class="className">
-    <ProductLabel
+    <Label
       v-for="item in items"
       :key="item.id"
       :text="item.text"
