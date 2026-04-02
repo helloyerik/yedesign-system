@@ -275,11 +275,7 @@ const toggleCompact = () => {
 }
 
 .mi-aside-header__top.is-decorated {
-  background: linear-gradient(
-    180deg,
-    var(--mi-color-base-semantic-warning-light) 0%,
-    transparent 70%
-  );
+  background: var(--mi-color-base-generic);
   border-bottom: 1px solid var(--mi-color-line-generic);
 }
 
