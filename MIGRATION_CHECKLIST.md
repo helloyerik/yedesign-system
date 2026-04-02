@@ -21,6 +21,7 @@
 - SearchInput
 - Select
 - Skeleton
+- SpecificationItem
 - StarRating
 - Switch
 - Tag
@@ -49,7 +50,6 @@
 - ReviewItem
 - ReviewSummary
 - Segmented
-- SpecificationItem
 - StoreItem
 - Table
 - Tabs
