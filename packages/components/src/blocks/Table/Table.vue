@@ -259,6 +259,7 @@ const handleSort = (column: TableColumn<any>) => {
 
 .mi-table__sort-icon {
   display: block;
+  color: var(--mi-color-text-primary);
 }
 
 .mi-table__cell.align-center {
