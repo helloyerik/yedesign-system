@@ -228,7 +228,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
   gap: var(--mi-spacing-12);
   width: 100%;
   border: 1px solid var(--mi-color-line-generic);
-  border-radius: var(--mi-radius-l);
+  border-radius: var(--mi-radius-xl);
   background: var(--mi-color-base-light);
 }
 
@@ -240,7 +240,8 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
 .mi-input--L {
   padding-inline: var(--mi-spacing-12);
   padding-block: var(--mi-spacing-4);
-  border-radius: var(--mi-radius-l);
+  border-radius: var(--mi-radius-xl);
+  min-height: 44px;
 }
 
 .mi-input--default,
