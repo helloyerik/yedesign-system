@@ -10,3 +10,4 @@ export { default as ProductLabelGroup } from "./ProductLabelGroup";
 export { default as ProductPriceTooltip } from "./ProductPriceTooltip";
 export { default as ReviewItem } from "./ReviewItem";
 export { default as ReviewSummary } from "./ReviewSummary";
+export { default as StoreItem } from "./StoreItem";

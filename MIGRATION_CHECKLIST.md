@@ -44,6 +44,7 @@
 - ActionsPanel
 - GiftItem
 - MobileBottomTabBar
+- StoreItem
 
 ## Backlog
 - FeaturedServiceItem
@@ -52,7 +53,6 @@
 - ProductCard
 - PromoBannerSide
 - QuantityStepper
-- StoreItem
 - Table
 - ThemePanel
 - Toast
