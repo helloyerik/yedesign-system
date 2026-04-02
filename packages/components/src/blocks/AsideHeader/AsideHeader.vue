@@ -260,7 +260,7 @@ const toggleCompact = () => {
 
 .mi-aside-header--ghost {
   background: transparent;
-  border-right: 0;
+  border: 0;
 }
 
 .mi-aside-header.is-collapsed {
