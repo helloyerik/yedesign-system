@@ -1,5 +1,6 @@
 // Blocks are larger composite UI sections built from atoms and molecules.
 export { default as AsideHeader } from "./AsideHeader";
+export { default as DiscountReasonContainer } from "./DiscountReasonContainer";
 export { default as FeaturedServiceItem } from "./FeaturedServiceItem";
 export { default as GiftItem } from "./GiftItem";
 export { default as PromoBannerSide } from "./PromoBannerSide";

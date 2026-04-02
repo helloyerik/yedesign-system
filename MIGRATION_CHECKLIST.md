@@ -32,11 +32,11 @@
 - UserAvatar
 - AsideHeader
 - ButtonGroup
+- DiscountReasonContainer
 
 ## Backlog
 - Accordion-related: ActionIconGroup, ActionsPanel
 - DeliveryMethodContainer
-- DiscountReasonContainer
 - FeaturedServiceItem
 - GiftItem
 - InspectOverlay
