@@ -24,6 +24,7 @@ export { default as SpecificationItem } from "./SpecificationItem";
 export { default as StarRating } from "./StarRating";
 export { default as Switch } from "./Switch";
 export { default as Tag } from "./Tag";
+export { default as Tabs } from "./Tabs";
 export { default as Tooltip } from "./Tooltip";
 export { default as QuantityStepper } from "./QuantityStepper";
 export { default as UserAvatar } from "./UserAvatar";

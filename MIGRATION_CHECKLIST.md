@@ -27,6 +27,7 @@
 - StarRating
 - Switch
 - Tag
+- Tabs
 - Tooltip
 - UserAvatar
 - AsideHeader
@@ -52,7 +53,6 @@
 - ReviewSummary
 - StoreItem
 - Table
-- Tabs
 - ThemePanel
 - Toast
 - Tree

@@ -27,6 +27,7 @@ export { default as SpecificationItem } from "./atoms/SpecificationItem/Specific
 export { default as StarRating } from "./atoms/StarRating/StarRating.vue";
 export { default as Switch } from "./atoms/Switch/Switch.vue";
 export { default as Tag } from "./atoms/Tag/Tag.vue";
+export { default as Tabs } from "./atoms/Tabs/Tabs.vue";
 export { default as Tooltip } from "./atoms/Tooltip/Tooltip.vue";
 export { default as QuantityStepper } from "./atoms/QuantityStepper/QuantityStepper.vue";
 export { default as UserAvatar } from "./atoms/UserAvatar/UserAvatar.vue";
