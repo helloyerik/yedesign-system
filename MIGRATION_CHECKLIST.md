@@ -42,7 +42,6 @@
 - DeliveryMethodContainer
 - ActionIconGroup
 - ActionsPanel
-- GiftItem
 - MobileBottomTabBar
 - StoreItem
 - QuantityStepper
