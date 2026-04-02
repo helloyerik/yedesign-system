@@ -45,6 +45,7 @@
 - GiftItem
 - MobileBottomTabBar
 - StoreItem
+- QuantityStepper
 
 ## Backlog
 - FeaturedServiceItem
@@ -52,7 +53,6 @@
 - PaymentMethodIcons
 - ProductCard
 - PromoBannerSide
-- QuantityStepper
 - Table
 - ThemePanel
 - Toast
