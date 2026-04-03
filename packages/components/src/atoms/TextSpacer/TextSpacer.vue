@@ -8,11 +8,13 @@ const props = withDefaults(
     bottomVariant: TextSpacingVariant;
     mode?: TextSpacingMode;
     tokenOverride?: string;
+    sizeOverride?: string;
     className?: string;
   }>(),
   {
     mode: "default",
     tokenOverride: undefined,
+    sizeOverride: undefined,
     className: "",
   },
 );
@@ -20,13 +22,14 @@ const props = withDefaults(
 const token = computed(() =>
   props.tokenOverride ?? getTextSpacingToken(props.topVariant, props.bottomVariant, props.mode),
 );
+const height = computed(() => (props.sizeOverride ? props.sizeOverride : `var(${token.value})`));
 </script>
 
 <template>
   <div
     class="mi-text-spacer"
     :class="className"
-    :style="{ height: `var(${token})` }"
+    :style="{ height }"
     aria-hidden="true"
   />
 </template>

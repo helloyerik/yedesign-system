@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { PhX } from "@phosphor-icons/vue";
+import ButtonIcon from "../../atoms/ButtonIcon/ButtonIcon.vue";
 interface ActionsPanelAction {
   id: string;
   label: string;
@@ -57,9 +59,11 @@ const handleActionClick = (action: ActionsPanelAction) => {
           {{ action.label }}
         </button>
       </div>
-      <button type="button" class="mi-actions-panel__close" @click="emit('close')">
-        ×
-      </button>
+      <div class="mi-actions-panel__close">
+        <ButtonIcon size="S" variant="ghost" :color="'var(--mi-color-brand-text-brand-contrast)'" @click="emit('close')">
+          <PhX size="16" />
+        </ButtonIcon>
+      </div>
     </div>
   </div>
 </template>
@@ -127,11 +131,11 @@ const handleActionClick = (action: ActionsPanelAction) => {
 }
 
 .mi-actions-panel__action.is-danger {
-  color: var(--mi-color-text-danger);
+  color: var(--mi-color-brand-text-brand-contrast);
 }
 
 .mi-actions-panel__action.is-danger:hover:not(.is-disabled) {
-  background: color-mix(in srgb, var(--mi-color-text-danger), transparent 85%);
+  background: color-mix(in srgb, var(--mi-color-base-light), transparent 85%);
 }
 
 .mi-actions-panel__action.is-disabled {
@@ -149,17 +153,6 @@ const handleActionClick = (action: ActionsPanelAction) => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--mi-spacing-24);
-  height: var(--mi-spacing-24);
-  border: 0;
-  border-radius: var(--mi-radius-s);
-  background: transparent;
-  color: var(--mi-color-brand-text-brand-contrast);
-  cursor: pointer;
-}
-
-.mi-actions-panel__close:hover {
-  background: color-mix(in srgb, var(--mi-color-base-light), transparent 85%);
 }
 
 @keyframes mi-actions-panel-in {

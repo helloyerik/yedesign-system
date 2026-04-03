@@ -139,8 +139,8 @@ const updatePage = (page: number) => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: var(--mi-spacing-4xl);
-  height: var(--mi-spacing-4xl);
+  min-width: var(--mi-size-pagination-m);
+  height: var(--mi-size-pagination-m);
   padding-inline: var(--mi-spacing-8);
   border: 0;
   border-radius: var(--mi-radius-m);
@@ -157,14 +157,14 @@ const updatePage = (page: number) => {
 
 .mi-pagination--S .mi-pagination__button,
 .mi-pagination--S .mi-pagination__ellipsis {
-  min-width: var(--mi-spacing-3xl);
-  height: var(--mi-spacing-3xl);
+  min-width: var(--mi-size-pagination-s);
+  height: var(--mi-size-pagination-s);
 }
 
 .mi-pagination--L .mi-pagination__button,
 .mi-pagination--L .mi-pagination__ellipsis {
-  min-width: var(--mi-spacing-5xl);
-  height: var(--mi-spacing-5xl);
+  min-width: var(--mi-size-pagination-l);
+  height: var(--mi-size-pagination-l);
   font-family: var(--mi-font-family-body-2);
   font-size: var(--mi-font-size-body-2);
   line-height: var(--mi-line-height-body-2);
@@ -194,21 +194,21 @@ const updatePage = (page: number) => {
 }
 
 .mi-pagination__label {
-  margin-inline: var(--mi-spacing-4);
+  margin-inline: var(--mi-spacing-2);
 }
 
 .mi-pagination__icon {
-  width: var(--mi-spacing-l);
-  height: var(--mi-spacing-l);
+  width: var(--mi-size-pagination-icon-m);
+  height: var(--mi-size-pagination-icon-m);
 }
 
 .mi-pagination--S .mi-pagination__icon {
-  width: var(--mi-spacing-m);
-  height: var(--mi-spacing-m);
+  width: var(--mi-size-pagination-icon-s);
+  height: var(--mi-size-pagination-icon-s);
 }
 
 .mi-pagination--L .mi-pagination__icon {
-  width: var(--mi-spacing-xl);
-  height: var(--mi-spacing-xl);
+  width: var(--mi-size-pagination-icon-l);
+  height: var(--mi-size-pagination-icon-l);
 }
 </style>

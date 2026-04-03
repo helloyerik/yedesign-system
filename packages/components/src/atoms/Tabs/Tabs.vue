@@ -77,7 +77,7 @@ const handleClick = (id: string, disabled?: boolean) => {
 .mi-tabs {
   display: flex;
   align-items: center;
-  gap: var(--mi-spacing-8);
+  gap: 0;
 }
 
 .mi-tabs--underline {
@@ -110,12 +110,12 @@ const handleClick = (id: string, disabled?: boolean) => {
 }
 
 .mi-tabs--underline.mi-tabs--XL .mi-tabs__tab {
-  padding: var(--mi-spacing-12) var(--mi-spacing-20);
+  padding: var(--mi-spacing-12) var(--mi-spacing-xl);
 }
 
 .mi-tabs--pills .mi-tabs__tab {
-  height: var(--mi-size-button-s-height);
-  padding: 0 var(--mi-spacing-12);
+  height: var(--mi-size-cart-related-filter-height);
+  padding: var(--mi-spacing-6) var(--mi-spacing-12);
   border-radius: var(--mi-radius-m);
   background: var(--mi-color-base-generic);
   color: var(--mi-color-text-complementary);
@@ -185,8 +185,8 @@ const handleClick = (id: string, disabled?: boolean) => {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(-1 * var(--mi-spacing-2));
-  height: var(--mi-spacing-2);
+  bottom: 0;
+  height: var(--mi-size-tabs-active-line-height);
   background: var(--mi-color-base-brand);
 }
 </style>

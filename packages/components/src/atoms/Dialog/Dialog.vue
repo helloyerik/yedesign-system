@@ -19,11 +19,7 @@ const props = withDefaults(
     bodyClassName?: string;
     contentClassName?: string;
     headerClassName?: string;
-    footerClassName?: string;
     secondaryAutoHeight?: boolean;
-    footerBordered?: boolean;
-    closeButtonClassName?: string;
-    closeButtonVariant?: "ghost" | "secondary";
   }>(),
   {
     title: "",
@@ -35,11 +31,7 @@ const props = withDefaults(
     bodyClassName: "",
     contentClassName: "",
     headerClassName: "",
-    footerClassName: "",
     secondaryAutoHeight: false,
-    footerBordered: true,
-    closeButtonClassName: "",
-    closeButtonVariant: "ghost",
   },
 );
 
@@ -101,9 +93,6 @@ const variantClass = computed(() => `mi-dialog__content--${props.variant.toLower
 const isSecondary = computed(() => props.variant === "Secondary");
 const isPrimary = computed(() => props.variant === "Primary");
 const hasCustomFooter = computed(() => Boolean(slots.footer));
-const secondaryBodyClass = computed(() =>
-  props.bodyClassName || "mi-dialog__body--secondary-default",
-);
 
 onMounted(() => {
   window.addEventListener("keydown", onKeyDown);
@@ -147,12 +136,7 @@ onBeforeUnmount(() => {
         >
           <h1 v-if="title" class="mi-dialog__title">{{ title }}</h1>
 
-          <ButtonIcon
-            size="S"
-            :variant="closeButtonVariant"
-            :class="closeButtonClassName"
-            @click="close"
-          >
+          <ButtonIcon size="S" :color="'var(--mi-color-text-primary)'" @click="close">
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M1 1L11 11M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
             </svg>
@@ -162,7 +146,7 @@ onBeforeUnmount(() => {
         <div
           class="mi-dialog__body"
           :class="[
-            isSecondary ? secondaryBodyClass : bodyClassName,
+            bodyClassName,
             {
               'mi-dialog__body--secondary': isSecondary,
               'mi-dialog__body--secondary-auto': isSecondary && secondaryAutoHeight,
@@ -173,11 +157,7 @@ onBeforeUnmount(() => {
           <slot />
         </div>
 
-        <div
-          v-if="showFooter"
-          class="mi-dialog__footer"
-          :class="[footerClassName, { 'mi-dialog__footer--borderless': !footerBordered }]"
-        >
+        <div v-if="showFooter" class="mi-dialog__footer">
           <slot v-if="hasCustomFooter" name="footer" />
           <div v-else class="mi-dialog__footer-actions">
             <button type="button" class="mi-dialog__footer-button mi-dialog__footer-button--secondary">
@@ -197,7 +177,7 @@ onBeforeUnmount(() => {
 .mi-dialog {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,24 +241,19 @@ onBeforeUnmount(() => {
   width: 100%;
   flex-shrink: 0;
   flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--mi-spacing-24);
+  height: var(--mi-size-dialog-header-height);
+  padding: var(--mi-spacing-16) var(--mi-spacing-16) var(--mi-spacing-16) var(--mi-spacing-xl);
 }
 
 .mi-dialog__header--secondary {
   justify-content: flex-end;
-  align-items: flex-start;
-  gap: var(--mi-spacing-24);
-  height: var(--mi-size-dialog-primary-header-height);
-  padding-top: var(--mi-spacing-4);
-  padding-right: var(--mi-spacing-4);
-  padding-left: var(--mi-spacing-xl);
 }
 
 .mi-dialog__header--primary {
-  justify-content: flex-start;
-  align-items: center;
-  gap: var(--mi-spacing-24);
-  min-height: var(--mi-size-dialog-primary-header-height);
-  padding: var(--mi-spacing-16) var(--mi-spacing-16) var(--mi-spacing-16) var(--mi-spacing-24);
+  justify-content: flex-end;
 }
 
 .mi-dialog__title {
@@ -289,16 +264,17 @@ onBeforeUnmount(() => {
   color: var(--mi-color-text-primary);
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: var(--mi-font-family-header-1);
-  font-size: var(--mi-font-size-header-1);
-  font-weight: var(--mi-font-weight-header-1);
-  line-height: var(--mi-line-height-header-1);
+  font-family: var(--mi-font-family-dialog-title);
+  font-size: var(--mi-font-size-dialog-title);
+  font-weight: var(--mi-font-weight-dialog-title);
+  line-height: var(--mi-line-height-dialog-title);
 }
 
 .mi-dialog__body {
   z-index: 10;
   width: 100%;
   flex-shrink: 0;
+  padding: var(--mi-spacing-xl);
 }
 
 .mi-dialog__body--secondary {
@@ -306,10 +282,6 @@ onBeforeUnmount(() => {
   min-height: var(--mi-size-dialog-secondary-min-height);
   flex-direction: row;
   align-items: center;
-}
-
-.mi-dialog__body--secondary-default {
-  background: var(--mi-color-brand-base-selection);
 }
 
 .mi-dialog__body--secondary-auto {
@@ -333,10 +305,6 @@ onBeforeUnmount(() => {
   gap: var(--mi-spacing-8);
   border-top: 1px solid var(--mi-color-line-generic);
   padding: var(--mi-spacing-xl);
-}
-
-.mi-dialog__footer--borderless {
-  border-top: 0;
 }
 
 .mi-dialog__footer-actions {

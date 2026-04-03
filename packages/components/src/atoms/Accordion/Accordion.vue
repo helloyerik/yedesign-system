@@ -77,7 +77,7 @@ const contentId = (id: string) => `${rootId}-${id}-content`;
 .mi-accordion__header {
   display: flex;
   align-items: center;
-  gap: var(--mi-spacing-12);
+  gap: calc(var(--mi-spacing-8) + var(--mi-spacing-3));
   width: 100%;
   border: 0;
   background: transparent;
@@ -91,7 +91,7 @@ const contentId = (id: string) => `${rootId}-${id}-content`;
 }
 
 .mi-accordion__header--no-padding {
-  padding-inline: var(--mi-spacing-0);
+  padding-inline: 0;
 }
 
 .mi-accordion__header:focus-visible {
@@ -110,7 +110,7 @@ const contentId = (id: string) => `${rootId}-${id}-content`;
 
 .mi-accordion__caret {
   flex: 0 0 auto;
-  color: var(--mi-color-text-hint);
+  color: var(--mi-color-text-primary);
   transition: transform 200ms ease;
 }
 

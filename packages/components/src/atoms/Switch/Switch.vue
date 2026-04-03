@@ -2,6 +2,7 @@
 import { useSlots } from "vue";
 
 type SwitchSize = "M" | "L";
+type SwitchLabelPosition = "left" | "right";
 
 const props = withDefaults(
   defineProps<{
@@ -9,12 +10,14 @@ const props = withDefaults(
     size?: SwitchSize;
     disabled?: boolean;
     label?: string;
+    labelPosition?: SwitchLabelPosition;
   }>(),
   {
     checked: false,
     size: "M",
     disabled: false,
     label: "",
+    labelPosition: "right",
   },
 );
 
@@ -41,6 +44,7 @@ const toggle = () => {
       {
         'is-checked': checked,
         'is-disabled': disabled,
+        'mi-switch--label-left': labelPosition === 'left',
       },
     ]"
   >
@@ -75,6 +79,10 @@ const toggle = () => {
   align-items: center;
   gap: var(--mi-spacing-8);
   cursor: pointer;
+}
+
+.mi-switch--label-left {
+  flex-direction: row-reverse;
 }
 
 .mi-switch--L {

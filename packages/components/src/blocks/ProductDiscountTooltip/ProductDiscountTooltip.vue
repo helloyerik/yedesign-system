@@ -43,7 +43,7 @@ const emit = defineEmits<{
 .mi-product-discount-tooltip {
   display: flex;
   flex-direction: column;
-  gap: var(--mi-spacing-4);
+  gap: var(--mi-spacing-2);
   color: var(--mi-color-text-primary);
   font-family: var(--mi-font-family-body-1);
   font-size: var(--mi-font-size-body-1);
@@ -62,7 +62,7 @@ const emit = defineEmits<{
   border: 0;
   padding: 0;
   background: transparent;
-  color: var(--mi-color-brand-text-link);
+  color: var(--mi-color-brand-text-brand-heavy);
   cursor: pointer;
 }
 

@@ -22,3 +22,20 @@ body {
   padding: var(--mi-spacing-32);
   background: var(--mi-color-base-background);
 }
+
+.sb-image-skeleton {
+  display: block;
+  background: var(--mi-color-base-generic);
+  animation: sb-skeleton-pulse var(--mi-motion-skeleton-pulse-duration) ease-in-out infinite;
+}
+
+@keyframes sb-skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
-import { PhHeart, PhScales, PhShoppingCart, PhStar } from "@phosphor-icons/vue";
+import { computed } from "vue";
+import { PhShoppingCart, PhGift } from "@phosphor-icons/vue";
+import StarRating from "../../atoms/StarRating/StarRating.vue";
 
 export interface ProductCardLabel {
   text: string;
@@ -25,9 +26,9 @@ const props = withDefaults(
   {
     rating: undefined,
     reviewCount: undefined,
-    reviewLabel: undefined,
-    originalPrice: undefined,
-    discount: undefined,
+    reviewLabel: "",
+    originalPrice: "",
+    discount: "",
     labels: () => [],
     showcase: false,
     dotCount: 5,
@@ -35,346 +36,216 @@ const props = withDefaults(
   },
 );
 
-const isHovered = ref(false);
-
 const hasRating = computed(() => props.rating != null && props.reviewCount != null);
 const resolvedReviewLabel = computed(() => {
   if (!hasRating.value) return "";
   if (props.reviewLabel) return props.reviewLabel;
-  if (typeof props.reviewCount === "number") {
-    return `${props.reviewCount} отзыв${props.reviewCount >= 5 ? "ов" : props.reviewCount >= 2 ? "а" : ""}`;
-  }
+  if (typeof props.reviewCount === "number") return String(props.reviewCount);
   return String(props.reviewCount);
 });
 
-const labelClassName = (variant: ProductCardLabel["variant"]) => {
-  switch (variant) {
-    case "bonus":
-      return "mi-product-card__label--bonus";
-    case "info":
-      return "mi-product-card__label--info";
-    case "misc":
-      return "mi-product-card__label--misc";
-    default:
-      return "";
-  }
-};
+const numericRating = computed(() => {
+  if (props.rating == null) return 0;
+  const parsed = typeof props.rating === "string" ? Number.parseFloat(props.rating) : props.rating;
+  return Number.isFinite(parsed) ? parsed : 0;
+});
 </script>
 
 <template>
-  <div
-    class="mi-product-card"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
-  >
-    <div class="mi-product-card__labels-wrap">
-      <div v-if="labels.length > 0" class="mi-product-card__labels">
+  <div class="mi-product-card">
+    <div v-if="labels.length" class="mi-product-card__labels">
+      <div class="mi-product-card__labels-row">
         <div
           v-for="(label, index) in labels"
           :key="index"
           class="mi-product-card__label"
-          :class="labelClassName(label.variant)"
+          :class="`mi-product-card__label--${label.variant}`"
         >
-          <p class="mi-product-card__label-text">{{ label.text }}</p>
-          <svg
-            v-if="label.variant === 'bonus'"
-            class="mi-product-card__gift-icon"
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              d="M9.04232 5.26675C9.37369 5.26675 9.64232 4.99812 9.64232 4.66675C9.64232 4.33538 9.37369 4.06675 9.04232 4.06675V4.66675V5.26675ZM4.08398 4.66675V4.06675C3.75261 4.06675 3.48398 4.33538 3.48398 4.66675H4.08398ZM4.08398 11.6667H3.48398C3.48398 11.9981 3.75261 12.2667 4.08398 12.2667V11.6667ZM5.9069 6.92934C5.57553 6.92934 5.3069 7.19797 5.3069 7.52934C5.3069 7.86071 5.57553 8.12934 5.9069 8.12934V7.52934V6.92934ZM9.04232 4.66675V4.06675H4.08398V4.66675V5.26675H9.04232V4.66675ZM4.08398 4.66675H3.48398V11.6667H4.08398H4.68398V4.66675H4.08398ZM4.08398 11.6667V12.2667C4.85439 12.2667 5.66146 12.2901 6.35904 12.2784C7.06789 12.2665 7.75646 12.2191 8.35802 12.0591C8.96744 11.897 9.53102 11.6076 9.93335 11.0824C10.3345 10.5587 10.5173 9.87631 10.5173 9.04175H9.91732H9.31732C9.31732 9.70717 9.17205 10.1029 8.98071 10.3527C8.79059 10.6009 8.4974 10.7803 8.04953 10.8994C7.5938 11.0206 7.02456 11.067 6.33887 11.0785C5.64193 11.0903 4.91775 11.0667 4.08398 11.0667V11.6667ZM9.91732 9.04175H10.5173C10.5173 8.44038 10.3197 7.94685 9.93439 7.58855C9.57041 7.25006 9.09811 7.08819 8.64885 7.00456C8.19487 6.92005 7.70005 6.90425 7.23594 6.90649C7.00182 6.90762 6.76719 6.91351 6.54465 6.91891C6.31964 6.92438 6.10743 6.92934 5.9069 6.92934V7.52934V8.12934C6.12433 8.12934 6.35091 8.12397 6.57379 8.11856C6.79915 8.11308 7.02151 8.10754 7.24173 8.10648C7.6863 8.10433 8.08959 8.12107 8.42925 8.18429C8.77361 8.24839 8.99045 8.34943 9.1172 8.4673C9.22264 8.56535 9.31732 8.72162 9.31732 9.04175H9.91732Z"
-              fill="var(--mi-color-brand-primary)"
-            />
-            <path
-              d="M4.08333 1.75C3.76117 1.75 3.5 2.01117 3.5 2.33334C3.5 2.6555 3.76117 2.91667 4.08333 2.91667V1.75ZM9.04167 2.91667C9.36384 2.91667 9.625 2.6555 9.625 2.33333C9.625 2.01116 9.36384 1.75 9.04167 1.75V2.91667ZM4.08333 2.91667H9.04167V1.75H4.08333V2.91667Z"
-              fill="var(--mi-color-brand-primary)"
-            />
-          </svg>
+          <span class="mi-product-card__label-text">{{ label.text }}</span>
+          <PhGift v-if="label.variant === 'bonus'" :size="12" class="mi-product-card__label-icon" />
         </div>
       </div>
     </div>
 
-    <div class="mi-product-card__media-wrap">
-      <div class="mi-product-card__image-box">
-        <img
-          :alt="title"
-          class="mi-product-card__image"
-          :src="image"
-        />
-        <div v-if="showcase" class="mi-product-card__showcase">
-          <span class="mi-product-card__showcase-text">на витрине</span>
-        </div>
-      </div>
-
-      <div class="mi-product-card__dots" :class="{ 'is-visible': isHovered }">
-        <div
-          v-for="(_, index) in dotCount"
-          :key="index"
-          class="mi-product-card__dot"
-        >
-          <svg class="mi-product-card__dot-svg" fill="none" viewBox="0 0 8 8">
-            <circle
-              cx="3.5"
-              cy="3.5"
-              r="3.5"
-              fill="var(--mi-color-text-primary)"
-              :fill-opacity="index === activeDot ? 0.5 : 0.09"
-            />
-          </svg>
-        </div>
-      </div>
+    <div class="mi-product-card__image-wrap">
+      <img :src="image" :alt="title" class="mi-product-card__image" />
     </div>
 
     <div class="mi-product-card__details">
-      <div class="mi-product-card__title">
-        {{ title }}
-      </div>
-
-      <div v-if="hasRating" class="mi-product-card__rating-row">
+      <div class="mi-product-card__title">{{ title }}</div>
+      <div v-if="hasRating" class="mi-product-card__rating">
         <span class="mi-product-card__rating-value">{{ rating }}</span>
-        <PhStar :size="16" weight="fill" color="var(--mi-color-status-warning)" class="mi-product-card__rating-icon" />
+        <StarRating :rating="numericRating" :size="12" class="mi-product-card__stars" />
         <span class="mi-product-card__rating-label">{{ resolvedReviewLabel }}</span>
       </div>
+    </div>
 
-      <div class="mi-product-card__spacer" />
+    <div class="mi-product-card__divider" />
 
-      <div class="mi-product-card__pricing-actions">
-        <div class="mi-product-card__pricing">
-          <div v-if="originalPrice || discount" class="mi-product-card__old-price-row">
-            <span v-if="originalPrice" class="mi-product-card__old-price">{{ originalPrice }}</span>
-            <span v-if="discount" class="mi-product-card__discount">{{ discount }}</span>
-          </div>
-          <div class="mi-product-card__current-price">
-            {{ currentPrice }}
-          </div>
+    <div class="mi-product-card__pricing">
+      <div class="mi-product-card__prices">
+        <div v-if="originalPrice || discount" class="mi-product-card__old">
+          <span v-if="originalPrice" class="mi-product-card__old-price">{{ originalPrice }}</span>
+          <span v-if="discount" class="mi-product-card__discount">{{ discount }}</span>
         </div>
-
-        <button
-          class="mi-product-card__icon-action"
-          :class="{ 'is-visible': isHovered }"
-          type="button"
-        >
-          <PhHeart :size="20" color="var(--mi-color-text-secondary)" />
-        </button>
-
-        <button class="mi-product-card__cart-action" type="button">
-          <PhShoppingCart :size="20" color="rgb(255 255 255 / 85%)" />
-        </button>
+        <div class="mi-product-card__current">{{ currentPrice }}</div>
       </div>
+      <button type="button" class="mi-product-card__action mi-product-card__action--brand">
+        <PhShoppingCart :size="20" />
+      </button>
     </div>
   </div>
 </template>
 
 <style scoped>
 .mi-product-card {
-  display: flex;
-  width: 260px;
-  height: 430px;
-  flex-shrink: 0;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--mi-spacing-16);
-  padding: var(--mi-spacing-16);
-  border-radius: var(--mi-radius-m);
-  background: var(--mi-color-base-background);
-  box-shadow: 0 0 4px rgb(0 0 0 / 5%);
-  cursor: pointer;
-}
-
-.mi-product-card__labels-wrap {
-  width: 220px;
-  min-height: 20px;
-  flex-shrink: 0;
+  position: relative;
+  width: var(--mi-size-product-card-width);
+  height: var(--mi-size-product-card-height);
+  border-radius: var(--mi-radius-xl);
+  background: var(--mi-color-base-generic-solid);
 }
 
 .mi-product-card__labels {
-  display: flex;
+  position: absolute;
+  left: 0;
+  top: var(--mi-spacing-12);
   width: 100%;
+  height: var(--mi-size-product-card-label-height);
+  padding: 0 var(--mi-spacing-12);
+}
+
+.mi-product-card__labels-row {
+  display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--mi-spacing-4);
 }
 
 .mi-product-card__label {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 2px;
-  flex-shrink: 0;
+  gap: var(--mi-spacing-2);
+  height: var(--mi-size-product-card-label-height);
+  padding: 1px var(--mi-spacing-4);
   border-radius: var(--mi-radius-xs);
-  padding: 1px var(--mi-spacing-8);
+  font-family: var(--mi-font-family-caption-2);
+  font-size: var(--mi-font-size-caption-2);
+  line-height: var(--mi-line-height-caption-2);
 }
 
 .mi-product-card__label--bonus {
-  background: rgb(230 23 113 / 20%);
-  color: var(--mi-color-brand-primary);
+  background: var(--mi-color-brand-base-selection);
+  color: var(--mi-color-brand-text-brand);
 }
 
 .mi-product-card__label--info {
-  background: var(--mi-color-base-semantic-info-light);
-  color: var(--mi-color-text-info);
+  background: var(--mi-color-base-semantic-positive-light);
+  color: var(--mi-color-text-positive);
 }
 
 .mi-product-card__label--misc {
-  background: rgb(107 132 153 / 15%);
-  color: #495a69;
+  background: var(--mi-color-label-misc-bg);
+  color: var(--mi-color-text-secondary);
 }
 
 .mi-product-card__label-text {
-  font-family: var(--mi-font-family-body-1);
-  font-size: var(--mi-font-size-body-1);
-  font-weight: var(--mi-font-weight-body-1);
-  line-height: var(--mi-line-height-body-1);
-}
-
-.mi-product-card__gift-icon {
-  flex-shrink: 0;
-}
-
-.mi-product-card__media-wrap {
   display: flex;
-  width: 180px;
-  flex-shrink: 0;
-  flex-direction: column;
   align-items: center;
-  gap: var(--mi-spacing-8);
 }
 
-.mi-product-card__image-box {
-  position: relative;
-  width: 180px;
-  height: 180px;
-  flex-shrink: 0;
+.mi-product-card__label-icon {
+  flex: 0 0 auto;
+}
+
+.mi-product-card__image-wrap {
+  position: absolute;
+  left: 50%;
+  top: var(--mi-size-product-card-image-top);
+  width: var(--mi-size-product-card-image);
+  height: var(--mi-size-product-card-image);
+  transform: translateX(-50%);
+  border-radius: var(--mi-radius-s);
+  overflow: hidden;
 }
 
 .mi-product-card__image {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  pointer-events: none;
-}
-
-.mi-product-card__showcase {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--mi-color-status-warning);
-  padding-inline: 4px;
-}
-
-.mi-product-card__showcase-text {
-  color: rgb(255 255 255 / 85%);
-  font-family: var(--mi-font-family-caption-1);
-  font-size: var(--mi-font-size-caption-1);
-  font-weight: var(--mi-font-weight-caption-1);
-  line-height: var(--mi-line-height-caption-1);
-}
-
-.mi-product-card__dots {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-shrink: 0;
-  opacity: 0;
-  transition: opacity 200ms ease;
-}
-
-.mi-product-card__dots.is-visible {
-  opacity: 1;
-}
-
-.mi-product-card__dot {
-  width: 8px;
-  height: 8px;
-  flex-shrink: 0;
-}
-
-.mi-product-card__dot-svg {
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 
 .mi-product-card__details {
-  display: flex;
+  position: absolute;
+  left: 0;
+  top: var(--mi-size-product-card-details-top);
   width: 100%;
-  flex: 1 1 auto;
+  height: var(--mi-size-product-card-details-height);
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  gap: var(--mi-spacing-4);
+  padding: 0 var(--mi-spacing-12);
 }
 
 .mi-product-card__title {
-  width: 100%;
   color: var(--mi-color-text-complementary);
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  font-family: var(--mi-font-family-body-2);
-  font-size: var(--mi-font-size-body-2);
-  font-weight: var(--mi-font-weight-body-2);
-  line-height: var(--mi-line-height-body-2);
+  font-family: var(--mi-font-family-subheader-2);
+  font-size: var(--mi-font-size-subheader-2);
+  line-height: var(--mi-line-height-subheader-2);
+  font-weight: var(--mi-font-weight-subheader-2);
 }
 
-.mi-product-card__rating-row {
+.mi-product-card__rating {
   display: flex;
   align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
+  gap: var(--mi-spacing-4);
 }
 
 .mi-product-card__rating-value {
   color: var(--mi-color-text-complementary);
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 20px;
-}
-
-.mi-product-card__rating-icon {
-  flex-shrink: 0;
+  font-family: var(--mi-font-family-body-1);
+  font-size: var(--mi-font-size-body-1);
+  line-height: var(--mi-line-height-body-1);
 }
 
 .mi-product-card__rating-label {
   color: var(--mi-color-text-hint);
-  font-family: var(--mi-font-family-body-2);
-  font-size: var(--mi-font-size-body-2);
-  font-weight: var(--mi-font-weight-body-2);
-  line-height: var(--mi-line-height-body-2);
+  font-family: var(--mi-font-family-body-1);
+  font-size: var(--mi-font-size-body-1);
+  line-height: var(--mi-line-height-body-1);
 }
 
-.mi-product-card__spacer {
-  flex: 1 1 auto;
-}
-
-.mi-product-card__pricing-actions {
-  display: flex;
+.mi-product-card__divider {
+  position: absolute;
+  left: 0;
+  top: var(--mi-size-product-card-divider-top);
   width: 100%;
-  align-items: flex-end;
-  gap: var(--mi-spacing-8);
-  flex-shrink: 0;
+  height: var(--mi-size-hairline-half);
+  background: var(--mi-color-line-generic);
 }
 
 .mi-product-card__pricing {
-  min-width: 0;
-  flex: 1 1 auto;
+  position: absolute;
+  left: 0;
+  top: var(--mi-size-product-card-pricing-top);
+  width: 100%;
+  height: var(--mi-size-product-card-pricing-height);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--mi-spacing-8);
+  padding: 0 var(--mi-spacing-12);
 }
 
-.mi-product-card__old-price-row {
+.mi-product-card__prices {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.mi-product-card__old {
+  display: flex;
+  gap: var(--mi-spacing-4);
   align-items: center;
-  gap: 4px;
 }
 
 .mi-product-card__old-price {
@@ -382,7 +253,6 @@ const labelClassName = (variant: ProductCardLabel["variant"]) => {
   text-decoration: line-through;
   font-family: var(--mi-font-family-body-1-short);
   font-size: var(--mi-font-size-body-1-short);
-  font-weight: var(--mi-font-weight-body-1-short);
   line-height: var(--mi-line-height-body-1-short);
 }
 
@@ -390,50 +260,30 @@ const labelClassName = (variant: ProductCardLabel["variant"]) => {
   color: var(--mi-color-text-danger-heavy);
   font-family: var(--mi-font-family-body-1-short);
   font-size: var(--mi-font-size-body-1-short);
-  font-weight: var(--mi-font-weight-body-1-short);
   line-height: var(--mi-line-height-body-1-short);
 }
 
-.mi-product-card__current-price {
+.mi-product-card__current {
   color: var(--mi-color-text-primary);
-  font-family: var(--mi-font-family-subheader-3);
-  font-size: var(--mi-font-size-subheader-3);
-  font-weight: var(--mi-font-weight-subheader-3);
-  line-height: var(--mi-line-height-subheader-3);
+  font-family: var(--mi-font-family-subheader-2);
+  font-size: var(--mi-font-size-subheader-2);
+  line-height: var(--mi-line-height-subheader-2);
 }
 
-.mi-product-card__icon-action {
+.mi-product-card__action {
+  width: var(--mi-size-product-card-action);
+  height: var(--mi-size-product-card-action);
+  border-radius: var(--mi-radius-m);
+  border: 0;
+  cursor: pointer;
   display: inline-flex;
-  width: 32px;
-  height: 32px;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  border: 0;
-  border-radius: var(--mi-radius-m);
-  background: transparent;
-  opacity: 0;
-  transition: opacity 200ms ease;
+  transition: opacity 150ms ease;
 }
 
-.mi-product-card__icon-action.is-visible {
-  opacity: 1;
-}
-
-.mi-product-card__cart-action {
-  display: inline-flex;
-  width: 32px;
-  height: 32px;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 0;
-  border-radius: var(--mi-radius-m);
+.mi-product-card__action--brand {
   background: var(--mi-color-base-brand);
-  transition: background-color 200ms ease;
-}
-
-.mi-product-card__cart-action:hover {
-  background: var(--mi-color-base-brand-hover);
+  color: var(--mi-color-brand-text-brand-contrast);
 }
 </style>

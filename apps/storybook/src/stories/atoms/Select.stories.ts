@@ -62,6 +62,10 @@ export const Playground: Story = {
 };
 
 export const Variants: Story = {
+  args: {
+    caretWeight: "regular"
+  },
+
   render: () => ({
     components: { Select },
     setup() {
@@ -79,7 +83,7 @@ export const Variants: Story = {
         </div>
       </section>
     `,
-  }),
+  })
 };
 
 export const WithSelectedMark: Story = {

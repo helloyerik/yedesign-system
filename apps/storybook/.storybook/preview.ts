@@ -55,9 +55,45 @@ const preview: Preview = {
             name: "StoryWithAgentation",
             setup() {
               const agentationRoot = ref<HTMLElement | null>(null);
+              const storyRoot = ref<HTMLElement | null>(null);
               let reactRoot: { unmount: () => void } | null = null;
+              let observer: MutationObserver | null = null;
+
+              const replaceImagesWithSkeletons = () => {
+                if (!storyRoot.value) return;
+
+                const images = storyRoot.value.querySelectorAll<HTMLImageElement>("img:not([data-sb-skeletonized])");
+                images.forEach((img) => {
+                  const rect = img.getBoundingClientRect();
+                  const computed = window.getComputedStyle(img);
+                  const width = rect.width || parseFloat(computed.width) || img.width || 0;
+                  const height = rect.height || parseFloat(computed.height) || img.height || 0;
+                  if (!width || !height) return;
+
+                  const skeleton = document.createElement("div");
+                  skeleton.className = "sb-image-skeleton";
+                  skeleton.dataset.sbSkeleton = "true";
+                  skeleton.style.width = `${width}px`;
+                  skeleton.style.height = `${height}px`;
+                  skeleton.style.borderRadius = computed.borderRadius;
+                  skeleton.style.display = computed.display === "inline" ? "inline-block" : computed.display;
+                  skeleton.style.flex = computed.flex;
+                  skeleton.style.alignSelf = computed.alignSelf;
+
+                  img.dataset.sbSkeletonized = "true";
+                  img.replaceWith(skeleton);
+                });
+              };
 
               onMounted(async () => {
+                replaceImagesWithSkeletons();
+                if (storyRoot.value) {
+                  observer = new MutationObserver(() => {
+                    replaceImagesWithSkeletons();
+                  });
+                  observer.observe(storyRoot.value, { childList: true, subtree: true });
+                }
+
                 if (!shouldEnableAgentation || !agentationRoot.value) return;
 
                 const [{ Agentation }, { createElement }, { createRoot }] =
@@ -74,12 +110,17 @@ const preview: Preview = {
               });
 
               onBeforeUnmount(() => {
+                observer?.disconnect();
                 reactRoot?.unmount();
               });
 
               return () =>
                 h("div", { class: "sb-frame__story" }, [
-                  h(storyResult),
+                  h("div", {
+                    ref: (value) => {
+                      storyRoot.value = value as HTMLElement | null;
+                    },
+                  }, [h(storyResult)]),
                   h("div", {
                     ref: (value) => {
                       agentationRoot.value = value as HTMLElement | null;

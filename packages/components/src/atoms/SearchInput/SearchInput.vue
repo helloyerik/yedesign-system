@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { PhMagnifyingGlass } from "@phosphor-icons/vue";
-
 type SearchInputWidth = "hug" | "full";
 type SearchInputSurface = "generic" | "plain";
 
@@ -47,9 +45,6 @@ const onKeydown = (event: KeyboardEvent) => {
       },
     ]"
   >
-    <span class="mi-search-input__icon" aria-hidden="true">
-      <PhMagnifyingGlass :size="20" />
-    </span>
     <input
       class="mi-search-input__control"
       type="text"
@@ -67,12 +62,11 @@ const onKeydown = (event: KeyboardEvent) => {
 .mi-search-input {
   display: inline-flex;
   align-items: center;
-  gap: var(--mi-spacing-8);
   width: fit-content;
   height: 36px;
   padding: var(--mi-spacing-8) var(--mi-spacing-16);
   border: 1px solid var(--mi-color-line-generic);
-  border-radius: var(--mi-radius-m);
+  border-radius: var(--mi-radius-l);
   background: var(--mi-color-base-generic);
 }
 
@@ -92,21 +86,6 @@ const onKeydown = (event: KeyboardEvent) => {
   border-color: var(--mi-color-line-generic-active);
 }
 
-.mi-search-input__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 20px;
-  width: 20px;
-  height: 20px;
-  color: var(--mi-color-text-secondary);
-}
-
-.mi-search-input__icon svg {
-  width: 20px;
-  height: 20px;
-}
-
 .mi-search-input__control {
   width: 100%;
   min-width: 0;
@@ -115,10 +94,10 @@ const onKeydown = (event: KeyboardEvent) => {
   outline: 0;
   background: transparent;
   color: var(--mi-color-text-primary);
-  font-family: var(--mi-font-family-body-2);
-  font-size: var(--mi-font-size-body-2);
-  font-weight: var(--mi-font-weight-body-2);
-  line-height: var(--mi-line-height-body-2);
+  font-family: var(--mi-font-family-body-1);
+  font-size: var(--mi-font-size-body-1);
+  font-weight: var(--mi-font-weight-body-1);
+  line-height: var(--mi-line-height-body-1);
 }
 
 .mi-search-input__control::placeholder {

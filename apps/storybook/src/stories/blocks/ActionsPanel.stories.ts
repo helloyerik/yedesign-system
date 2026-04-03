@@ -14,7 +14,7 @@ const meta = {
     selectedCount: 3,
     actions: [
       { id: "approve", label: "Принять", icon: PhCheck },
-      { id: "remove", label: "Удалить", icon: PhTrash, theme: "danger" },
+      { id: "remove", label: "Удалить", icon: PhTrash },
     ],
   },
 } satisfies Meta<typeof ActionsPanel>;

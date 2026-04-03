@@ -315,10 +315,10 @@
   --mi-line-height-banner-slim-title-compact: 20px;
   --mi-font-size-banner-slim-text-compact: 13px;
   --mi-line-height-banner-slim-text-compact: 18px;
-  --mi-size-banner-default-image-width: 240px;
+  --mi-size-banner-default-image-width: 50%;
   --mi-size-banner-default-image-height: 240px;
-  --mi-size-banner-default-close-offset-top: 14px;
-  --mi-size-banner-default-close-offset-right: 20px;
+  --mi-size-banner-default-close-offset-top: var(--mi-spacing-banner-default-padding-top);
+  --mi-size-banner-default-close-offset-right: var(--mi-spacing-banner-default-padding-right);
   --mi-spacing-banner-default-padding-top: 20px;
   --mi-spacing-banner-default-padding-right: 24px;
   --mi-spacing-banner-default-padding-bottom: 28px;

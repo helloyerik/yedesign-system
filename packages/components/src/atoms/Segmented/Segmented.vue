@@ -62,8 +62,8 @@ const select = (value: string, disabled?: boolean) => {
 .mi-segmented {
   display: inline-flex;
   align-items: center;
-  gap: var(--mi-spacing-8);
-  padding: var(--mi-spacing-4);
+  gap: var(--mi-spacing-6);
+  padding: var(--mi-spacing-3);
   border-radius: var(--mi-radius-m);
   background: var(--mi-color-base-generic);
 }
@@ -76,8 +76,8 @@ const select = (value: string, disabled?: boolean) => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: var(--mi-size-button-xs-height);
-  padding-inline: var(--mi-spacing-16);
+  height: var(--mi-size-docs-segment-height);
+  padding-inline: var(--mi-spacing-8);
   border: 0;
   border-radius: var(--mi-radius-s);
   background: transparent;

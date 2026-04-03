@@ -53,12 +53,18 @@ const TreeNodeView = defineComponent({
     const isExpanded = computed(() => expandedValues.value.has(path.value));
     const isSelected = computed(() => props.selectedValue === nodeProps.node.value);
     const paddingLeft = computed(
-      () => `calc(var(--mi-spacing-4) + ${nodeProps.depth} * var(--mi-spacing-20))`,
+      () => `calc(var(--mi-spacing-4) + ${nodeProps.depth} * var(--mi-spacing-xl))`,
     );
 
     return () =>
       h("div", { class: "mi-tree__node" }, [
-        h("div", { class: "mi-tree__row", style: { paddingLeft: paddingLeft.value } }, [
+        h(
+          "div",
+          {
+            class: "mi-tree__row",
+            style: { paddingLeft: paddingLeft.value },
+          },
+          [
           h(
             "button",
             {
@@ -86,7 +92,8 @@ const TreeNodeView = defineComponent({
               slots.trailing ? h("span", { class: "mi-tree__trailing" }, slots.trailing({ node: nodeProps.node })) : null,
             ],
           ),
-        ]),
+        ],
+        ),
         hasChildren.value && isExpanded.value
           ? h(
               "div",
@@ -125,11 +132,12 @@ const TreeNodeView = defineComponent({
   display: flex;
   align-items: center;
   width: 100%;
+  border-radius: var(--mi-radius-xs);
 }
 
 .mi-tree__toggle {
-  width: var(--mi-spacing-32);
-  height: var(--mi-spacing-32);
+  width: var(--mi-spacing-24);
+  height: var(--mi-spacing-24);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -145,8 +153,8 @@ const TreeNodeView = defineComponent({
   align-items: center;
   gap: var(--mi-spacing-8);
   padding: var(--mi-spacing-8) var(--mi-spacing-4);
-  border: 0;
   border-radius: var(--mi-radius-xs);
+  border: 0;
   background: transparent;
   cursor: pointer;
   text-align: left;
@@ -154,10 +162,9 @@ const TreeNodeView = defineComponent({
   font-family: var(--mi-font-family-body-2);
   font-size: var(--mi-font-size-body-2);
   line-height: var(--mi-line-height-body-2);
-  transition: background-color 150ms ease;
 }
 
-.mi-tree__label:hover {
+.mi-tree__label:hover:not(.is-selected) {
   background: var(--mi-color-base-generic-hover);
 }
 

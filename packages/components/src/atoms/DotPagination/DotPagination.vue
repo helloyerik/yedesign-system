@@ -30,7 +30,7 @@ const props = withDefaults(
   justify-content: center;
   gap: var(--mi-spacing-8);
   width: 100%;
-  min-height: var(--mi-size-dot-pagination-dot);
+  height: var(--mi-size-dot-pagination-dot);
   padding-inline: var(--mi-spacing-16);
 }
 

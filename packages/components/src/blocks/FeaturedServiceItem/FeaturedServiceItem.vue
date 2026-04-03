@@ -3,28 +3,22 @@ import { computed } from "vue";
 import { PhCaretRight, PhCheck } from "@phosphor-icons/vue";
 import Button from "../../atoms/Button/Button.vue";
 
+type FeaturedServiceCardHeight = "fixed" | "hug";
+type FeaturedServiceCaretSize = "S" | "M";
+type FeaturedServiceActionVariant = "secondary" | "secondary-info" | "brand-secondary";
+type FeaturedServiceActionTone = "brand" | "primary";
+
 export interface FeaturedServiceTermOption {
   id: string;
   label: string;
 }
 
-type FeaturedServiceMode = "card" | "header";
-type FeaturedServiceLayout = "default" | "desktop-horizontal";
-type FeaturedServiceCaretSize = "S" | "M";
-type FeaturedServiceButtonVariant = "secondary" | "brand-secondary";
-type FeaturedServiceButtonTone = "brand" | "primary";
-type FeaturedServiceCardHeightMode = "fixed" | "hug";
-
 const props = withDefaults(
   defineProps<{
-    mode?: FeaturedServiceMode;
-    layout?: FeaturedServiceLayout;
     imageSrc: string;
     title: string;
     description?: string;
     imageAlt?: string;
-    className?: string;
-    caretSize?: FeaturedServiceCaretSize;
     priceLabel?: string;
     benefits?: readonly string[];
     termOptions?: readonly FeaturedServiceTermOption[];
@@ -32,20 +26,18 @@ const props = withDefaults(
     inCartTermId?: string | null;
     isInCart?: boolean;
     primaryActionLabel?: string;
-    primaryActionVariant?: FeaturedServiceButtonVariant;
-    primaryActionTone?: FeaturedServiceButtonTone;
+    primaryActionVariant?: FeaturedServiceActionVariant;
+    primaryActionTone?: FeaturedServiceActionTone;
     inCartActionLabel?: string;
-    showTopDivider?: boolean;
-    cardHeightMode?: FeaturedServiceCardHeightMode;
+    caretSize?: FeaturedServiceCaretSize;
+    cardHeightMode?: FeaturedServiceCardHeight;
     clipTermOverflow?: boolean;
+    showTopDivider?: boolean;
+    className?: string;
   }>(),
   {
-    mode: "card",
-    layout: "default",
     description: "",
     imageAlt: "",
-    className: "",
-    caretSize: "M",
     priceLabel: "",
     benefits: () => [],
     termOptions: () => [],
@@ -53,116 +45,87 @@ const props = withDefaults(
     inCartTermId: null,
     isInCart: false,
     primaryActionLabel: "Добавить",
-    primaryActionVariant: "brand-secondary",
+    primaryActionVariant: "secondary-info",
     primaryActionTone: "brand",
     inCartActionLabel: "В корзине",
-    showTopDivider: false,
+    caretSize: "S",
     cardHeightMode: "fixed",
     clipTermOverflow: false,
+    showTopDivider: false,
+    className: "",
   },
 );
 
 const emit = defineEmits<{
-  click: [];
-  showAllBenefits: [];
-  termSelect: [termId: string];
-  primaryAction: [];
+  "term-select": [id: string];
+  "primary-action": [];
 }>();
 
-const withNonBreakingTermLabel = (value: string) =>
-  value.replace(/(\d+)\s+(год|года|лет|месяц|месяца|месяцев|мес)(?=\s|$|[.,;:!?])/gi, "$1\u00A0$2");
+const visibleBenefits = computed(() => props.benefits.slice(0, 3));
+const effectiveSelectedTermId = computed(
+  () => props.selectedTermId ?? props.termOptions[0]?.id ?? null,
+);
+const caretSizeToken = computed(() =>
+  props.caretSize === "S" ? "var(--mi-size-icon-12)" : "var(--mi-size-icon-16)",
+);
 
-const effectiveSelectedTermId = computed(() => props.selectedTermId ?? props.termOptions[0]?.id ?? null);
-const hasBenefits = computed(() => props.benefits.length > 0);
-const ctaLabel = computed(() => (props.isInCart ? props.inCartActionLabel : props.primaryActionLabel));
-const cardHeightClassName = computed(() => {
-  if (props.cardHeightMode === "hug") return "is-hug";
-  return hasBenefits.value ? "is-fixed" : "is-compact";
-});
-const showBenefitsTrigger = () => emit("showAllBenefits");
-const headerClick = () => emit("click");
+const withNonBreakingTermLabel = (value: string) =>
+  value.replace(
+    /(\d+)\s+(год|года|лет|месяц|месяца|месяцев|мес)(?=\s|$|[.,;:!?])/gi,
+    "$1\u00A0$2",
+  );
 </script>
 
 <template>
-  <div
-    v-if="mode === 'header'"
-    class="mi-featured-service-header"
-    :class="className"
-  >
-    <button
-      v-if="$attrs.onClick !== undefined || true"
-      type="button"
-      class="mi-featured-service-header__button"
-      @click="headerClick"
-    >
-      <div class="mi-featured-service-header__thumbnail">
-        <img :src="imageSrc" :alt="imageAlt" class="mi-featured-service-header__image" />
-      </div>
-      <div class="mi-featured-service-header__body">
-        <div class="mi-featured-service-header__title-row">
-          <span class="mi-featured-service-header__title">{{ title }}</span>
-          <PhCaretRight
-            :size="caretSize === 'S' ? 12 : 16"
-            weight="bold"
-            class="mi-featured-service-header__caret"
-          />
-        </div>
-        <p v-if="description" class="mi-featured-service-header__description">{{ description }}</p>
-      </div>
-    </button>
-  </div>
-
   <article
-    v-else
-    class="mi-featured-service-card"
-    :class="[className, cardHeightClassName, { 'mi-featured-service-card--desktop-horizontal': layout === 'desktop-horizontal' }]"
+    class="mi-featured-service"
+    :class="[
+      className,
+      `mi-featured-service--${cardHeightMode}`,
+    ]"
   >
-    <div v-if="showTopDivider" class="mi-featured-service-card__top-divider" />
+    <div v-if="showTopDivider" class="mi-featured-service__divider" aria-hidden="true" />
 
-    <button
-      type="button"
-      class="mi-featured-service-header__button mi-featured-service-card__header"
-      @click="showBenefitsTrigger"
-    >
-      <div class="mi-featured-service-header__thumbnail">
-        <img :src="imageSrc" :alt="imageAlt" class="mi-featured-service-header__image" />
+    <div class="mi-featured-service__header">
+      <div class="mi-featured-service__image">
+        <img :src="imageSrc" :alt="imageAlt" />
       </div>
-      <div class="mi-featured-service-header__body">
-        <div class="mi-featured-service-header__title-row">
-          <span class="mi-featured-service-header__title">{{ title }}</span>
-          <PhCaretRight :size="16" weight="bold" class="mi-featured-service-header__caret" />
+      <div class="mi-featured-service__header-content">
+        <div class="mi-featured-service__title-row">
+          <span class="mi-featured-service__title">{{ title }}</span>
+          <PhCaretRight class="mi-featured-service__caret" :style="{ width: caretSizeToken, height: caretSizeToken }" weight="bold" />
         </div>
-        <p v-if="description" class="mi-featured-service-header__description">{{ description }}</p>
+        <p v-if="description" class="mi-featured-service__description">{{ description }}</p>
       </div>
-    </button>
+    </div>
 
-    <div
-      class="mi-featured-service-card__content"
-      :class="{ 'has-benefits': hasBenefits }"
-      @click="showBenefitsTrigger"
-    >
+    <div class="mi-featured-service__body">
       <div
-        class="mi-featured-service-card__terms-row"
-        :class="{ 'clip-overflow': clipTermOverflow }"
+        v-if="termOptions.length"
+        class="mi-featured-service__terms"
+        :class="{ 'is-clipped': clipTermOverflow }"
       >
-        <div class="mi-featured-service-card__terms">
+        <div class="mi-featured-service__terms-row">
           <button
-            v-for="termOption in termOptions"
-            :key="termOption.id"
+            v-for="term in termOptions"
+            :key="term.id"
             type="button"
-            class="mi-featured-service-card__term-button"
-            :class="{ 'is-selected': termOption.id === effectiveSelectedTermId }"
-            @click.stop="emit('termSelect', termOption.id)"
+            class="mi-featured-service__term"
+            :class="{ 'is-selected': term.id === effectiveSelectedTermId }"
+            @click="emit('term-select', term.id)"
           >
-            <span class="mi-featured-service-card__term-label">{{ withNonBreakingTermLabel(termOption.label) }}</span>
+            <span class="mi-featured-service__term-label">
+              {{ withNonBreakingTermLabel(term.label) }}
+            </span>
             <span
-              v-if="(inCartTermId ? termOption.id === inCartTermId : isInCart && termOption.id === effectiveSelectedTermId)"
-              class="mi-featured-service-card__term-check"
+              v-if="term.id === (inCartTermId || (isInCart ? effectiveSelectedTermId : null))"
+              class="mi-featured-service__term-check"
+              aria-hidden="true"
             >
-              <svg aria-hidden="true" viewBox="0 0 8 6" class="mi-featured-service-card__term-check-icon" fill="none">
+              <svg viewBox="0 0 8 6" class="mi-featured-service__term-check-icon" fill="none">
                 <path
                   d="M1 3.2L3.1 5L7 1"
-                  stroke="rgb(255 255 255 / 85%)"
+                  stroke="currentColor"
                   stroke-width="1.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -173,50 +136,36 @@ const headerClick = () => emit("click");
         </div>
       </div>
 
-      <div v-if="hasBenefits" class="mi-featured-service-card__benefits">
-        <div
-          v-for="benefit in benefits.slice(0, 3)"
-          :key="benefit"
-          class="mi-featured-service-card__benefit"
-        >
-          <PhCheck :size="16" weight="bold" class="mi-featured-service-card__benefit-icon" />
-          <p class="mi-featured-service-card__benefit-text">{{ benefit }}</p>
+      <div v-if="visibleBenefits.length" class="mi-featured-service__benefits">
+        <div v-for="benefit in visibleBenefits" :key="benefit" class="mi-featured-service__benefit">
+          <PhCheck :size="'var(--mi-size-icon-20)'" weight="bold" class="mi-featured-service__benefit-icon" />
+          <p class="mi-featured-service__benefit-text">{{ benefit }}</p>
         </div>
       </div>
     </div>
 
-    <div class="mi-featured-service-card__footer">
-      <div class="mi-featured-service-card__price-wrap">
-        <p class="mi-featured-service-card__price">{{ priceLabel }}</p>
-      </div>
-      <div class="mi-featured-service-card__cta">
+    <div class="mi-featured-service__footer">
+      <p class="mi-featured-service__price">{{ priceLabel }}</p>
+      <div class="mi-featured-service__cta">
         <Button
-          v-if="isInCart"
-          :label="ctaLabel"
-          variant="outline"
+          v-if="!isInCart"
+          :label="primaryActionLabel"
           size="S"
-          @click="emit('primaryAction')"
-        >
-          <template #rightIcon>
-            <PhCaretRight :size="16" />
-          </template>
-        </Button>
-
+          :variant="primaryActionVariant"
+          :className="primaryActionTone === 'brand' && primaryActionVariant === 'secondary' ? 'mi-featured-service__cta--brand' : ''"
+          @click="emit('primary-action')"
+        />
         <Button
           v-else
-          :variant="primaryActionVariant"
+          :label="inCartActionLabel"
           size="S"
-          :class-name="[
-            primaryActionVariant === 'brand-secondary'
-              ? ''
-              : primaryActionTone === 'primary'
-                ? 'mi-featured-service-card__button--primary'
-                : 'mi-featured-service-card__button--brand',
-            layout === 'desktop-horizontal' ? 'mi-featured-service-card__button--desktop' : '',
-          ].join(' ')"
-          @click="emit('primaryAction')"
+          variant="outline"
+          className="mi-featured-service__cta-compact"
+          @click="emit('primary-action')"
         >
-          <span>{{ ctaLabel }}</span>
+          <template #rightIcon>
+            <PhCaretRight :size="'var(--mi-size-icon-16)'" class="mi-featured-service__cta-icon" />
+          </template>
         </Button>
       </div>
     </div>
@@ -224,295 +173,230 @@ const headerClick = () => emit("click");
 </template>
 
 <style scoped>
-.mi-featured-service-header__button {
+.mi-featured-service {
   display: flex;
+  flex-direction: column;
+  width: var(--mi-size-services-card-width);
+  border-radius: var(--mi-size-services-card-radius);
+  background: var(--mi-color-surface-panel);
+  box-shadow: inset 0 0 0 var(--mi-size-hairline) var(--mi-color-line-generic-solid);
+  overflow: visible;
+}
+
+.mi-featured-service--fixed {
+  height: var(--mi-size-services-mobile-warranty-card-height);
+}
+
+.mi-featured-service--hug {
+  height: auto;
+}
+
+.mi-featured-service__divider {
+  height: var(--mi-size-services-divider-height);
   width: 100%;
+  background: var(--mi-color-line-generic-solid);
+}
+
+.mi-featured-service__header {
+  display: flex;
   align-items: center;
   gap: var(--mi-spacing-12);
-  border: 0;
-  background: transparent;
-  padding: 0;
+  padding: var(--mi-spacing-16);
   text-align: left;
 }
 
-.mi-featured-service-header__thumbnail {
-  display: flex;
-  width: 44px;
-  height: 44px;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--mi-color-line-brand);
-  border-radius: 8px;
-  background: var(--mi-color-base-background);
-  padding: 3px;
+.mi-featured-service__image {
+  width: var(--mi-size-services-card-thumbnail);
+  height: var(--mi-size-services-card-thumbnail);
+  border-radius: var(--mi-radius-l);
+  border: var(--mi-size-hairline) solid var(--mi-color-line-generic);
+  background: var(--mi-color-surface-panel);
+  padding: var(--mi-spacing-4);
+  flex: 0 0 auto;
 }
 
-.mi-featured-service-header__image {
+.mi-featured-service__image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.mi-featured-service-header__body {
+.mi-featured-service__header-content {
   display: flex;
   min-width: 0;
-  flex: 1 1 auto;
+  flex: 1;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--mi-spacing-4);
 }
 
-.mi-featured-service-header__title-row {
+.mi-featured-service__title-row {
   display: flex;
-  width: 100%;
   align-items: center;
-  gap: 2px;
+  gap: var(--mi-spacing-4);
+  min-width: 0;
 }
 
-.mi-featured-service-header__title {
+.mi-featured-service__title {
   color: var(--mi-color-text-primary);
   font-family: var(--mi-font-family-subheader-2);
   font-size: var(--mi-font-size-subheader-2);
-  font-weight: var(--mi-font-weight-subheader-2);
   line-height: var(--mi-line-height-subheader-2);
-}
-
-.mi-featured-service-header__caret {
-  flex-shrink: 0;
-  color: var(--mi-color-text-secondary);
-}
-
-.mi-featured-service-header__description {
-  overflow: hidden;
-  color: var(--mi-color-text-secondary);
-  text-overflow: ellipsis;
+  font-weight: var(--mi-font-weight-subheader-2);
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mi-featured-service__caret {
+  color: var(--mi-color-text-secondary);
+  flex: 0 0 auto;
+}
+
+.mi-featured-service__description {
+  color: var(--mi-color-text-secondary);
   font-family: var(--mi-font-family-body-1);
   font-size: var(--mi-font-size-body-1);
-  font-weight: var(--mi-font-weight-body-1);
   line-height: var(--mi-line-height-body-1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
 
-.mi-featured-service-card {
-  position: relative;
-  isolation: isolate;
-  display: flex;
-  width: 320px;
-  flex-shrink: 0;
-  flex-direction: column;
-  overflow: visible;
-  border-radius: 10px;
-  background: var(--mi-color-base-background);
-  box-shadow: inset 0 0 0 1px var(--mi-color-line-generic-solid);
-}
-
-.mi-featured-service-card.is-fixed {
-  height: 284px;
-}
-
-.mi-featured-service-card.is-compact {
-  height: 196px;
-}
-
-.mi-featured-service-card.is-hug {
-  height: auto;
-}
-
-.mi-featured-service-card__top-divider {
-  width: 100%;
-  height: 1px;
-  background: var(--mi-color-line-generic-solid);
-}
-
-.mi-featured-service-card__header {
-  padding: var(--mi-spacing-16);
-}
-
-.mi-featured-service-card__content {
+.mi-featured-service__body {
   display: flex;
   min-height: 0;
-  flex: 1 1 auto;
+  flex: 1;
   flex-direction: column;
-  overflow: visible;
   padding: 0 var(--mi-spacing-16) var(--mi-spacing-16);
-  cursor: pointer;
-}
-
-.mi-featured-service-card__content.has-benefits {
   gap: var(--mi-spacing-12);
 }
 
-.mi-featured-service-card__terms-row {
-  min-height: 34px;
+.mi-featured-service__terms {
+  display: flex;
+  min-height: var(--mi-size-services-term-options-row-height);
   width: 100%;
   overflow: visible;
 }
 
-.mi-featured-service-card__terms-row.clip-overflow {
+.mi-featured-service__terms.is-clipped {
   overflow-x: hidden;
+  overflow-y: visible;
 }
 
-.mi-featured-service-card__terms {
+.mi-featured-service__terms-row {
   display: flex;
   min-width: max-content;
   align-items: center;
   gap: var(--mi-spacing-8);
 }
 
-.mi-featured-service-card__term-button {
-  display: inline-flex;
-  height: 34px;
-  flex-shrink: 0;
+.mi-featured-service__term {
+  display: flex;
   align-items: center;
   gap: var(--mi-spacing-8);
-  border: 1px solid var(--mi-color-line-brand);
-  border-radius: 8px;
-  background: var(--mi-color-base-background);
+  height: var(--mi-size-services-term-option-height);
+  box-sizing: border-box;
   padding: var(--mi-spacing-8) var(--mi-spacing-12);
+  border-radius: var(--mi-size-services-term-option-radius);
+  border: var(--mi-size-services-term-option-border-width) solid var(--mi-color-line-generic);
+  background: var(--mi-color-surface-panel);
   color: var(--mi-color-text-primary);
+  font-family: var(--mi-font-family-body-1);
+  font-size: var(--mi-font-size-body-1);
+  line-height: var(--mi-line-height-body-1);
+  cursor: pointer;
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
-.mi-featured-service-card__term-button.is-selected {
-  border-width: 2px;
-  border-color: var(--mi-color-brand-base-brand-secondary);
+.mi-featured-service__term.is-selected {
+  border-color: var(--mi-color-text-complementary);
+  border-width: var(--mi-size-services-term-option-selected-border-width);
 }
 
-.mi-featured-service-card__term-label {
-  order: 2;
-  font-family: var(--mi-font-family-body-2);
-  font-size: var(--mi-font-size-body-2);
-  font-weight: var(--mi-font-weight-body-2);
-  line-height: var(--mi-line-height-body-2);
-}
-
-.mi-featured-service-card__term-check {
-  order: 1;
+.mi-featured-service__term-check {
   display: inline-flex;
-  width: 14px;
-  height: 14px;
-  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  width: var(--mi-size-services-term-option-radio-size);
+  height: var(--mi-size-services-term-option-radio-size);
+  border-radius: var(--mi-size-services-term-option-checkbox-radius);
   background: var(--mi-color-text-complementary);
+  color: var(--mi-color-brand-text-brand-contrast);
 }
 
-.mi-featured-service-card__term-check-icon {
+.mi-featured-service__term-check-icon {
+  width: var(--mi-size-services-term-option-checkbox-icon-size);
+  height: var(--mi-size-services-term-option-checkbox-icon-height);
   display: block;
-  width: 8px;
-  height: 6px;
 }
 
-.mi-featured-service-card__benefits {
+.mi-featured-service__benefits {
   display: flex;
-  min-height: 0;
-  flex: 1 1 auto;
   flex-direction: column;
   gap: var(--mi-spacing-12);
 }
 
-.mi-featured-service-card__benefit {
+.mi-featured-service__benefit {
   display: flex;
-  min-width: 0;
   align-items: flex-start;
-  gap: var(--mi-spacing-8);
-}
-
-.mi-featured-service-card__benefit-icon {
-  margin-top: 1px;
-  flex-shrink: 0;
-  color: var(--mi-color-text-positive);
-}
-
-.mi-featured-service-card__benefit-text {
-  overflow: hidden;
+  gap: var(--mi-spacing-12);
   color: var(--mi-color-text-primary);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: var(--mi-font-family-body-1-short);
-  font-size: var(--mi-font-size-body-1-short);
-  font-weight: var(--mi-font-weight-body-1-short);
-  line-height: var(--mi-line-height-body-1-short);
 }
 
-.mi-featured-service-card__footer {
+.mi-featured-service__benefit-icon {
+  color: var(--mi-color-text-positive-heavy);
+  margin-top: var(--mi-size-hairline);
+}
+
+.mi-featured-service__benefit-text {
+  margin: 0;
+  font-family: var(--mi-font-family-body-2);
+  font-size: var(--mi-font-size-body-2);
+  line-height: var(--mi-line-height-body-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mi-featured-service__footer {
   display: flex;
   align-items: center;
-  gap: var(--mi-spacing-8);
-  border-top: 1px solid var(--mi-color-line-brand);
+  justify-content: space-between;
+  gap: var(--mi-spacing-16);
+  border-top: var(--mi-size-hairline) solid var(--mi-color-line-generic-solid);
   padding: var(--mi-spacing-16);
 }
 
-.mi-featured-service-card__price-wrap {
-  display: flex;
+.mi-featured-service__price {
+  margin: 0;
   min-width: 0;
-  flex: 1 1 auto;
-}
-
-.mi-featured-service-card__price {
-  width: 100%;
-  color: var(--mi-color-text-primary);
+  flex: 1;
   font-family: var(--mi-font-family-subheader-3);
   font-size: var(--mi-font-size-subheader-3);
-  font-weight: var(--mi-font-weight-subheader-3);
   line-height: var(--mi-line-height-subheader-3);
-}
-
-.mi-featured-service-card__cta {
-  flex-shrink: 0;
-}
-
-.mi-featured-service-card__button--primary,
-.mi-featured-service-card__button--primary :deep(span) {
+  font-weight: var(--mi-font-weight-subheader-3);
   color: var(--mi-color-text-primary);
 }
 
-.mi-featured-service-card__button--brand,
-.mi-featured-service-card__button--brand :deep(span) {
-  color: var(--mi-color-brand-primary);
+.mi-featured-service__cta {
+  flex: 0 0 auto;
 }
 
-.mi-featured-service-card--desktop-horizontal {
-  height: auto;
+:deep(.mi-featured-service__cta--brand) {
+  color: var(--mi-color-brand-text-brand);
 }
 
-@media (min-width: 768px) {
-  .mi-featured-service-card--desktop-horizontal {
-    width: 100%;
-    flex-direction: row;
-    align-items: stretch;
-    padding: 4px;
-  }
+:deep(.mi-featured-service__cta--brand .mi-button__label span) {
+  color: var(--mi-color-brand-text-brand);
+}
 
-  .mi-featured-service-card--desktop-horizontal .mi-featured-service-card__header {
-    padding-bottom: var(--mi-spacing-16);
-  }
+.mi-featured-service__cta-compact {
+  gap: var(--mi-spacing-4);
+}
 
-  .mi-featured-service-card--desktop-horizontal .mi-featured-service-card__content {
-    flex: 1 1 auto;
-    padding-top: 0;
-  }
-
-  .mi-featured-service-card--desktop-horizontal .mi-featured-service-card__footer {
-    width: 200px;
-    min-height: 100%;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: space-between;
-    border-top: 0;
-    padding: var(--mi-spacing-12) var(--mi-spacing-16) var(--mi-spacing-16);
-  }
-
-  .mi-featured-service-card--desktop-horizontal .mi-featured-service-card__price {
-    text-align: right;
-    font-family: var(--mi-font-family-header-1);
-    font-size: var(--mi-font-size-header-1);
-    font-weight: var(--mi-font-weight-header-1);
-    line-height: var(--mi-line-height-header-1);
-  }
-
-  .mi-featured-service-card__button--desktop {
-    min-width: 90px;
-  }
+.mi-featured-service__cta-icon {
+  color: var(--mi-color-text-primary);
 }
 </style>

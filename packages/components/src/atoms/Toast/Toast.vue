@@ -30,7 +30,7 @@ const iconComponent = {
 
 const iconColor = props.variant === "success"
   ? "var(--mi-color-text-positive-heavy)"
-  : "var(--mi-color-text-warning-heavy)";
+  : "var(--mi-color-text-warning)";
 </script>
 
 <template>
@@ -63,11 +63,11 @@ const iconColor = props.variant === "success"
   gap: var(--mi-spacing-12);
   padding: var(--mi-spacing-16);
   border-radius: var(--mi-radius-l);
-  min-height: calc(var(--mi-spacing-6xl) + var(--mi-spacing-4));
+  min-height: var(--mi-size-toast-min-height);
 }
 
 .mi-toast--default {
-  background: var(--mi-color-brand-base-brand-secondary);
+  background: var(--mi-color-toast-bg);
   color: var(--mi-color-brand-text-brand-contrast);
 }
 
@@ -95,8 +95,9 @@ const iconColor = props.variant === "success"
   border: 0;
   padding: var(--mi-spacing-8) var(--mi-spacing-12);
   border-radius: var(--mi-radius-s);
-  background: var(--mi-color-base-light);
+  background: var(--mi-color-base-generic);
   color: var(--mi-color-text-primary);
+  height: var(--mi-size-button-xs-height);
   font-family: var(--mi-font-family-body-1);
   font-size: var(--mi-font-size-body-1);
   line-height: var(--mi-line-height-body-1);
@@ -109,6 +110,7 @@ const iconColor = props.variant === "success"
 }
 
 .mi-toast--default .mi-toast__button {
-  background: var(--mi-color-base-light);
+  background: var(--mi-color-label-misc-bg);
+  color: var(--mi-color-brand-text-brand-contrast);
 }
 </style>

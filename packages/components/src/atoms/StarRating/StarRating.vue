@@ -77,7 +77,7 @@ const starSizeStyle = computed(() => ({
 .mi-star-rating {
   display: inline-flex;
   align-items: center;
-  gap: var(--mi-spacing-4);
+  gap: 0;
 }
 
 .mi-star-rating--large {

@@ -54,7 +54,7 @@ const meta = {
               {{ section.items.length }} token(s)
             </p>
           </header>
-          <div style="display:grid; gap: 0;">
+          <div style="display:flex; flex-wrap: wrap; gap: var(--mi-spacing-16);">
             <TokenSwatch v-for="item in section.items" :key="item.token" v-bind="item" />
           </div>
         </section>

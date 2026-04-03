@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import type { Meta, StoryObj } from "@storybook/vue3-vite";
+import { PhGearSix, PhWarning, PhX } from "@phosphor-icons/vue";
 import Input from "@components/atoms/Input/Input.vue";
 
 const meta = {
@@ -19,6 +20,28 @@ const meta = {
       options: ["default", "hover", "active", "filled", "disabled", "error", "errorOutline", "textOnly"],
     },
     disabled: { control: "boolean" },
+    startIcon: {
+      control: "select",
+      options: ["default", "none", "gear", "warning", "x"],
+      mapping: {
+        default: undefined,
+        none: null,
+        gear: PhGearSix,
+        warning: PhWarning,
+        x: PhX,
+      },
+    },
+    endIcon: {
+      control: "select",
+      options: ["default", "none", "gear", "warning", "x"],
+      mapping: {
+        default: undefined,
+        none: null,
+        gear: PhGearSix,
+        warning: PhWarning,
+        x: PhX,
+      },
+    },
   },
   args: {
     label: "Label",
@@ -27,6 +50,8 @@ const meta = {
     state: "default",
     errorText: "Error content",
     className: "",
+    startIcon: "default",
+    endIcon: "default",
   },
 } satisfies Meta<typeof Input>;
 

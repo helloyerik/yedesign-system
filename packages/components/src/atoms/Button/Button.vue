@@ -85,6 +85,11 @@ const handleClick = (event: MouseEvent) => {
       <span v-if="hasLeftIcon" class="mi-button__icon">
         <slot name="leftIcon" />
       </span>
+      <span
+        v-else-if="hasRightIcon"
+        class="mi-button__icon-spacer"
+        aria-hidden="true"
+      />
 
       <span class="mi-button__label">
         <span v-if="shouldRenderLabel">{{ label }}</span>
@@ -94,6 +99,11 @@ const handleClick = (event: MouseEvent) => {
       <span v-if="hasRightIcon" class="mi-button__icon">
         <slot name="rightIcon" />
       </span>
+      <span
+        v-else-if="hasLeftIcon"
+        class="mi-button__icon-spacer"
+        aria-hidden="true"
+      />
     </template>
   </button>
 </template>
@@ -209,6 +219,13 @@ const handleClick = (event: MouseEvent) => {
   height: 16px;
 }
 
+.mi-button__icon-spacer {
+  width: 1px;
+  height: 1px;
+  flex: 0 0 auto;
+  background: transparent;
+}
+
 .mi-button__spinner {
   display: inline-flex;
   align-items: center;
@@ -316,8 +333,8 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .mi-button--outline.is-disabled {
-  background: var(--mi-color-base-generic);
-  border-color: transparent;
+  background: transparent;
+  border-color: var(--mi-color-line-generic);
   color: var(--mi-color-text-secondary);
 }
 

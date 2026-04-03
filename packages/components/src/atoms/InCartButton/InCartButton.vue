@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { computed } from "vue";
 import { PhCaretRight } from "@phosphor-icons/vue";
 
 type InCartButtonWidth = "full" | "hug";
@@ -21,16 +20,6 @@ const emit = defineEmits<{
   click: [event: MouseEvent];
 }>();
 
-const rootClassName = computed(() =>
-  [
-    "mi-in-cart-button",
-    `mi-in-cart-button--${props.width}`,
-    props.className,
-  ]
-    .filter(Boolean)
-    .join(" "),
-);
-
 const handleClick = (event: MouseEvent) => {
   emit("click", event);
 };
@@ -39,27 +28,29 @@ const handleClick = (event: MouseEvent) => {
 <template>
   <button
     type="button"
-    :class="rootClassName"
+    class="mi-in-cart-button"
+    :class="[`mi-in-cart-button--${width}`, className]"
     @click="handleClick"
   >
     <span class="mi-in-cart-button__label">{{ label }}</span>
-    <PhCaretRight class="mi-in-cart-button__icon" :size="16" weight="regular" />
+    <PhCaretRight class="mi-in-cart-button__icon" :size="'var(--mi-size-icon-16)'" />
   </button>
 </template>
 
 <style scoped>
 .mi-in-cart-button {
-  display: flex;
-  height: var(--mi-size-button-m-height);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--mi-spacing-8);
-  border: 1px solid var(--mi-color-brand-base-brand);
-  border-radius: var(--mi-radius-xl);
-  background: transparent;
+  height: var(--mi-size-in-cart-button-height);
   padding-inline: var(--mi-spacing-16);
-  color: var(--mi-color-brand-base-brand);
+  border-radius: var(--mi-radius-l);
+  border: 1px solid var(--mi-color-base-brand);
+  background: transparent;
+  color: var(--mi-color-brand-text-brand);
   cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, opacity 160ms ease;
 }
 
 .mi-in-cart-button--full {
@@ -72,7 +63,6 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .mi-in-cart-button__label {
-  color: var(--mi-color-brand-base-brand);
   font-family: var(--mi-font-family-body-2);
   font-size: var(--mi-font-size-body-2);
   font-weight: var(--mi-font-weight-body-2);
@@ -80,7 +70,6 @@ const handleClick = (event: MouseEvent) => {
 }
 
 .mi-in-cart-button__icon {
-  flex: 0 0 auto;
-  color: var(--mi-color-brand-base-brand);
+  color: currentColor;
 }
 </style>

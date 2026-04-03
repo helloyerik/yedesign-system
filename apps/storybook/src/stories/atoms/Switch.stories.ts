@@ -16,12 +16,17 @@ const meta = {
     },
     checked: { control: "boolean" },
     disabled: { control: "boolean" },
+    labelPosition: {
+      control: "inline-radio",
+      options: ["left", "right"],
+    },
   },
   args: {
     checked: false,
     disabled: false,
     size: "M",
     label: "Enable notifications",
+    labelPosition: "right",
   },
 } satisfies Meta<typeof Switch>;
 
@@ -62,6 +67,18 @@ export const Sizes: Story = {
       <section style="display:grid; gap: var(--mi-spacing-16);">
         <Switch size="M" checked label="Medium switch" />
         <Switch size="L" checked label="Large switch" />
+      </section>
+    `,
+  }),
+};
+
+export const LabelPositions: Story = {
+  render: () => ({
+    components: { Switch },
+    template: `
+      <section style="display:grid; gap: var(--mi-spacing-16);">
+        <Switch label="Label on right" labelPosition="right" />
+        <Switch label="Label on left" labelPosition="left" />
       </section>
     `,
   }),

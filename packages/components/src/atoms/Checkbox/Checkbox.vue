@@ -60,8 +60,8 @@ const toggle = () => {
       :disabled="disabled"
       @click="toggle"
     >
-      <PhMinus v-if="indeterminate" class="mi-checkbox__icon" :size="12" weight="bold" aria-hidden="true" />
-      <PhCheck v-else-if="checked" class="mi-checkbox__icon" :size="12" weight="bold" aria-hidden="true" />
+      <PhMinus v-if="indeterminate" class="mi-checkbox__icon" :size="'var(--mi-checkbox-icon-size)'" weight="bold" aria-hidden="true" />
+      <PhCheck v-else-if="checked" class="mi-checkbox__icon" :size="'var(--mi-checkbox-icon-size)'" weight="bold" aria-hidden="true" />
     </button>
 
     <span v-if="hasLabel" class="mi-checkbox__label">

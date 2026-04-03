@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, useSlots, watch } from "vue";
 import { PhDotsThreeVertical } from "@phosphor-icons/vue";
-import ButtonIcon from "../ButtonIcon/ButtonIcon.vue";
 
 export interface DropdownMenuItem {
   id: string;
@@ -81,7 +80,7 @@ const updatePosition = async () => {
 
   await nextTick();
 
-  const margin = getCssPxVar("--mi-spacing-8", 8);
+  const margin = getCssPxVar("--mi-spacing-4", 4);
   const offset = getCssPxVar("--mi-spacing-4", 4);
   const minHeight = getCssPxVar("--mi-spacing-24", 24) * 5;
   const rect = triggerRef.value.getBoundingClientRect();
@@ -186,16 +185,16 @@ onBeforeUnmount(() => {
       :open="isOpen"
       :trigger-ref="triggerRef"
     />
-    <ButtonIcon
+    <button
       v-else
       ref="triggerRef"
-      size="S"
-      variant="ghost"
+      type="button"
+      class="mi-dropdown__trigger"
       :disabled="disabled"
       @click="toggleMenu"
     >
-      <PhDotsThreeVertical :size="'var(--mi-size-button-icon-glyph)'" weight="bold" />
-    </ButtonIcon>
+      <PhDotsThreeVertical :size="'var(--mi-size-icon-16)'" weight="bold" />
+    </button>
 
     <Teleport to="body">
       <div
@@ -266,6 +265,30 @@ onBeforeUnmount(() => {
   display: inline-flex;
 }
 
+.mi-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--mi-size-dropdown-trigger);
+  height: var(--mi-size-dropdown-trigger);
+  border: 0;
+  border-radius: var(--mi-radius-m);
+  background: transparent;
+  color: var(--mi-color-text-secondary);
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+.mi-dropdown__trigger:hover:not(:disabled) {
+  background: var(--mi-color-base-generic);
+  color: var(--mi-color-text-primary);
+}
+
+.mi-dropdown__trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
 .mi-dropdown__menu {
   position: fixed;
   z-index: 10020;
@@ -274,12 +297,12 @@ onBeforeUnmount(() => {
 }
 
 .mi-dropdown-menu--default {
-  min-width: calc(var(--mi-spacing-8xl) + var(--mi-spacing-7xl));
+  min-width: var(--mi-size-dropdown-min-width);
   padding: var(--mi-spacing-2) 0;
   border-radius: var(--mi-radius-m);
   border: 1px solid var(--mi-color-line-generic);
   background: var(--mi-color-surface-panel);
-  box-shadow: var(--mi-shadow-soft);
+  box-shadow: var(--mi-shadow-dropdown);
 }
 
 .mi-dropdown-menu--compact {
@@ -317,7 +340,7 @@ onBeforeUnmount(() => {
 }
 
 .mi-dropdown__item--default {
-  padding: var(--mi-spacing-8) var(--mi-spacing-16);
+  padding: var(--mi-spacing-8) var(--mi-spacing-12);
 }
 
 .mi-dropdown__item--compact {
