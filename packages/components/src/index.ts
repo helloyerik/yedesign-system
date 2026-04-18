@@ -1,4 +1,4 @@
-import "@mi/tokens/tokens.css";
+import "@yerik/yedesign-system-tokens/tokens.css";
 
 export { default as Button } from "./atoms/Button/Button.vue";
 export { default as ButtonIcon } from "./atoms/ButtonIcon/ButtonIcon.vue";

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineComponent, h, ref } from "vue";
+import { computed, defineComponent, h, ref, type VNode } from "vue";
 import { PhCaretDown, PhCaretRight } from "@phosphor-icons/vue";
 
 export interface TreeNode {
@@ -38,7 +38,7 @@ const toggleExpanded = (value: string) => {
   expandedValues.value = next;
 };
 
-const TreeNodeView = defineComponent({
+const TreeNodeView: ReturnType<typeof defineComponent> = defineComponent({
   name: "TreeNodeView",
   props: {
     node: { type: Object as () => TreeNode, required: true },
@@ -56,8 +56,16 @@ const TreeNodeView = defineComponent({
       () => `calc(var(--mi-spacing-4) + ${nodeProps.depth} * var(--mi-spacing-xl))`,
     );
 
-    return () =>
-      h("div", { class: "mi-tree__node" }, [
+    const render = (): VNode => {
+      const toggleIcon = hasChildren.value
+        ? h(isExpanded.value ? PhCaretDown : PhCaretRight, { size: 14, weight: "fill" })
+        : null;
+      const trailingContent = slots.trailing ? slots.trailing({ node: nodeProps.node }) : null;
+      const trailing = trailingContent
+        ? [h("span", { class: "mi-tree__trailing" }, trailingContent)]
+        : [];
+
+      return h("div", { class: "mi-tree__node" }, [
         h(
           "div",
           {
@@ -65,40 +73,40 @@ const TreeNodeView = defineComponent({
             style: { paddingLeft: paddingLeft.value },
           },
           [
-          h(
-            "button",
-            {
-              class: "mi-tree__toggle",
-              type: "button",
-              "aria-label": isExpanded.value ? `Свернуть ${nodeProps.node.label}` : `Развернуть ${nodeProps.node.label}`,
-              onClick: (event: Event) => {
-                event.stopPropagation();
-                if (hasChildren.value) toggleExpanded(path.value);
+            h(
+              "button",
+              {
+                class: "mi-tree__toggle",
+                type: "button",
+                "aria-label": isExpanded.value
+                  ? `Свернуть ${nodeProps.node.label}`
+                  : `Развернуть ${nodeProps.node.label}`,
+                onClick: (event: Event) => {
+                  event.stopPropagation();
+                  if (hasChildren.value) toggleExpanded(path.value);
+                },
               },
-            },
-            hasChildren.value
-              ? h(isExpanded.value ? PhCaretDown : PhCaretRight, { size: 14, weight: "fill" })
-              : null,
-          ),
-          h(
-            "button",
-            {
-              type: "button",
-              class: ["mi-tree__label", isSelected.value ? "is-selected" : ""],
-              onClick: () => emit("select", nodeProps.node),
-            },
-            [
-              h("span", { class: "mi-tree__label-text" }, nodeProps.node.label),
-              slots.trailing ? h("span", { class: "mi-tree__trailing" }, slots.trailing({ node: nodeProps.node })) : null,
-            ],
-          ),
-        ],
+              toggleIcon ? [toggleIcon] : [],
+            ),
+            h(
+              "button",
+              {
+                type: "button",
+                class: ["mi-tree__label", isSelected.value ? "is-selected" : ""],
+                onClick: () => emit("select", nodeProps.node),
+              },
+              [
+                h("span", { class: "mi-tree__label-text" }, nodeProps.node.label),
+                ...trailing,
+              ],
+            ),
+          ],
         ),
         hasChildren.value && isExpanded.value
           ? h(
               "div",
               { class: "mi-tree__children" },
-              nodeProps.node.children?.map((child) =>
+              (nodeProps.node.children ?? []).map((child) =>
                 h(TreeNodeView, {
                   node: child,
                   depth: nodeProps.depth + 1,
@@ -108,6 +116,9 @@ const TreeNodeView = defineComponent({
             )
           : null,
       ]);
+    };
+
+    return render;
   },
 });
 </script>

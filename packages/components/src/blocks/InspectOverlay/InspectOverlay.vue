@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { computed, reactive, ref, unref, watchEffect } from "vue";
-
-type MaybeRef<T> = T | { value: T };
+import { computed, reactive, ref, unref, watchEffect, type MaybeRef } from "vue";
 
 const props = withDefaults(
   defineProps<{

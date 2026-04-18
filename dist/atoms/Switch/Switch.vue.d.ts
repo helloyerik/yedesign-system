@@ -1,9 +1,11 @@
 type SwitchSize = "M" | "L";
+type SwitchLabelPosition = "left" | "right";
 type __VLS_Props = {
     checked?: boolean;
     size?: SwitchSize;
     disabled?: boolean;
     label?: string;
+    labelPosition?: SwitchLabelPosition;
 };
 declare var __VLS_1: {};
 type __VLS_Slots = {} & {
@@ -20,6 +22,7 @@ declare const __VLS_base: import("vue").DefineComponent<__VLS_Props, {}, {}, {},
     size: SwitchSize;
     disabled: boolean;
     checked: boolean;
+    labelPosition: SwitchLabelPosition;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const __VLS_export: __VLS_WithSlots<typeof __VLS_base, __VLS_Slots>;
 declare const _default: typeof __VLS_export;

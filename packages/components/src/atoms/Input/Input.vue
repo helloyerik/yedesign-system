@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, type Component, useSlots } from "vue";
+import { computed, onMounted, ref, type Component, useSlots, watch } from "vue";
 import { PhGearSix, PhWarning, PhX } from "@phosphor-icons/vue";
 
 type InputSize = "XL" | "L";
@@ -28,6 +28,7 @@ const props = withDefaults(
     endIcon?: Component | null;
     className?: string;
     errorText?: string;
+    autoFocus?: boolean;
   }>(),
   {
     label: "Label",
@@ -43,6 +44,7 @@ const props = withDefaults(
     endIcon: undefined,
     className: "",
     errorText: "Error content",
+    autoFocus: false,
   },
 );
 
@@ -101,6 +103,25 @@ const resolvedEndIcon = computed(() => {
   return isErrorState.value ? PhWarning : PhX;
 });
 
+const inputRef = ref<HTMLInputElement | null>(null);
+
+const focusInput = () => {
+  if (inputRef.value && !isDisabled.value) {
+    inputRef.value.focus();
+  }
+};
+
+onMounted(() => {
+  if (props.autoFocus) focusInput();
+});
+
+watch(
+  () => props.autoFocus,
+  (value) => {
+    if (value) focusInput();
+  },
+);
+
 const onInput = (event: Event) => {
   const nextValue = (event.target as HTMLInputElement).value;
   emit("update:value", nextValue);
@@ -129,6 +150,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
           :value="value ?? ''"
           :placeholder="placeholder ?? ' '"
           :disabled="isDisabled"
+          ref="inputRef"
           class="mi-input__control"
           :class="[valueClass, inputPaddingClass]"
           :aria-label="label"
@@ -180,6 +202,7 @@ const onBlur = (event: FocusEvent) => emit("blur", event);
         :value="value ?? ''"
         :placeholder="placeholder ?? ' '"
         :disabled="isDisabled"
+        ref="inputRef"
         class="mi-input__control"
         :class="[valueClass, inputPaddingClass]"
         :aria-label="label"

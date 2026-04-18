@@ -1,4 +1,4 @@
-type ButtonVariant = "primary" | "brand-secondary" | "secondary" | "outline" | "text-only";
+type ButtonVariant = "primary" | "brand-secondary" | "secondary" | "secondary-info" | "outline" | "text-only";
 type ButtonSize = "L" | "M" | "S" | "XS";
 type ButtonWidth = "hug" | "full";
 type ButtonType = "button" | "submit" | "reset";
